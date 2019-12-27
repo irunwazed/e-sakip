@@ -1,0 +1,36 @@
+
+php artisan make:controller PegawaiController
+php artisan make:model Pegawai
+
+
+Regenerating The Session ID
+Session::regenerate();
+
+Session::put('key', 'value');
+
+
+https://laravel.com/docs/5.0/session
+Storing An Item In The Session
+Session::put('key', 'value');
+
+Push A Value Onto An Array Session Value
+Session::push('user.teams', 'developers');
+
+$value = session('key');
+
+Retrieving An Item And Forgetting It
+$value = Session::pull('key', 'default');
+
+Retrieving All Data From The Session
+$data = Session::all();
+
+Determining If An Item Exists In The Session
+if (Session::has('users'))
+{
+    //
+}
+Removing An Item From The Session
+Session::forget('key');
+
+Removing All Items From The Session
+Session::flush();
