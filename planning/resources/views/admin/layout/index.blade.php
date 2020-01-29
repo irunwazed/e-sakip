@@ -655,7 +655,6 @@ toastr.options = {
 </script>
 
 
-
   <div class="modal fade bd-example-modal-lg" id="modal-pesan" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -674,9 +673,6 @@ toastr.options = {
         </div>
     </div>
 </div>
-
-
-
 
     @yield('script')
 </body>
