@@ -105,6 +105,8 @@ Route::get('/keluar', 'PublicController@logout');
 
 Route::get('/', 'PublicController@beranda');
 
+Route::get('/laporan-pdf','AdminController@generatePDF');
+
 
 // Route::get('/', function () {
 //     return view('public/pages/index');

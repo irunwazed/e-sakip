@@ -38,6 +38,7 @@ if(session('level') == 3){
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>Status</th>
                                                         <th>Tahun</th>
                                                         <th>Visi</th>
                                                         <th>Penjabaran Visi</th>
@@ -109,6 +110,8 @@ if(session('level') == 3){
     var formData = $('#form-data');
     var link = 'visi';
     var page = 1;
+
+
     getData();
     
     function getData(_page = 1){
@@ -131,12 +134,22 @@ if(session('level') == 3){
         myTable.clear().draw();
         no = 1;
         let kodeOneData;
+        let jenis = 'OPD';
         data.forEach(element => {
             
+            jenis = 'OPD';
+            if(element['rpjmd_jenis'] == 1){
+                jenis = 'KOTA';
+            }
+
+            tahunText = element['rpjmd_tahun']+' - '+(element['rpjmd_tahun']+4);
+
+
             kodeOneData = element['kota_kode']+'-'+element['rpjmd_kode'];
             tempData = [
                 no,
-                element['rpjmd_tahun']+' - '+(element['rpjmd_tahun']+4),
+                jenis,
+                tahunText,
                 '<a href="{{ url("misi") }}/'+kodeOneData+'">'+element['rpjmd_visi']+'</a>',
                 '<a class="btn btn-info" href="{{ url("") }}/visi-penjabaran/'+kodeOneData+'"><i class="fa fa-file"></i></a>',
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+

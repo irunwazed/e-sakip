@@ -37,12 +37,12 @@ class LaporanController extends Controller
             $dataRpjmd = DB::table('rpjmd')
                     ->where("rpjmd_tahun", $tahun)
                     ->groupBy('rpjmd_tahun');
-            if($jenis != 'perencanaan'){
+            if($jenis != 'perencanaan' && $jenis != 'pelaporan' ){
                 $dataRpjmd = $dataRpjmd->where("rpjmd_jenis", $request->val);
             }
             $dataRpjmd = $dataRpjmd->first();
             $kode = @$dataRpjmd->kota_kode."-".@$dataRpjmd->rpjmd_kode;
-            
+        //     print_r($dataRpjmd);
             if($jenis == 'perencanaan'){
                 $dataAll = ''.$this->perencanaan($kode);
             }else if($jenis == 'rpjmd'){
@@ -56,11 +56,15 @@ class LaporanController extends Controller
             }else if($jenis == 'rpjmd_pk_perubahan'){
                 $dataAll = ''.$this->rpjmd_pk_perubahan($kode, $request->val);
             }else if($jenis == 'pelaporan'){
-                $dataAll = ''.$this->pelaporan($kode, $request->val);
+                    
+                $dataAll = ''.$this->pelaporan($kode);
+                // print_r("tes");
             }else if($jenis == 'lapor'){
                 $dataAll = ''.$this->lapor($kode, $request->val);
             }
-
+        //     print_r("tes");/
+        //     echo json_encode($kirim);
+        
         }
 
         $kirim = array(
@@ -380,7 +384,7 @@ class LaporanController extends Controller
             'dataKota' => $kota,
             'dataOpd' => $opd,
         ];
-
+        // die(json_encode($opd));
         return view('admin/files/laporan-pelaporan', $kirim);
     }
 

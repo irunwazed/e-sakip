@@ -36,6 +36,8 @@ class VisiController extends Controller
             if(session('level') == 3){
                 $dataAll = $dataAll->where('rpjmd_jenis', 2)
                             ->where('opd_kode', session('opd_kode'));
+            }else if(session('level') == 2){
+                $dataAll = $dataAll->where('rpjmd_jenis', 1);
             }
 
             $dataAll = $dataAll->get();

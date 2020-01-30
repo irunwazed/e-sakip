@@ -554,7 +554,7 @@
         loading(false);
         message('Gagal terhubung pada server!', '', 'error');
         // console.log(error);
-        // $("#myerror").html(error.responseText);
+        $("#myerror").html(error.responseText);
       }
     });
   }
