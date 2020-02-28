@@ -81,11 +81,36 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/sasaran-indikator/update', 'SasaranIndikatorController@update');
     Route::post('/sasaran-indikator/delete', 'SasaranIndikatorController@delete');
 
+    Route::get('/sasaran-indikator-triwulan/{kode}', 'SasaranIndikatorTriwulanController@index');
+    Route::post('/sasaran-indikator-triwulan/get-data', 'SasaranIndikatorTriwulanController@getData');
+    Route::post('/sasaran-indikator-triwulan/create', 'SasaranIndikatorTriwulanController@create');
+    Route::post('/sasaran-indikator-triwulan/update', 'SasaranIndikatorTriwulanController@update');
+    Route::post('/sasaran-indikator-triwulan/delete', 'SasaranIndikatorTriwulanController@delete');
+
+    
+    Route::get('/opd-rpjmd/{kode}', 'OpdRpjmdController@index');
+    Route::post('/opd-rpjmd/get-data', 'OpdRpjmdController@getData');
+    Route::post('/opd-rpjmd/create', 'OpdRpjmdController@create');
+    Route::post('/opd-rpjmd/update', 'OpdRpjmdController@update');
+    Route::post('/opd-rpjmd/delete', 'OpdRpjmdController@delete');
+    
     Route::get('/program/{kode}', 'ProgramController@index');
     Route::post('/program/get-data', 'ProgramController@getData');
     Route::post('/program/create', 'ProgramController@create');
     Route::post('/program/update', 'ProgramController@update');
     Route::post('/program/delete', 'ProgramController@delete');
+    
+    Route::get('/renstra-kegiatan/{kode}', 'RenstraKegiatanController@index');
+    Route::post('/renstra-kegiatan/get-data', 'RenstraKegiatanController@getData');
+    Route::post('/renstra-kegiatan/create', 'RenstraKegiatanController@create');
+    Route::post('/renstra-kegiatan/update', 'RenstraKegiatanController@update');
+    Route::post('/renstra-kegiatan/delete', 'RenstraKegiatanController@delete');
+    
+    Route::get('/renstra-sub-kegiatan/{kode}', 'RenstraSubKegiatanController@index');
+    Route::post('/renstra-sub-kegiatan/get-data', 'RenstraSubKegiatanController@getData');
+    Route::post('/renstra-sub-kegiatan/create', 'RenstraSubKegiatanController@create');
+    Route::post('/renstra-sub-kegiatan/update', 'RenstraSubKegiatanController@update');
+    Route::post('/renstra-sub-kegiatan/delete', 'RenstraSubKegiatanController@delete');
 
 
     Route::get('/laporan', 'LaporanController@index');

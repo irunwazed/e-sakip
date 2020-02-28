@@ -27,22 +27,28 @@ class LaporanController extends Controller
         $pesan = "Gagal load data!";
         $dataAll = '';
         if (!$validator->fails()) {
+
+                $post = array(
+                        "jenis" => $request->jenis,
+                        "tahun" => $request->tahun,
+                        "val" => $request->val,
+                );
+
             $jenis = $request->jenis;
             $pesan = "";
             $status = true;
 
             
-            
             $tahun = $request->tahun;
             $dataRpjmd = DB::table('rpjmd')
                     ->where("rpjmd_tahun", $tahun)
                     ->groupBy('rpjmd_tahun');
-            if($jenis != 'perencanaan' && $jenis != 'pelaporan' ){
+            if($jenis != 'perencanaan' && $jenis != 'pelaporan' && $jenis != 'pengukuran' ){
                 $dataRpjmd = $dataRpjmd->where("rpjmd_jenis", $request->val);
             }
             $dataRpjmd = $dataRpjmd->first();
             $kode = @$dataRpjmd->kota_kode."-".@$dataRpjmd->rpjmd_kode;
-        //     print_r($dataRpjmd);
+
             if($jenis == 'perencanaan'){
                 $dataAll = ''.$this->perencanaan($kode);
             }else if($jenis == 'rpjmd'){
@@ -56,15 +62,13 @@ class LaporanController extends Controller
             }else if($jenis == 'rpjmd_pk_perubahan'){
                 $dataAll = ''.$this->rpjmd_pk_perubahan($kode, $request->val);
             }else if($jenis == 'pelaporan'){
-                    
                 $dataAll = ''.$this->pelaporan($kode);
-                // print_r("tes");
             }else if($jenis == 'lapor'){
                 $dataAll = ''.$this->lapor($kode, $request->val);
+            }else if($jenis == 'pengukuran'){
+                $dataAll = ''.$this->pengukuran($kode, $post);
             }
-        //     print_r("tes");/
-        //     echo json_encode($kirim);
-        
+
         }
 
         $kirim = array(
@@ -430,5 +434,47 @@ class LaporanController extends Controller
 
         return view('admin/files/laporan-perencanaan-lapor', $kirim)->render();
     }
+
+    // .PELAPORAN
+
+    // PENGUKURAN
+
+    public function pengukuran($kode, $post){
+
+        $kode = explode("-", $kode);
+        $kota = DB::table('rpjmd')
+                ->where("rpjmd.kota_kode", $kode[0])
+                ->where("rpjmd.rpjmd_kode", $kode[1])
+                ->join('kota', 'kota.kota_kode', '=', 'rpjmd.kota_kode')
+                ->first();
+        $opd = DB::table('opd')
+                ->where("kota_kode", $kode[0])
+                ->get();
+        $dataOpdAll = array();
+        $index = 0;
+        foreach($opd as $row){
+            $dataOpdAll[$index] = $row;
+            for($i = 1; $i <= 4; $i++){
+                $dataOpdAll[$index]->triwulan[$i-1] = DB::table('rpjmd_triwulan')
+                                                        ->where("rpjmd_triwulan.kota_kode", $kode[0])
+                                                        ->where("rpjmd_triwulan.rpjmd_kode", $kode[1])
+                                                        ->where("rpjmd_triwulan.rpjmd_triwulan_tahun", $post['tahun'])
+                                                        ->where("rpjmd_triwulan.rpjmd_triwulan_ke", $i)
+                                                        ->count();
+
+            }
+            $index++;
+        }
+        // print_r($dataOpdAll);
+        $kirim = [
+            'dataKota' => $kota,
+            'dataOpd' => $dataOpdAll,
+            'post' => $post,
+        ];
+        return view('admin/files/laporan-pengukuran', $kirim);
+    }
+
+    // . PENGUKURAN
+
 
 }

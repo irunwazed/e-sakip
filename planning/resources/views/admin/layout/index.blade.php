@@ -27,7 +27,7 @@
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow bg-focus header-text-light">
             <div class="app-header__logo">
-                <div class="logo-src"></div>
+                <!-- <div class="logo-src"></div> -->
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -419,6 +419,33 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-diamond"></i>
+                                        RKPD
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ url('') }}/data/satuan">
+                                                <i class="metismenu-icon"></i>
+                                                RKPD Penetapan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('') }}/data/satuan">
+                                                <i class="metismenu-icon"></i>
+                                                RKPD Perubahan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{{ url('') }}/laporan">
+                                        <i class="metismenu-icon pe-7s-diskette"></i>
+                                        Realisasi Keuangan
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{ url('') }}/laporan">
                                         <i class="metismenu-icon pe-7s-diskette"></i>
                                         Laporan
@@ -548,12 +575,12 @@
         }else{
           message(respon.pesan, '', 'warning');
         }
-        // console.log(respon);
+        console.log(respon);
       },
       error:function(error){
         loading(false);
         message('Gagal terhubung pada server!', '', 'error');
-        // console.log(error);
+        console.log(error);
         $("#myerror").html(error.responseText);
       }
     });

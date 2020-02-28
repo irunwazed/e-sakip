@@ -34,6 +34,7 @@ class TujuanController extends Controller
             $dataAll = DB::table($this->table)
                     ->where("kota_kode", $kode[0])
                     ->where("rpjmd_kode", $kode[1])
+                    ->where("rpjmd_misi_kode", $kode[2])
                     ->get();
         }
 

@@ -9,7 +9,7 @@
     <meta name="author" content="Template Mo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
-    <title>E-SAKIP | Konawe Kepulauan</title>
+    <!-- <title>E-SAKIP | Konawe Kepulauan</title> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Additional CSS Files -->
@@ -55,7 +55,7 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="#" class="logo">
-                            <img src="{!! asset('public') !!}/images/logo.png" alt="logo" style="width:5%;">
+                            <!-- <img src="{!! asset('public') !!}/images/logo.png" alt="logo" style="width:5%;"> -->
                             E-SAKIP
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -182,8 +182,10 @@
                         <div class="position-relative form-group col-sm-4">
                             <label>Laporan</label>
                             <select class="form-control" name="laporan" required>
-                                <option value="1">Perencanaan</option>
+                                <option value="1">Perencanaan Kinerja</option>
+                                <option value="2">Pengukuran Kinerja</option>
                                 <option value="3">Pelaporan Kinerja</option>
+                                <option value="4">Evaluasi Kinerja</option>
                             </select>
                         </div>
                         <div class="position-relative form-group col-sm-4">
@@ -507,8 +509,12 @@
 
         if(val == 1){
             _jenis = 'perencanaan';
+        }else if(val == 2){
+            _jenis = 'pengukuran';
         }else if(val == 3){
             _jenis = 'pelaporan';
+        }else if(val == 4){
+            _jenis = 'evaluasi';
         }
 
         let tahun = $('select[name="tahun"]').val();

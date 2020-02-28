@@ -1,7 +1,7 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Data Program";
+$judul = "Data Kegiatan";
 $des = "";
 ?>
                     
@@ -15,7 +15,7 @@ $des = "";
                                     </div>
                                 </div>
                                 <div class="page-title-actions">
-                                    <a href="{{ url('') }}/opd-rpjmd/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
+                                    <a href="{{ url('') }}/program/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
                                 </div>
@@ -52,6 +52,11 @@ $des = "";
                                                 <td>:</td>
                                                 <td><?=@$dataAsal->opd_nama?></td>
                                             </tr>
+                                            <tr>
+                                                <td>Program</td>
+                                                <td>:</td>
+                                                <td><?="(".@$dataAsal->rpjmd_program_kode.") ".@$dataAsal->rpjmd_program_nama?></td>
+                                            </tr>
                                         </table>
                                         <div class="app-page-title" style="padding:0px; margin: 0px">
                                             <div class="page-title-wrapper">
@@ -68,7 +73,7 @@ $des = "";
                                                     <tr>
                                                         <th width="10">#</th>
                                                         <th width="70">Kode</th>
-                                                        <th>Program</th>
+                                                        <th>Kegiatan</th>
                                                         <th width="70">Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -101,13 +106,15 @@ $des = "";
             <div class="modal-body">
                 <form id="form-data">
                     <input type="hidden" name="kode">
-                    <div class="position-relative form-group">
-                        <label>Kode Program</label>
-                        <input name="rpjmd_program_kode" type="number" class="form-control" required>
+                    <div class="row">
+                        <div class="position-relative form-group col-sm-3">
+                            <label>Kode Kegiatan</label>
+                            <input name="rpjmd_kegiatan_kode" type="number" class="form-control" required>
+                        </div>
                     </div>
                     <div class="position-relative form-group">
-                        <label>Program</label>
-                        <input name="rpjmd_program_nama" type="text" class="form-control" required>
+                        <label>Kegiatan</label>
+                        <input name="rpjmd_kegiatan_nama" type="text" class="form-control" required>
                     </div>
                 </form>
             </div>
@@ -129,7 +136,7 @@ $des = "";
     var kode = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'program';
+    var link = 'renstra-kegiatan';
     var page = 1;
     getData();
     
@@ -162,14 +169,15 @@ $des = "";
                         +'-'+element['rpjmd_tujuan_kode']
                         +'-'+element['rpjmd_sasaran_kode']
                         +'-'+element['opd_kode']
-                        +'-'+element['rpjmd_program_kode'];
+                        +'-'+element['rpjmd_program_kode']
+                        +'-'+element['rpjmd_kegiatan_kode'];
 
-            kodeTampil = element['rpjmd_program_kode'];
+            kodeTampil = element['rpjmd_kegiatan_kode'];
             
             tempData = [
                 no,
                 kodeTampil,
-                '<a href="{{ url("") }}/renstra-kegiatan/'+kodeOneData+'">'+element['rpjmd_program_nama']+'</a>',
+                '<a href="{{ url("") }}/renstra-sub-kegiatan/'+kodeOneData+'">'+element['rpjmd_kegiatan_nama']+'</a>',
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
@@ -188,7 +196,8 @@ $des = "";
             && setKode[3] == element['rpjmd_tujuan_kode']
             && setKode[4] == element['rpjmd_sasaran_kode'] 
             && setKode[5] == element['opd_kode'] 
-            && setKode[6] == element['rpjmd_program_kode'] ){
+            && setKode[6] == element['rpjmd_program_kode']
+            && setKode[7] == element['rpjmd_kegiatan_kode'] ){
                 dataPilih = element;
                 kode = id;
             }
@@ -198,8 +207,8 @@ $des = "";
 
     function setForm(data){
         $("input[name='kode']").val(kode);
-        $("input[name='rpjmd_program_kode']").val(data['rpjmd_program_kode']);
-        $("input[name='rpjmd_program_nama']").val(data['rpjmd_program_nama']);
+        $("input[name='rpjmd_kegiatan_kode']").val(data['rpjmd_kegiatan_kode']);
+        $("input[name='rpjmd_kegiatan_nama']").val(data['rpjmd_kegiatan_nama']);
     }
 
     function setCreate(){

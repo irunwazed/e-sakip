@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login | E-SAKIP</title>
+	<!-- <title>Login | E-SAKIP</title> -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -31,7 +31,7 @@
 				<form class="login100-form validate-form" action="{{ url('masuk') }}" method="POST">
                 {{ csrf_field() }}
 					<div class="login100-form-avatar" style="border-radius: 5%;max-width: 25%">
-						<img src="{!! asset('public') !!}/images/logo.png" alt="AVATAR">
+						<!-- <img src="{!! asset('public') !!}/images/logo.png" alt="AVATAR"> -->
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">

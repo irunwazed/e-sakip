@@ -201,7 +201,7 @@ $des = "";
                         +'-'+element['rpjmd_sasaran_indikator_kode'];
             tempData = [
                 no,
-                element['rpjmd_sasaran_indikator_nama'],
+                '<a href="'+base_url+'sasaran-indikator-triwulan/'+kodeOneData+'">'+element['rpjmd_sasaran_indikator_nama']+'</a>',
                 element['satuan_nama'],
                 element['rpjmd_sasaran_indikator_target_th1'],
                 element['rpjmd_sasaran_indikator_target_th2'],

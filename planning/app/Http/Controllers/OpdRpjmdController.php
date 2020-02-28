@@ -6,25 +6,25 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 
-class ProgramController extends Controller
+class OpdRpjmdController extends Controller
 {
     private $table;
 
     public function __construct() {
-        $this->table = 'rpjmd_program';
+        $this->table = 'rpjmd_opd';
     }
 
     public function index($kode)
     {
+        $dataOpd = DB::table('opd')->get();
         $_kode = explode("-", $kode);
-        $this->table = 'rpjmd_opd';
+        $this->table = 'rpjmd_sasaran';
         $dataAsal = DB::table($this->table)
                         ->where($this->table.".kota_kode", $_kode[0])
                         ->where($this->table.".rpjmd_kode", $_kode[1])
                         ->where($this->table.".rpjmd_misi_kode", $_kode[2])
                         ->where($this->table.".rpjmd_tujuan_kode", $_kode[3])
                         ->where($this->table.".rpjmd_sasaran_kode", $_kode[4])
-                        ->where($this->table.".opd_kode", $_kode[5])
                         ->join('rpjmd', function($join){
                             $join->on('rpjmd.kota_kode', '=', $this->table.'.kota_kode');
                             $join->on('rpjmd.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
@@ -40,23 +40,13 @@ class ProgramController extends Controller
                             $join->on('rpjmd_tujuan.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
                             $join->on('rpjmd_tujuan.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
                         })
-                        ->join('rpjmd_sasaran', function($join){
-                            $join->on('rpjmd_sasaran.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_sasaran_kode', '=', $this->table.'.rpjmd_sasaran_kode');
-                        })
-                        ->join('opd', function($join){
-                            $join->on('opd.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('opd.opd_kode', '=', $this->table.'.opd_kode');
-                        })
                         ->first();
         $kirim = array(
             'kode' => $kode,
+            'dataOpd' => $dataOpd,
             'dataAsal' => $dataAsal,
         );
-    	return view('admin/conponents/program',$kirim);
+    	return view('admin/conponents/opd-rpjmd',$kirim);
     }
 
     public function getData(Request $request){
@@ -67,18 +57,23 @@ class ProgramController extends Controller
         $status = false;
         $pesan = "Gagal load data!";
         $dataAll = array();
+        $dataOpd = array();
         if (!$validator->fails()) {
             $pesan = "";
             $status = true;
             $kode = explode("-", $request->kode);
             $dataAll = DB::table($this->table)
-                    ->where("kota_kode", $kode[0])
-                    ->where("rpjmd_kode", $kode[1])
-                    ->where("rpjmd_misi_kode", $kode[2])
-                    ->where("rpjmd_tujuan_kode", $kode[3])
-                    ->where("rpjmd_sasaran_kode", $kode[4])
-                    ->where("opd_kode", $kode[5])
+                    ->where($this->table.".kota_kode", $kode[0])
+                    ->where($this->table.".rpjmd_kode", $kode[1])
+                    ->where($this->table.".rpjmd_misi_kode", $kode[2])
+                    ->where($this->table.".rpjmd_tujuan_kode", $kode[3])
+                    ->where($this->table.".rpjmd_sasaran_kode", $kode[4])
+                    ->join('opd', function($join){
+                        $join->on('opd.kota_kode', '=', $this->table.'.kota_kode');
+                        $join->on('opd.opd_kode', '=', $this->table.'.opd_kode');
+                    })
                     ->get();
+            
         }
 
         $kirim = array(
@@ -103,16 +98,15 @@ class ProgramController extends Controller
         if (!$validator->fails()) {
             $date = date("Y-m-d h:i:s");
             $kode = explode("-", $request->kode);
+            $kodeOpd = explode("-", $request->opd);
             $data = array(
                 'kota_kode' => $kode[0],
                 'rpjmd_kode' => $kode[1],
                 'rpjmd_misi_kode' => $kode[2],
                 'rpjmd_tujuan_kode' => $kode[3],
                 'rpjmd_sasaran_kode' => $kode[4],
-                'opd_kode' => $kode[5],
-                'rpjmd_program_kode' => $request->rpjmd_program_kode,
-                'rpjmd_program_nama' => $request->rpjmd_program_nama,
-                'id_satuan' => 1,
+                'opd_kode' => $kodeOpd[1],
+                // 'rpjmd_program_nama' => $request->rpjmd_program_nama,
                 'created_at' => $date,
             );
 
@@ -147,9 +141,9 @@ class ProgramController extends Controller
         if (!$validator->fails()) {
             $date = date("Y-m-d h:i:s");
             $kode = explode("-", $request->kode);
+            $kodeOpd = explode("-", $request->opd);
             $data = array(
-                'rpjmd_program_kode' => $request->rpjmd_program_kode,
-                'rpjmd_program_nama' => $request->rpjmd_program_nama,
+                'opd_kode' => $kodeOpd[1],
                 'updated_at' => $date,
             );
 
@@ -160,7 +154,6 @@ class ProgramController extends Controller
                         ->where("rpjmd_tujuan_kode", $kode[3])
                         ->where("rpjmd_sasaran_kode", $kode[4])
                         ->where("opd_kode", $kode[5])
-                        ->where("rpjmd_program_kode", $kode[6])
                         ->update($data);
 
             if($status){
@@ -196,7 +189,6 @@ class ProgramController extends Controller
                         ->where("rpjmd_tujuan_kode", $kode[3])
                         ->where("rpjmd_sasaran_kode", $kode[4])
                         ->where("opd_kode", $kode[5])
-                        ->where("rpjmd_program_kode", $kode[6])
                         ->delete();
             if($status){
                 $pesan = "Berhasil menghapus data";
@@ -210,7 +202,9 @@ class ProgramController extends Controller
             "pesan" => $pesan,
             "error" => $validator->messages(),
         );
+
         echo json_encode($kirim);
+    
     }
 
     // public function getKode($_kode){
@@ -228,12 +222,10 @@ class ProgramController extends Controller
     //                 ->where("rpjmd_misi_kode", $kode[2])
     //                 ->where("rpjmd_tujuan_kode", $kode[3])
     //                 ->where("rpjmd_sasaran_kode", $kode[4])
-    //                 ->where("opd_kode", $kode[5])
     //                 ->orderBy('rpjmd_program_kode', 'desc')->first();
         
     //     $setKode = @$data->rpjmd_program_kode+1;
     //     $kode[$index] = $setKode;
     //     return $kode;
     // }
-
 }

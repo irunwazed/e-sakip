@@ -133,7 +133,7 @@ $des = "";
                         +'-'+element['rpjmd_sasaran_kode'];
             tempData = [
                 no,
-                '<a href="{{ url("") }}/program/'+kodeOneData+'">'+element['rpjmd_sasaran_nama']+'</a>',
+                '<a href="{{ url("") }}/opd-rpjmd/'+kodeOneData+'">'+element['rpjmd_sasaran_nama']+'</a>',
                 '<a class="btn btn-info" href="{{ url("") }}/sasaran-indikator/'+kodeOneData+'"><i class="fa fa-search"></i></a>',
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',

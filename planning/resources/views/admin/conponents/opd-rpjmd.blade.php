@@ -1,21 +1,20 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Data Program";
+$judul = "Data OPD";
 $des = "";
 ?>
-                    
                     <div class="app-main__inner">
                         <div class="app-page-title">
                             <div class="page-title-wrapper">
                                 <div class="page-title-heading">
-                                    <div>{{ $judul }}
+                                    <div>{{ $judul }} 
                                         <div class="page-title-subheading">{{ $des }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="page-title-actions">
-                                    <a href="{{ url('') }}/opd-rpjmd/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
+                                    <a href="{{ url('') }}/sasaran/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
                                 </div>
@@ -47,11 +46,6 @@ $des = "";
                                                 <td>:</td>
                                                 <td><?=@$dataAsal->rpjmd_sasaran_nama?></td>
                                             </tr>
-                                            <tr>
-                                                <td>OPD</td>
-                                                <td>:</td>
-                                                <td><?=@$dataAsal->opd_nama?></td>
-                                            </tr>
                                         </table>
                                         <div class="app-page-title" style="padding:0px; margin: 0px">
                                             <div class="page-title-wrapper">
@@ -66,10 +60,9 @@ $des = "";
                                             <table class="mb-0 table"  id="table-data">
                                                 <thead>
                                                     <tr>
-                                                        <th width="10">#</th>
-                                                        <th width="70">Kode</th>
-                                                        <th>Program</th>
-                                                        <th width="70">Aksi</th>
+                                                        <th>#</th>
+                                                        <th>OPD</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -102,12 +95,13 @@ $des = "";
                 <form id="form-data">
                     <input type="hidden" name="kode">
                     <div class="position-relative form-group">
-                        <label>Kode Program</label>
-                        <input name="rpjmd_program_kode" type="number" class="form-control" required>
-                    </div>
-                    <div class="position-relative form-group">
-                        <label>Program</label>
-                        <input name="rpjmd_program_nama" type="text" class="form-control" required>
+                        <label>OPD</label>
+                        <select class="form-control" name="opd" required>
+                            <option value="">-= Pilih OPD =-</option>
+                            @foreach($dataOpd as $row)
+                            <option value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </form>
             </div>
@@ -119,6 +113,7 @@ $des = "";
     </div>
 </div>
 
+
 <script type="text/javascript">
 
     $(document).ready(function() {
@@ -129,7 +124,7 @@ $des = "";
     var kode = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'program';
+    var link = 'opd-rpjmd';
     var page = 1;
     getData();
     
@@ -153,7 +148,7 @@ $des = "";
     function setTable(data){
         myTable.clear().draw();
         no = 1;
-        let kodeOneData, kodeTampil;
+        let kodeOneData;
         data.forEach(element => {
             
             kodeOneData = element['kota_kode']
@@ -161,15 +156,10 @@ $des = "";
                         +'-'+element['rpjmd_misi_kode']
                         +'-'+element['rpjmd_tujuan_kode']
                         +'-'+element['rpjmd_sasaran_kode']
-                        +'-'+element['opd_kode']
-                        +'-'+element['rpjmd_program_kode'];
-
-            kodeTampil = element['rpjmd_program_kode'];
-            
+                        +'-'+element['opd_kode'];
             tempData = [
                 no,
-                kodeTampil,
-                '<a href="{{ url("") }}/renstra-kegiatan/'+kodeOneData+'">'+element['rpjmd_program_nama']+'</a>',
+                '<a href="{{ url("") }}/program/'+kodeOneData+'">'+element['opd_nama']+'</a>',
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
@@ -187,8 +177,7 @@ $des = "";
             && setKode[2] == element['rpjmd_misi_kode']
             && setKode[3] == element['rpjmd_tujuan_kode']
             && setKode[4] == element['rpjmd_sasaran_kode'] 
-            && setKode[5] == element['opd_kode'] 
-            && setKode[6] == element['rpjmd_program_kode'] ){
+            && setKode[5] == element['opd_kode'] ){
                 dataPilih = element;
                 kode = id;
             }
@@ -198,8 +187,8 @@ $des = "";
 
     function setForm(data){
         $("input[name='kode']").val(kode);
-        $("input[name='rpjmd_program_kode']").val(data['rpjmd_program_kode']);
         $("input[name='rpjmd_program_nama']").val(data['rpjmd_program_nama']);
+        
     }
 
     function setCreate(){

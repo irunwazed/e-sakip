@@ -39,6 +39,8 @@ class TujuanIndikatorController extends Controller
             $dataAll = DB::table($this->table)
                     ->where("kota_kode", $kode[0])
                     ->where("rpjmd_kode", $kode[1])
+                    ->where("rpjmd_misi_kode", $kode[2])
+                    ->where("rpjmd_tujuan_kode", $kode[3])
                     ->join('satuan', 'satuan.id_satuan', '=', $this->table.'.id_satuan')
                     ->get();
         }
