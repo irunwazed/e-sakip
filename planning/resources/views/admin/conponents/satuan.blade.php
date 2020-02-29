@@ -52,12 +52,10 @@ $des = "";
                             </div>
                         </div>
                     </div>
-
                     
 @endsection
 
 @section('script') 
-
 
 <!-- Large modal -->
 <div class="modal fade bd-example-modal-lg" id="modal-form" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -99,6 +97,7 @@ $des = "";
     var formData = $('#form-data');
     var link = 'data/satuan';
     var page = 1;
+
     getData();
     
     function getData(_page = 1){
@@ -118,11 +117,12 @@ $des = "";
     }
 
     function setTable(data){
-        myTable.clear().draw();
+        myTable.clear().draw(); 
         no = 1;
-        let kodeOneData;
+        let kodeOneData; 
         data.forEach(element => {
             kodeOneData = element['id_satuan'];
+            
             tempData = [
                 no,
                 element['satuan_nama'],
@@ -148,6 +148,7 @@ $des = "";
 
     function getDataPilih(id){
         dataPilih = {};
+
         dataAll.forEach(element => {
             if(id == element['id_satuan'] ){
                 dataPilih = element;

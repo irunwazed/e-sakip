@@ -15,11 +15,11 @@ Route::group(['middleware' => ['checklogin']], function () {
     
     Route::get('/beranda', 'AdminController@beranda');
     
-    Route::get('/data/satuan', 'SatuanController@index');
-    Route::post('/data/satuan/get-data', 'SatuanController@getData');
-    Route::post('/data/satuan/create', 'SatuanController@create');
-    Route::post('/data/satuan/update', 'SatuanController@update');
-    Route::post('/data/satuan/delete', 'SatuanController@delete');
+    Route::get('/data/satuan', 'SatuanController@index'); //  view
+    Route::post('/data/satuan/get-data', 'SatuanController@getData'); // load data
+    Route::post('/data/satuan/create', 'SatuanController@create'); // buat data
+    Route::post('/data/satuan/update', 'SatuanController@update'); // edit data
+    Route::post('/data/satuan/delete', 'SatuanController@delete'); // hapus data
 
     Route::get('/user', 'UserController@index');
     Route::post('/user/get-data', 'UserController@getData');

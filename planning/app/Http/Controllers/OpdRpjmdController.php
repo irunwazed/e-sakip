@@ -17,6 +17,7 @@ class OpdRpjmdController extends Controller
     public function index($kode)
     {
         $dataOpd = DB::table('opd')->get();
+
         $_kode = explode("-", $kode);
         $this->table = 'rpjmd_sasaran';
         $dataAsal = DB::table($this->table)
@@ -46,7 +47,7 @@ class OpdRpjmdController extends Controller
             'dataOpd' => $dataOpd,
             'dataAsal' => $dataAsal,
         );
-    	return view('admin/conponents/opd-rpjmd',$kirim);
+    	return view('admin/conponents/opd-rpjmd', $kirim);
     }
 
     public function getData(Request $request){
