@@ -111,8 +111,18 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/renstra-sub-kegiatan/create', 'RenstraSubKegiatanController@create');
     Route::post('/renstra-sub-kegiatan/update', 'RenstraSubKegiatanController@update');
     Route::post('/renstra-sub-kegiatan/delete', 'RenstraSubKegiatanController@delete');
+    
+    Route::get('/rkpd-tetap-program', 'RkpdTetapController@index');
+    Route::post('/rkpd-tetap-program/get-data', 'RkpdTetapController@getData');
+    Route::post('/rkpd-tetap-program/create', 'RkpdTetapController@create');
+    Route::post('/rkpd-tetap-program/update', 'RkpdTetapController@update');
+    Route::post('/rkpd-tetap-program/delete', 'RkpdTetapController@delete');
 
 
+
+    Route::post('/set-data/opd', 'AdminController@setSessionOpd');
+
+    
     Route::get('/laporan', 'LaporanController@index');
 });
 

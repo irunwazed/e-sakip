@@ -426,13 +426,13 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="{{ url('') }}/data/satuan">
+                                            <a href="{{ url('') }}/rkpd-tetap-program">
                                                 <i class="metismenu-icon"></i>
                                                 RKPD Penetapan
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('') }}/data/satuan">
+                                            <a href="{{ url('') }}/rkpd-ubah-program">
                                                 <i class="metismenu-icon"></i>
                                                 RKPD Perubahan
                                             </a>

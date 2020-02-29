@@ -6,80 +6,41 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 
-class RenstraSubKegiatanController extends Controller
+class RkpdTetapController extends Controller
 {
     private $table;
 
     public function __construct() {
-        $this->table = 'rpjmd_sub_kegiatan';
+        $this->table = 'rkpd_penetapan_program';
     }
 
-    public function index($kode)
+    public function index()
     {
         $dataSatuan = DB::table('satuan')->get();
-        $_kode = explode("-", $kode);
-        $this->table = 'rpjmd_kegiatan';
-        $dataAsal = DB::table($this->table)
-                        ->where($this->table.".kota_kode", $_kode[0])
-                        ->where($this->table.".rpjmd_kode", $_kode[1])
-                        ->where($this->table.".rpjmd_misi_kode", $_kode[2])
-                        ->where($this->table.".rpjmd_tujuan_kode", $_kode[3])
-                        ->where($this->table.".rpjmd_sasaran_kode", $_kode[4])
-                        ->where($this->table.".opd_kode", $_kode[5])
-                        ->where($this->table.".rpjmd_program_kode", $_kode[6])
-                        ->join('rpjmd', function($join){
-                            $join->on('rpjmd.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                        })
-                        ->join('rpjmd_misi', function($join){
-                            $join->on('rpjmd_misi.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd_misi.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                            $join->on('rpjmd_misi.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                        })
-                        ->join('rpjmd_tujuan', function($join){
-                            $join->on('rpjmd_tujuan.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd_tujuan.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                            $join->on('rpjmd_tujuan.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                            $join->on('rpjmd_tujuan.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
-                        })
-                        ->join('rpjmd_sasaran', function($join){
-                            $join->on('rpjmd_sasaran.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
-                            $join->on('rpjmd_sasaran.rpjmd_sasaran_kode', '=', $this->table.'.rpjmd_sasaran_kode');
-                        })
-                        ->join('rpjmd_opd', function($join){
-                            $join->on('rpjmd_opd.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd_opd.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                            $join->on('rpjmd_opd.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                            $join->on('rpjmd_opd.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
-                            $join->on('rpjmd_opd.rpjmd_sasaran_kode', '=', $this->table.'.rpjmd_sasaran_kode');
-                            $join->on('rpjmd_opd.opd_kode', '=', $this->table.'.opd_kode');
-                        })
-                        ->join('opd', function($join){
-                            $join->on('opd.kota_kode', '=', 'rpjmd_opd.kota_kode');
-                            $join->on('opd.opd_kode', '=', 'rpjmd_opd.opd_kode');
-                        })
-                        ->join('satuan', function($join){
-                            $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
-                        })
-                        ->join('rpjmd_program', function($join){
-                            $join->on('rpjmd_program.kota_kode', '=', $this->table.'.kota_kode');
-                            $join->on('rpjmd_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                            $join->on('rpjmd_program.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                            $join->on('rpjmd_program.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
-                            $join->on('rpjmd_program.rpjmd_sasaran_kode', '=', $this->table.'.rpjmd_sasaran_kode');
-                            $join->on('rpjmd_program.opd_kode', '=', $this->table.'.opd_kode');
-                            $join->on('rpjmd_program.rpjmd_program_kode', '=', $this->table.'.rpjmd_program_kode');
-                        })
+        $opd_kode = session()->get('opd_kode');
+        $kota_kode = session()->get('kota_kode');
+
+        $dataOpd = DB::table('opd')
+                        ->where("opd.kota_kode", $kota_kode)
+                        ->get();
+        
+        $dataRpjmd = DB::table('rpjmd')
+                        ->where("rpjmd.rpjmd_jenis", 1)
+                        ->get();
+                        
+        $dataAsal = DB::table('opd')
+                        ->where("opd.kota_kode", $kota_kode)
+                        ->where("opd.opd_kode", $opd_kode)
                         ->first();
+                        
         $kirim = array(
-            'kode' => $kode,
+            'kode' => @$kode,
             'dataAsal' => @$dataAsal,
             'dataSatuan' => @$dataSatuan,
+            'dataOpd' => $dataOpd,
+            'dataRpjmd' => $dataRpjmd,
         );
-    	return view('admin/conponents/renstra-sub-kegiatan',$kirim);
+    	return view('admin/conponents/rkpd-tetap-program',$kirim);
     }
 
     public function getData(Request $request){
@@ -93,19 +54,23 @@ class RenstraSubKegiatanController extends Controller
         if (!$validator->fails()) {
             $pesan = "";
             $status = true;
-            $kode = explode("-", $request->kode);
+
+            $opd_kode = session()->get('opd_kode');
+            $kota_kode = session()->get('kota_kode');
+
             $dataAll = DB::table($this->table)
-                    ->where($this->table.".kota_kode", $kode[0])
-                    ->where($this->table.".rpjmd_kode", $kode[1])
-                    ->where($this->table.".rpjmd_misi_kode", $kode[2])
-                    ->where($this->table.".rpjmd_tujuan_kode", $kode[3])
-                    ->where($this->table.".rpjmd_sasaran_kode", $kode[4])
-                    ->where($this->table.".opd_kode", $kode[5])
-                    ->where($this->table.".rpjmd_program_kode", $kode[6])
-                    ->where($this->table.".rpjmd_kegiatan_kode", $kode[7])
-                    ->join('satuan', function($join){
-                        $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
-                    })
+                    ->where($this->table.".kota_kode", $kota_kode)
+                    ->where($this->table.".opd_kode", $opd_kode)
+                    // ->where($this->table.".rpjmd_kode", $kode[1])
+                    // ->where($this->table.".rpjmd_misi_kode", $kode[2])
+                    // ->where($this->table.".rpjmd_tujuan_kode", $kode[3])
+                    // ->where($this->table.".rpjmd_sasaran_kode", $kode[4])
+                    // ->where($this->table.".opd_kode", $kode[5])
+                    // ->where($this->table.".rpjmd_program_kode", $kode[6])
+                    // ->where($this->table.".rpjmd_kegiatan_kode", $kode[7])
+                    // ->join('satuan', function($join){
+                    //     $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
+                    // })
                     ->get();
         }
 

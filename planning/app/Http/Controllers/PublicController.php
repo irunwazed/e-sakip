@@ -59,8 +59,8 @@ class PublicController extends Controller
                     session()->put('level', $dataUser->level);
                     session()->put('kota_kode', $dataUser->kota_kode);
                     session()->put('opd_kode', $dataUser->opd_kode);
+                    session()->put('rpjmd_kode', 1);
 
-                    
                     return redirect('beranda');
                 }
             }
