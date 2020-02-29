@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2020 at 03:40 AM
+-- Generation Time: Feb 29, 2020 at 03:01 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -96,6 +96,8 @@ CREATE TABLE `rkpd_penetapan_program` (
   `rkpd_penetapan_program_tahun` tinyint(4) NOT NULL,
   `rkpd_penetapan_program_kode` bigint(20) NOT NULL,
   `rkpd_penetapan_program_nama` text,
+  `id_satuan` int(11) NOT NULL,
+  `rkpd_penetapan_program_ket` text,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -223,6 +225,8 @@ CREATE TABLE `rkpd_perubahan_program` (
   `rkpd_perubahan_program_tahun` int(11) NOT NULL,
   `rkpd_perubahan_program_kode` bigint(20) NOT NULL,
   `rkpd_perubahan_program_nama` text,
+  `id_satuan` int(11) NOT NULL,
+  `rkpd_perubahan_program_ket` text,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -789,7 +793,8 @@ ALTER TABLE `rkpd_penetapan_kegiatan`
 --
 ALTER TABLE `rkpd_penetapan_program`
   ADD PRIMARY KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_penetapan_program_tahun`,`rkpd_penetapan_program_kode`),
-  ADD KEY `fk_rkpd_penetapan_program_opd1_idx` (`kota_kode`,`opd_kode`);
+  ADD KEY `fk_rkpd_penetapan_program_opd1_idx` (`kota_kode`,`opd_kode`),
+  ADD KEY `fk_rkpd_penetapan_program_satuan1_idx` (`id_satuan`);
 
 --
 -- Indexes for table `rkpd_penetapan_program_indikator`
@@ -819,7 +824,8 @@ ALTER TABLE `rkpd_perubahan_kegiatan`
 --
 ALTER TABLE `rkpd_perubahan_program`
   ADD PRIMARY KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_perubahan_program_tahun`,`rkpd_perubahan_program_kode`),
-  ADD KEY `fk_rkpd_perubahan_program_opd1_idx` (`kota_kode`,`opd_kode`);
+  ADD KEY `fk_rkpd_perubahan_program_opd1_idx` (`kota_kode`,`opd_kode`),
+  ADD KEY `fk_rkpd_perubahan_program_satuan1_idx` (`id_satuan`);
 
 --
 -- Indexes for table `rkpd_perubahan_program_indikator`
@@ -978,7 +984,8 @@ ALTER TABLE `rkpd_penetapan_kegiatan`
 -- Constraints for table `rkpd_penetapan_program`
 --
 ALTER TABLE `rkpd_penetapan_program`
-  ADD CONSTRAINT `fk_rkpd_penetapan_program_opd1` FOREIGN KEY (`kota_kode`,`opd_kode`) REFERENCES `opd` (`kota_kode`, `opd_kode`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_rkpd_penetapan_program_opd1` FOREIGN KEY (`kota_kode`,`opd_kode`) REFERENCES `opd` (`kota_kode`, `opd_kode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rkpd_penetapan_program_satuan1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `rkpd_penetapan_program_indikator`
@@ -1004,7 +1011,8 @@ ALTER TABLE `rkpd_perubahan_kegiatan`
 -- Constraints for table `rkpd_perubahan_program`
 --
 ALTER TABLE `rkpd_perubahan_program`
-  ADD CONSTRAINT `fk_rkpd_perubahan_program_opd1` FOREIGN KEY (`kota_kode`,`opd_kode`) REFERENCES `opd` (`kota_kode`, `opd_kode`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_rkpd_perubahan_program_opd1` FOREIGN KEY (`kota_kode`,`opd_kode`) REFERENCES `opd` (`kota_kode`, `opd_kode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_rkpd_perubahan_program_satuan1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `rkpd_perubahan_program_indikator`

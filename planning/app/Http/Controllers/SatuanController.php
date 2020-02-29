@@ -16,14 +16,15 @@ class SatuanController extends Controller
 
     public function index()
     {
-        
     	return view('admin/conponents/satuan');
     }
 
     public function getData(Request $request){
+
         $validator = Validator::make($request->all(), [
             'page' => 'required',
         ]);
+        
         $status = false;
         $pesan = "Gagal load data!";
         $dataAll = array();
@@ -38,6 +39,7 @@ class SatuanController extends Controller
             "pesan" => $pesan,
             "error" => $validator->messages(),
         );
+
         echo json_encode($kirim);
     }
 
