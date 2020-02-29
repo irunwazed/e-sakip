@@ -121,6 +121,7 @@ Route::group(['middleware' => ['checklogin']], function () {
 
 
     Route::post('/set-data/opd', 'AdminController@setSessionOpd');
+    Route::post('/set-data/rpjmd', 'AdminController@setSessionRpjmd');
 
     
     Route::get('/laporan', 'LaporanController@index');

@@ -25,21 +25,21 @@ $des = "";
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Ubah OPD</h5>
+                                        <h5 class="card-title">Pengaturan</h5>
                                         
-                                        <form id="form-opd" action="{{ url('') }}/set-data/rpjmd" method="POST">
+                                        <form id="form-rpjmd" action="{{ url('') }}/set-data/rpjmd" method="POST">
                                         {!! csrf_field() !!}
                                             <div class="row">
                                                 <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="opd" required>
+                                                    <select class="form-control" name="rpjmd" required>
                                                         <option value="">-= Pilih RPJMD =-</option>
                                                         @foreach($dataRpjmd as $row)
-                                                        <option value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
+                                                        <option <?=$row->kota_kode.'-'.$row->rpjmd_kode==session('kota_kode').'-'.session('rpjmd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->rpjmd_kode }}">{{ @$row->rpjmd_tahun." - ".($row->rpjmd_tahun+4) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-opd">Ubah</button>
+                                                    <button type="submit" class="btn btn-primary" form="form-rpjmd">Ubah</button>
                                                 </div>
                                                 
                                             </div>            
@@ -51,7 +51,7 @@ $des = "";
                                                     <select class="form-control" name="opd" required>
                                                         <option value="">-= Pilih OPD =-</option>
                                                         @foreach($dataOpd as $row)
-                                                        <option value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
+                                                        <option <?=$row->kota_kode.'-'.$row->opd_kode==session('kota_kode').'-'.session('opd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -90,10 +90,29 @@ $des = "";
                                             <table class="mb-0 table"  id="table-data">
                                                 <thead>
                                                     <tr>
-                                                        <th width="10">#</th>
-                                                        <th width="70">Kode</th>
-                                                        <th>Program</th>
-                                                        <th width="70">Aksi</th>
+                                                        <th rowspan="2" width="10">#</th>
+                                                        <th rowspan="2" width="70">Kode</th>
+                                                        <th rowspan="2">Program</th>
+                                                        <th rowspan="2">Indikator</th>
+                                                        <th rowspan="2">Formula</th>
+                                                        <th rowspan="2">Satuan</th>
+                                                        <th colspan="6">Target Kinerja (Tahun)</th>
+                                                        <th colspan="6">Target Realisasi (Tahun)</th>
+                                                        <th rowspan="2" width="70">Aksi</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Awal</th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+1?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+2?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+3?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+4?></th>
+                                                        <th>Awal</th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+1?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+2?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+3?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+4?></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

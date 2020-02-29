@@ -23,6 +23,20 @@ class AdminController extends Controller
         return back()->withInput();
     }
 
+    
+
+    public function setSessionRpjmd(Request $request){
+        $validator = Validator::make($request->all(), [
+            'rpjmd' => 'required',
+        ]);
+        $kode = explode("-", $request->rpjmd);
+        $request->session()->put('kota_kode', $kode[0]);
+        $request->session()->put('rpjmd_kode', $kode[1]);
+        return back()->withInput();
+    }
+
+
+    
     public function generatePDF(){
         $data = ['title' => 'Welcome to belajarphp.net'];
  

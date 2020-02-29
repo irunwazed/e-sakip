@@ -19,6 +19,7 @@ class RkpdTetapController extends Controller
         $dataSatuan = DB::table('satuan')->get();
         $opd_kode = session()->get('opd_kode');
         $kota_kode = session()->get('kota_kode');
+        $rpjmd_kode = session()->get('rpjmd_kode');
 
         $dataOpd = DB::table('opd')
                         ->where("opd.kota_kode", $kota_kode)
@@ -27,10 +28,14 @@ class RkpdTetapController extends Controller
         $dataRpjmd = DB::table('rpjmd')
                         ->where("rpjmd.rpjmd_jenis", 1)
                         ->get();
-                        
+        
         $dataAsal = DB::table('opd')
                         ->where("opd.kota_kode", $kota_kode)
                         ->where("opd.opd_kode", $opd_kode)
+                        ->join('rpjmd', function($join){
+                            $join->on('rpjmd.kota_kode', '=', 'opd.kota_kode');
+                        })
+                        ->where("rpjmd.rpjmd_kode", $rpjmd_kode)
                         ->first();
                         
         $kirim = array(
