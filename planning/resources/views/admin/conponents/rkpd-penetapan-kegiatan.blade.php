@@ -21,50 +21,7 @@ $des = "";
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pengaturan</h5>
-                                        
-                                        <form id="form-rpjmd" action="{{ url('') }}/set-data/rpjmd" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="rpjmd" required>
-                                                        <option value="">-= Pilih RPJMD =-</option>
-                                                        @foreach($dataRpjmd as $row)
-                                                        <option <?=$row->kota_kode.'-'.$row->rpjmd_kode==session('kota_kode').'-'.session('rpjmd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->rpjmd_kode }}">{{ @$row->rpjmd_tahun." - ".($row->rpjmd_tahun+4) }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-rpjmd">Ubah</button>
-                                                </div>
-                                                
-                                            </div>            
-                                        </form>
-                                        <form id="form-opd" action="{{ url('') }}/set-data/opd" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="opd" required>
-                                                        <option value="">-= Pilih OPD =-</option>
-                                                        @foreach($dataOpd as $row)
-                                                        <option <?=$row->kota_kode.'-'.$row->opd_kode==session('kota_kode').'-'.session('opd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-opd">Ubah</button>
-                                                </div>
-                                                
-                                            </div>            
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>            
+                                   
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
@@ -73,6 +30,11 @@ $des = "";
                                         <table>
                                             <tr>
                                                 <td style="width: 80px;">OPD</td>
+                                                <td style="width: 10px;">:</td>
+                                                <td><?=@$dataAsal->opd_nama?></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 80px;">Program</td>
                                                 <td style="width: 10px;">:</td>
                                                 <td><?=@$dataAsal->opd_nama?></td>
                                             </tr>

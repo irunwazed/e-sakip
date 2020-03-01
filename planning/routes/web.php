@@ -12,9 +12,9 @@
 */
 
 Route::group(['middleware' => ['checklogin']], function () {
-    
+
     Route::get('/beranda', 'AdminController@beranda');
-    
+
     Route::get('/data/satuan', 'SatuanController@index'); //  view
     Route::post('/data/satuan/get-data', 'SatuanController@getData'); // load data
     Route::post('/data/satuan/create', 'SatuanController@create'); // buat data
@@ -87,31 +87,31 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/sasaran-indikator-triwulan/update', 'SasaranIndikatorTriwulanController@update');
     Route::post('/sasaran-indikator-triwulan/delete', 'SasaranIndikatorTriwulanController@delete');
 
-    
+
     Route::get('/opd-rpjmd/{kode}', 'OpdRpjmdController@index');
     Route::post('/opd-rpjmd/get-data', 'OpdRpjmdController@getData');
     Route::post('/opd-rpjmd/create', 'OpdRpjmdController@create');
     Route::post('/opd-rpjmd/update', 'OpdRpjmdController@update');
     Route::post('/opd-rpjmd/delete', 'OpdRpjmdController@delete');
-    
+
     Route::get('/program/{kode}', 'ProgramController@index');
     Route::post('/program/get-data', 'ProgramController@getData');
     Route::post('/program/create', 'ProgramController@create');
     Route::post('/program/update', 'ProgramController@update');
     Route::post('/program/delete', 'ProgramController@delete');
-    
+
     Route::get('/renstra-kegiatan/{kode}', 'RenstraKegiatanController@index');
     Route::post('/renstra-kegiatan/get-data', 'RenstraKegiatanController@getData');
     Route::post('/renstra-kegiatan/create', 'RenstraKegiatanController@create');
     Route::post('/renstra-kegiatan/update', 'RenstraKegiatanController@update');
     Route::post('/renstra-kegiatan/delete', 'RenstraKegiatanController@delete');
-    
+
     Route::get('/renstra-sub-kegiatan/{kode}', 'RenstraSubKegiatanController@index');
     Route::post('/renstra-sub-kegiatan/get-data', 'RenstraSubKegiatanController@getData');
     Route::post('/renstra-sub-kegiatan/create', 'RenstraSubKegiatanController@create');
     Route::post('/renstra-sub-kegiatan/update', 'RenstraSubKegiatanController@update');
     Route::post('/renstra-sub-kegiatan/delete', 'RenstraSubKegiatanController@delete');
-    
+
     Route::get('/rkpd-tetap-program', 'RkpdTetapController@index');
     Route::post('/rkpd-tetap-program/get-data', 'RkpdTetapController@getData');
     Route::post('/rkpd-tetap-program/create', 'RkpdTetapController@create');
@@ -123,12 +123,24 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/lra-program/create', 'LraProgramController@create');
     Route::post('/lra-program/update', 'LraProgramController@update');
     Route::post('/lra-program/delete', 'LraProgramController@delete');
+    
+    Route::get('/rkpd-penetapan-kegiatan/{kode}', 'RkpdTetapKegiatanController@index');
+    Route::post('/rkpd-penetapan-kegiatan/get-data', 'RkpdTetapKegiatanController@getData');
+    Route::post('/rkpd-penetapan-kegiatan/create', 'RkpdTetapKegiatanController@create');
+    Route::post('/rkpd-penetapan-kegiatan/update', 'RkpdTetapKegiatanController@update');
+    Route::post('/rkpd-penetapan-kegiatan/delete', 'RkpdTetapKegiatanController@delete');
+
+    Route::get('/rkpd-ubah-program', 'RkpdUbahController@index');
+    Route::post('/rkpd-ubah-program/get-data', 'RkpdUbahController@getData');
+    Route::post('/rkpd-ubah-program/create', 'RkpdUbahController@create');
+    Route::post('/rkpd-ubah-program/update', 'RkpdUbahController@update');
+    Route::post('/rkpd-ubah-program/delete', 'RkpdUbahController@delete');
 
     Route::post('/set-data/opd', 'AdminController@setSessionOpd');
     Route::post('/set-data/rpjmd', 'AdminController@setSessionRpjmd');
     Route::post('/set-data/tahun', 'AdminController@setSessionTahun');
 
-    
+
     Route::get('/laporan', 'LaporanController@index');
 });
 
