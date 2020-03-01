@@ -35,6 +35,14 @@ class AdminController extends Controller
         return back()->withInput();
     }
 
+    public function setSessionTahun(Request $request){
+        $validator = Validator::make($request->all(), [
+            'tahun' => 'required',
+        ]);
+        $request->session()->put('tahun', $request->tahun);
+        return back()->withInput();
+    }
+
 
     
     public function generatePDF(){

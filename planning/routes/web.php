@@ -118,10 +118,15 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/rkpd-tetap-program/update', 'RkpdTetapController@update');
     Route::post('/rkpd-tetap-program/delete', 'RkpdTetapController@delete');
 
-
+    Route::get('/lra-program', 'LraProgramController@index');
+    Route::post('/lra-program/get-data', 'LraProgramController@getData');
+    Route::post('/lra-program/create', 'LraProgramController@create');
+    Route::post('/lra-program/update', 'LraProgramController@update');
+    Route::post('/lra-program/delete', 'LraProgramController@delete');
 
     Route::post('/set-data/opd', 'AdminController@setSessionOpd');
     Route::post('/set-data/rpjmd', 'AdminController@setSessionRpjmd');
+    Route::post('/set-data/tahun', 'AdminController@setSessionTahun');
 
     
     Route::get('/laporan', 'LaporanController@index');
@@ -133,17 +138,9 @@ Route::post('/laporan', 'LaporanController@loadLaporan');
 Route::get('/masuk', 'PublicController@login');
 Route::post('/masuk', 'PublicController@cekLogin');
 
-
-
-
 Route::get('/keluar', 'PublicController@logout');
 
 
 Route::get('/', 'PublicController@beranda');
 
 Route::get('/laporan-pdf','AdminController@generatePDF');
-
-
-// Route::get('/', function () {
-//     return view('public/pages/index');
-// });
