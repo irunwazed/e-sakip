@@ -204,7 +204,7 @@ $des = "";
                         +'-'+element['rkpd_penetapan_program_kode']
                         +'-'+element['rkpd_penetapan_kegiatan_kode'];
 
-            kodeTampil = element['rkpd_penetapan_program_kode'];
+            kodeTampil = element['rkpd_penetapan_kegiatan_kode'];
             
             tempData = [
                 no,
