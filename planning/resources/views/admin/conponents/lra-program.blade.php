@@ -146,19 +146,16 @@ $des = "";
                         <div class="position-relative form-group col-sm-6">
                             <label>Asal Program</label>
                             <select class="form-control" name="asal_program" required>
-                                <option value="">-= Pilih Satuan =-</option>
+                                <option value="">-= Pilih RKPD =-</option>
                                 <option value="1">RKPD Penetapan</option>
                                 <option value="2">RKPD Perubahan</option>
                                 <option value="3">Semua RKPD</option>
                             </select>
                         </div>
                         <div class="position-relative form-group col-sm-6">
-                            <label>Pilih Program</label>
+                            <label>Program</label>
                             <select class="form-control" name="program" required>
-                                <option value="">-= Pilih Satuan =-</option>
-                                <option value="1">RKPD Penetapan</option>
-                                <option value="2">RKPD Perubahan</option>
-                                <option value="3">Semua RKPD</option>
+                                <option value="">-= Pilih Program =-</option>
                             </select>
                         </div>
                     </div>
@@ -192,7 +189,7 @@ $des = "";
     var kode = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'rkpd-tetap-program';
+    var link = 'lra-program';
     var page = 1;
     getData();
     
@@ -311,20 +308,40 @@ $des = "";
         $('.close').click(); 
     }
 
-    function getProgram(_page = 1){
-        page = _page;
-        let url = base_url+link+"/get-data";
+    $('select[name="asal_program"]').change(function(){
+        let url = base_url+"/get-data/rkpd-program";
         let data = {
-            page : page,
-            kode : kode,
+            asal_program : $(this).val(),
         }
         $.when(sendAjax(url, data)).done(function(respon){
             if(respon.status){
-                setTable(respon.data);
-                dataAll = respon.data;
+                setSelectProgram(respon.data)
             }else{
 
             }
+        });
+    });
+
+    function setSelectProgram(data){
+        let myProgram = $('select[name="program"]');
+
+        myProgram.empty().append('<option value="">-= Pilih Program =-</option>');
+
+        data.forEach(element => {
+
+            jenis = 'penetapan';
+            if(element['jenis'] == 2){
+                jenis = 'perubahan';
+            }
+
+
+            setKode = element['kota_kode']
+            +"-"+element['opd_kode']
+            +"-"+element['rpjmd_kode']
+            +"-"+element['rkpd_'+jenis+'_program_tahun']
+            +"-"+element['rkpd_'+jenis+'_program_kode'];
+
+            myProgram.append('<option value="'+setKode+'">'+element['rkpd_'+jenis+'_program_nama']+'</option>');
         });
     }
 

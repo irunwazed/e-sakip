@@ -129,6 +129,9 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/set-data/tahun', 'AdminController@setSessionTahun');
 
     
+    Route::post('/get-data/rkpd-program', 'DataController@getDataRkpdProgram');
+
+    
     Route::get('/laporan', 'LaporanController@index');
 });
 
