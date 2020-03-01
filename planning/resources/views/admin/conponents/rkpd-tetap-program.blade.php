@@ -97,6 +97,7 @@ $des = "";
                                                         <th rowspan="2">Formula</th>
                                                         <th rowspan="2">Satuan</th>
                                                         <th colspan="2">Target Tahun</th>
+                                                        <th rowspan="2">Catatan</th>
                                                         <th rowspan="2" width="70">Aksi</th>
                                                     </tr>
                                                     <tr>
@@ -234,7 +235,7 @@ $des = "";
             kodeOneData = element['kota_kode']
                         +'-'+element['opd_kode']
                         +'-'+element['rpjmd_kode']
-                        +'-'+element['rpjmd_kode']
+                        +'-'+element['rkpd_penetapan_program_tahun']
                         +'-'+element['rkpd_penetapan_program_kode'];
 
             kodeTampil = element['rkpd_penetapan_program_kode'];
@@ -248,6 +249,7 @@ $des = "";
                 element['satuan_nama'],
                 element['rkpd_penetapan_program_indikator_target_kinerja'],
                 element['rkpd_penetapan_program_indikator_target_realisasi'],
+                element['rkpd_penetapan_program_ket'],
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
