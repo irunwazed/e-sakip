@@ -136,6 +136,12 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/rkpd-ubah-program/update', 'RkpdUbahController@update');
     Route::post('/rkpd-ubah-program/delete', 'RkpdUbahController@delete');
 
+    Route::get('/rkpd-penetapan-sub-kegiatan/{kode}', 'RkpdTetapSubKegiatanController@index');
+    Route::post('/rkpd-penetapan-sub-kegiatan/get-data', 'RkpdTetapSubKegiatanController@getData');
+    Route::post('/rkpd-penetapan-sub-kegiatan/create', 'RkpdTetapSubKegiatanController@create');
+    Route::post('/rkpd-penetapan-sub-kegiatan/update', 'RkpdTetapSubKegiatanController@update');
+    Route::post('/rkpd-penetapan-sub-kegiatan/delete', 'RkpdTetapSubKegiatanController@delete');
+
     Route::post('/set-data/opd', 'AdminController@setSessionOpd');
     Route::post('/set-data/rpjmd', 'AdminController@setSessionRpjmd');
     Route::post('/set-data/tahun', 'AdminController@setSessionTahun');
