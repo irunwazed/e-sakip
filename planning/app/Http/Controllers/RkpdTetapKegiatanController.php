@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 
-class RkpdTetapController extends Controller
+class RkpdTetapKegiatanController extends Controller
 {
     private $table;
 
     public function __construct() {
-        $this->table = 'rkpd_penetapan_program';
+        $this->table = 'rkpd_penetapan_kegiatan';
     }
 
     public function index()
@@ -45,7 +45,7 @@ class RkpdTetapController extends Controller
             'dataOpd' => $dataOpd,
             'dataRpjmd' => $dataRpjmd,
         );
-    	return view('admin/conponents/rkpd-tetap-program',$kirim);
+    	return view('admin/conponents/rkpd-penetapan-kegiatan',$kirim);
     }
 
     public function getData(Request $request){
