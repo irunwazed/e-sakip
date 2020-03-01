@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 
-class RkpdTetapKegiatanController extends Controller
+class RkpdTetapSubKegiatanController extends Controller
 {
     private $table;
 
     public function __construct() {
-        $this->table = 'rkpd_penetapan_kegiatan';
+        $this->table = 'rkpd_penetapan_sub_kegiatan';
     }
 
     public function index($kode)
@@ -22,19 +22,27 @@ class RkpdTetapKegiatanController extends Controller
         $rpjmd_kode = session()->get('rpjmd_kode');
         $_kode = explode("-", $kode);
         
-        $dataAsal = DB::table('rkpd_penetapan_program')
-                        ->where("rkpd_penetapan_program.kota_kode", $_kode[0])
-                        ->where("rkpd_penetapan_program.opd_kode", $_kode[1])
-                        ->where("rkpd_penetapan_program.rpjmd_kode", $_kode[2])
-                        ->where("rkpd_penetapan_program.rkpd_penetapan_program_tahun", $_kode[3])
-                        ->where("rkpd_penetapan_program.rkpd_penetapan_program_kode", $_kode[4])
+        $dataAsal = DB::table('rkpd_penetapan_kegiatan')
+                        ->where("rkpd_penetapan_kegiatan.kota_kode", $_kode[0])
+                        ->where("rkpd_penetapan_kegiatan.opd_kode", $_kode[1])
+                        ->where("rkpd_penetapan_kegiatan.rpjmd_kode", $_kode[2])
+                        ->where("rkpd_penetapan_kegiatan.rkpd_penetapan_program_tahun", $_kode[3])
+                        ->where("rkpd_penetapan_kegiatan.rkpd_penetapan_program_kode", $_kode[4])
+                        ->where("rkpd_penetapan_kegiatan.rkpd_penetapan_kegiatan_kode", $_kode[5])
                         ->join('opd', function($join){
-                            $join->on('opd.kota_kode', '=', "rkpd_penetapan_program.kota_kode");
-                            $join->on('opd.opd_kode', '=', "rkpd_penetapan_program.opd_kode");
+                            $join->on('opd.kota_kode', '=', "rkpd_penetapan_kegiatan.kota_kode");
+                            $join->on('opd.opd_kode', '=', "rkpd_penetapan_kegiatan.opd_kode");
                         })
                         ->join('rpjmd', function($join){
-                            $join->on('rpjmd.kota_kode', '=', "rkpd_penetapan_program.kota_kode");
-                            $join->on('rpjmd.rpjmd_kode', '=', "rkpd_penetapan_program.rpjmd_kode");
+                            $join->on('rpjmd.kota_kode', '=', "rkpd_penetapan_kegiatan.kota_kode");
+                            $join->on('rpjmd.rpjmd_kode', '=', "rkpd_penetapan_kegiatan.rpjmd_kode");
+                        })
+                        ->join('rkpd_penetapan_program', function($join){
+                            $join->on('rkpd_penetapan_program.kota_kode', '=', "rkpd_penetapan_kegiatan.kota_kode");
+                            $join->on('rkpd_penetapan_program.opd_kode', '=', "rkpd_penetapan_kegiatan.opd_kode");
+                            $join->on('rkpd_penetapan_program.rpjmd_kode', '=', "rkpd_penetapan_kegiatan.rpjmd_kode");
+                            $join->on('rkpd_penetapan_program.rkpd_penetapan_program_tahun', '=', "rkpd_penetapan_kegiatan.rkpd_penetapan_program_tahun");
+                            $join->on('rkpd_penetapan_program.rkpd_penetapan_program_kode', '=', "rkpd_penetapan_kegiatan.rkpd_penetapan_program_kode");
                         })
                         ->first();
         $kirim = array(
@@ -42,7 +50,7 @@ class RkpdTetapKegiatanController extends Controller
             'dataAsal' => @$dataAsal,
             'dataSatuan' => @$dataSatuan,
         );
-    	return view('admin/conponents/rkpd-penetapan-kegiatan',$kirim);
+    	return view('admin/conponents/rkpd-penetapan-sub-kegiatan',$kirim);
     }
 
     public function getData(Request $request){
@@ -67,6 +75,7 @@ class RkpdTetapKegiatanController extends Controller
                     ->where($this->table.".rpjmd_kode", $kode[2])
                     ->where($this->table.".rkpd_penetapan_program_tahun", $kode[3])
                     ->where($this->table.".rkpd_penetapan_program_kode", $kode[4])
+                    ->where($this->table.".rkpd_penetapan_kegiatan_kode", $kode[5])
                     ->leftjoin('satuan', function($join){
                         $join->on('satuan.id_satuan', '=',$this->table.".id_satuan");
                     })
@@ -101,14 +110,15 @@ class RkpdTetapKegiatanController extends Controller
                 'rpjmd_kode' => $kode[2],
                 'rkpd_penetapan_program_tahun' => $kode[3],
                 'rkpd_penetapan_program_kode' => $kode[4],
-                'rkpd_penetapan_kegiatan_kode' => $request->rkpd_penetapan_kegiatan_kode,
-                'rkpd_penetapan_kegiatan_nama' => $request->rkpd_penetapan_kegiatan_nama,
-                'rkpd_penetapan_kegiatan_indikator' => $request->rkpd_penetapan_kegiatan_indikator,
-                'rkpd_penetapan_kegiatan_formula' => $request->rkpd_penetapan_kegiatan_formula,
+                'rkpd_penetapan_kegiatan_kode' => $kode[5],
+                'rkpd_penetapan_sub_kegiatan_kode' => $request->rkpd_penetapan_sub_kegiatan_kode,
+                'rkpd_penetapan_sub_kegiatan_nama' => $request->rkpd_penetapan_sub_kegiatan_nama,
+                'rkpd_penetapan_sub_kegiatan_indikator' => $request->rkpd_penetapan_sub_kegiatan_indikator,
+                'rkpd_penetapan_sub_kegiatan_formula' => $request->rkpd_penetapan_sub_kegiatan_formula,
                 'id_satuan' => $request->id_satuan,
-                'rkpd_penetapan_kegiatan_target_kinerja' => $request->rkpd_penetapan_kegiatan_target_kinerja, 
-                'rkpd_penetapan_kegiatan_target_realisasi' => $request->rkpd_penetapan_kegiatan_target_realisasi,
-                'rkpd_penetapan_kegiatan_ket' => $request->rkpd_penetapan_kegiatan_ket,
+                'rkpd_penetapan_sub_kegiatan_target_kinerja' => $request->rkpd_penetapan_sub_kegiatan_target_kinerja, 
+                'rkpd_penetapan_sub_kegiatan_target_realisasi' => $request->rkpd_penetapan_sub_kegiatan_target_realisasi,
+                'rkpd_penetapan_sub_kegiatan_ket' => $request->rkpd_penetapan_sub_kegiatan_ket,
                 'created_at' => $date,
             );
             
@@ -144,13 +154,13 @@ class RkpdTetapKegiatanController extends Controller
             $date = date("Y-m-d h:i:s");
             $kode = explode("-", $request->kode);
             $data = array(
-                'rkpd_penetapan_kegiatan_nama' => $request->rkpd_penetapan_kegiatan_nama,
-                'rkpd_penetapan_kegiatan_indikator' => $request->rkpd_penetapan_kegiatan_indikator,
-                'rkpd_penetapan_kegiatan_formula' => $request->rkpd_penetapan_kegiatan_formula, 
+                'rkpd_penetapan_sub_kegiatan_nama' => $request->rkpd_penetapan_sub_kegiatan_nama,
+                'rkpd_penetapan_sub_kegiatan_indikator' => $request->rkpd_penetapan_sub_kegiatan_indikator,
+                'rkpd_penetapan_sub_kegiatan_formula' => $request->rkpd_penetapan_sub_kegiatan_formula, 
                 'id_satuan' => $request->id_satuan, 
-                'rkpd_penetapan_kegiatan_target_kinerja' => $request->rkpd_penetapan_kegiatan_target_kinerja, 
-                'rkpd_penetapan_kegiatan_target_realisasi' => $request->rkpd_penetapan_kegiatan_target_realisasi, 
-                'rkpd_penetapan_kegiatan_ket' => $request->rkpd_penetapan_kegiatan_ket, 
+                'rkpd_penetapan_sub_kegiatan_target_kinerja' => $request->rkpd_penetapan_sub_kegiatan_target_kinerja, 
+                'rkpd_penetapan_sub_kegiatan_target_realisasi' => $request->rkpd_penetapan_sub_kegiatan_target_realisasi, 
+                'rkpd_penetapan_sub_kegiatan_ket' => $request->rkpd_penetapan_sub_kegiatan_ket, 
                 'updated_at' => $date,
             );
             $status = DB::table($this->table)
@@ -159,7 +169,7 @@ class RkpdTetapKegiatanController extends Controller
                 ->where("rpjmd_kode", $kode[2])
                 ->where("rpjmd_kode", $kode[3])
                 ->where("rkpd_penetapan_program_kode", $kode[4])
-                ->where("rkpd_penetapan_kegiatan_kode", $kode[5])
+                ->where("rkpd_penetapan_sub_kegiatan_kode", $kode[5])
                 ->update($data);            
 
             if($status){
@@ -194,7 +204,7 @@ class RkpdTetapKegiatanController extends Controller
                 ->where("rpjmd_kode", $kode[2])
                 ->where("rpjmd_kode", $kode[3])
                 ->where("rkpd_penetapan_program_kode", $kode[4])
-                ->where("rkpd_penetapan_kegiatan_kode", $kode[5])
+                ->where("rkpd_penetapan_sub_kegiatan_kode", $kode[5])
                 ->delete();
             if($status){
                 $pesan = "Berhasil menghapus data";
