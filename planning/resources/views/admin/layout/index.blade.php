@@ -440,7 +440,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="{{ url('') }}/laporan">
+                                    <a href="{{ url('') }}/lra-program">
                                         <i class="metismenu-icon pe-7s-diskette"></i>
                                         Realisasi Keuangan
                                     </a>

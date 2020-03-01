@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2020 at 04:58 PM
+-- Generation Time: Mar 01, 2020 at 05:20 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -79,6 +79,10 @@ CREATE TABLE `rkpd_penetapan_kegiatan` (
   `rkpd_penetapan_kegiatan_nama` text,
   `rkpd_penetapan_kegiatan_indikator` text,
   `rkpd_penetapan_kegiatan_formula` text,
+  `id_satuan` int(11) NOT NULL,
+  `rkpd_penetapan_kegiatan_target_kinerja` varchar(45) DEFAULT NULL,
+  `rkpd_penetapan_kegiatan_target_realisasi` double DEFAULT NULL,
+  `rkpd_penetapan_kegiatan_ket` text,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -119,30 +123,6 @@ CREATE TABLE `rkpd_penetapan_program_indikator` (
   `id_satuan` int(11) NOT NULL,
   `rkpd_penetapan_program_indikator_target_kinerja` varchar(45) DEFAULT NULL,
   `rkpd_penetapan_program_indikator_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th0_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th1_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th2_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th3_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th4_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th5_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th6_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th0_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th1_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th2_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th3_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th4_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th5_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th6_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th1_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th2_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th3_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th4_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th5_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th1_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th2_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th3_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th4_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_program_indikator_th5_capaian_realisasi` double DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -165,30 +145,9 @@ CREATE TABLE `rkpd_penetapan_sub_kegiatan` (
   `rkpd_penetapan_sub_kegiatan_indikator` text,
   `rkpd_penetapan_sub_kegiatan_formula` text,
   `id_satuan` int(11) NOT NULL,
-  `rkpd_penetapan_sub_kegiatan_th0_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th1_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th2_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th3_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th4_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th5_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th6_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th0_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th1_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th2_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th3_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th4_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th5_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th6_target_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th1_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th2_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th3_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th4_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th5_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th1_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th2_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th3_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th4_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_penetapan_sub_kegiatan_th5_capaian_realisasi` double DEFAULT NULL,
+  `rkpd_penetapan_sub_kegiatan_target_kinerja` varchar(45) DEFAULT NULL,
+  `rkpd_penetapan_sub_kegiatan_target_realisasi` double DEFAULT NULL,
+  `rkpd_penetapan_sub_kegiatan_ket` text,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -209,6 +168,10 @@ CREATE TABLE `rkpd_perubahan_kegiatan` (
   `rkpd_perubahan_kegiatan_nama` text,
   `rkpd_perubahan_kegiatan_indikator` text,
   `rkpd_perubahan_kegiatan_formula` text,
+  `id_satuan` int(11) NOT NULL,
+  `rkpd_perubahan_kegiatan_target_kinerja` varchar(45) DEFAULT NULL,
+  `rkpd_perubahan_kegiatan_target_realisasi` double DEFAULT NULL,
+  `rkpd_perubahan_kegiatan_ket` text,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -249,30 +212,6 @@ CREATE TABLE `rkpd_perubahan_program_indikator` (
   `id_satuan` int(11) NOT NULL,
   `rkpd_perubahan_program_indikator_target_kinerja` varchar(45) DEFAULT NULL,
   `rkpd_perubahan_program_indikator_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th0_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th1_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th2_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th3_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th4_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th5_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th6_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th0_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th1_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th2_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th3_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th4_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th5_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th6_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th1_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th2_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th3_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th4_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th5_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th1_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th2_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th3_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th4_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_program_indikator_th5_capaian_realisasi` double DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -295,30 +234,9 @@ CREATE TABLE `rkpd_perubahan_sub_kegiatan` (
   `rkpd_perubahan_sub_kegiatan_indikator` text,
   `rkpd_perubahan_sub_kegiatan_formula` text,
   `id_satuan` int(11) NOT NULL,
-  `rkpd_perubahan_sub_kegiatan_th0_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th1_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th2_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th3_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th4_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th5_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th6_target_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th0_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th1_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th2_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th3_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th4_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th5_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th6_target_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th1_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th2_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th3_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th4_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th5_capaian_kinerja` varchar(45) DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th1_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th2_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th3_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th4_capaian_realisasi` double DEFAULT NULL,
-  `rkpd_perubahan_sub_kegiatan_th5_capaian_realisasi` double DEFAULT NULL,
+  `rkpd_perubahan_sub_kegiatan_target_kinerja` varchar(45) DEFAULT NULL,
+  `rkpd_perubahan_sub_kegiatan_target_realisasi` double DEFAULT NULL,
+  `rkpd_perubahan_sub_kegiatan_ket` text,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -646,13 +564,22 @@ CREATE TABLE `rpjmd_sub_kegiatan` (
 --
 
 CREATE TABLE `rpjmd_triwulan` (
-  `rpjmd_triwulan_kode` varchar(45) NOT NULL,
+  `kota_kode` int(11) NOT NULL,
+  `opd_kode` int(11) NOT NULL,
+  `rpjmd_kode` int(11) NOT NULL,
+  `program_kode` bigint(20) NOT NULL,
+  `kegiatan_kode` bigint(20) NOT NULL,
+  `sub_kegiatan_kode` bigint(20) NOT NULL,
   `rpjmd_triwulan_jenis` tinyint(4) NOT NULL COMMENT '1. rkpd awal\n2. rkpd penetapan\n3. rkpd perubahan',
   `rpjmd_triwulan_tahun` int(11) NOT NULL,
   `rpjmd_triwulan_ke` tinyint(4) NOT NULL,
   `rpjmd_triwulan_capaian_kinerja` varchar(45) DEFAULT NULL,
   `rpjmd_triwulan_anggaran` double DEFAULT NULL,
   `rpjmd_triwulan_capaian_realisasi` double DEFAULT NULL,
+  `rpjmd_triwulan_fisik` varchar(45) DEFAULT NULL,
+  `rpjmd_triwulan_pelaksana` varchar(45) DEFAULT NULL,
+  `rpjmd_triwulan_lokasi` varchar(45) DEFAULT NULL,
+  `rpjmd_triwulan_sumber_dana` varchar(45) DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -788,7 +715,8 @@ ALTER TABLE `opd`
 --
 ALTER TABLE `rkpd_penetapan_kegiatan`
   ADD PRIMARY KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_penetapan_program_tahun`,`rkpd_penetapan_program_kode`,`rkpd_penetapan_kegiatan_kode`),
-  ADD KEY `fk_rkpd_penetapan_kegiatan_rkpd_penetapan_program1_idx` (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_penetapan_program_tahun`,`rkpd_penetapan_program_kode`);
+  ADD KEY `fk_rkpd_penetapan_kegiatan_rkpd_penetapan_program1_idx` (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_penetapan_program_tahun`,`rkpd_penetapan_program_kode`),
+  ADD KEY `fk_rkpd_penetapan_kegiatan_satuan1_idx` (`id_satuan`);
 
 --
 -- Indexes for table `rkpd_penetapan_program`
@@ -818,7 +746,8 @@ ALTER TABLE `rkpd_penetapan_sub_kegiatan`
 --
 ALTER TABLE `rkpd_perubahan_kegiatan`
   ADD PRIMARY KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_perubahan_program_tahun`,`rkpd_perubahan_program_kode`,`rkpd_perubahan_kegiatan_kode`),
-  ADD KEY `fk_rkpd_perubahan_kegiatan_rkpd_perubahan_program1_idx` (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_perubahan_program_tahun`,`rkpd_perubahan_program_kode`);
+  ADD KEY `fk_rkpd_perubahan_kegiatan_rkpd_perubahan_program1_idx` (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_perubahan_program_tahun`,`rkpd_perubahan_program_kode`),
+  ADD KEY `fk_rkpd_perubahan_kegiatan_satuan1_idx` (`id_satuan`);
 
 --
 -- Indexes for table `rkpd_perubahan_program`
@@ -914,7 +843,7 @@ ALTER TABLE `rpjmd_sub_kegiatan`
 -- Indexes for table `rpjmd_triwulan`
 --
 ALTER TABLE `rpjmd_triwulan`
-  ADD PRIMARY KEY (`rpjmd_triwulan_tahun`,`rpjmd_triwulan_ke`,`rpjmd_triwulan_kode`,`rpjmd_triwulan_jenis`);
+  ADD PRIMARY KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`program_kode`,`kegiatan_kode`,`sub_kegiatan_kode`,`rpjmd_triwulan_jenis`,`rpjmd_triwulan_tahun`,`rpjmd_triwulan_ke`);
 
 --
 -- Indexes for table `rpjmd_tujuan`
@@ -978,7 +907,8 @@ ALTER TABLE `opd`
 -- Constraints for table `rkpd_penetapan_kegiatan`
 --
 ALTER TABLE `rkpd_penetapan_kegiatan`
-  ADD CONSTRAINT `fk_rkpd_penetapan_kegiatan_rkpd_penetapan_program1` FOREIGN KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_penetapan_program_tahun`,`rkpd_penetapan_program_kode`) REFERENCES `rkpd_penetapan_program` (`kota_kode`, `opd_kode`, `rpjmd_kode`, `rkpd_penetapan_program_tahun`, `rkpd_penetapan_program_kode`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_rkpd_penetapan_kegiatan_rkpd_penetapan_program1` FOREIGN KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_penetapan_program_tahun`,`rkpd_penetapan_program_kode`) REFERENCES `rkpd_penetapan_program` (`kota_kode`, `opd_kode`, `rpjmd_kode`, `rkpd_penetapan_program_tahun`, `rkpd_penetapan_program_kode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rkpd_penetapan_kegiatan_satuan1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `rkpd_penetapan_program`
@@ -1004,7 +934,8 @@ ALTER TABLE `rkpd_penetapan_sub_kegiatan`
 -- Constraints for table `rkpd_perubahan_kegiatan`
 --
 ALTER TABLE `rkpd_perubahan_kegiatan`
-  ADD CONSTRAINT `fk_rkpd_perubahan_kegiatan_rkpd_perubahan_program1` FOREIGN KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_perubahan_program_tahun`,`rkpd_perubahan_program_kode`) REFERENCES `rkpd_perubahan_program` (`kota_kode`, `opd_kode`, `rpjmd_kode`, `rkpd_perubahan_program_tahun`, `rkpd_perubahan_program_kode`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_rkpd_perubahan_kegiatan_rkpd_perubahan_program1` FOREIGN KEY (`kota_kode`,`opd_kode`,`rpjmd_kode`,`rkpd_perubahan_program_tahun`,`rkpd_perubahan_program_kode`) REFERENCES `rkpd_perubahan_program` (`kota_kode`, `opd_kode`, `rpjmd_kode`, `rkpd_perubahan_program_tahun`, `rkpd_perubahan_program_kode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rkpd_perubahan_kegiatan_satuan1` FOREIGN KEY (`id_satuan`) REFERENCES `satuan` (`id_satuan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `rkpd_perubahan_program`
