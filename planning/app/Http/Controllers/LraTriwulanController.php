@@ -8,7 +8,7 @@ use DB;
 
 class LraTriwulanController extends Controller
 {
-    private $table;
+    private $table, $jenis;
 
     public function __construct() {
         $this->table = 'rpjmd_triwulan';
@@ -28,14 +28,60 @@ class LraTriwulanController extends Controller
         $dataRpjmd = DB::table('rpjmd')
                         ->where("rpjmd.rpjmd_jenis", 1)
                         ->get();
+        $_kode = explode("-", $kode);
+
+        $this->table = "rkpd_penetapan_sub_kegiatan";
+        $this->jenis = "penetapan";
+        if($_kode[7] == 2){
+            $this->table = "rkpd_perubahan_sub_kegiatan";
+            $this->jenis = "perubahan";
+        }
         
-        $dataAsal = DB::table('opd')
-                        ->where("opd.kota_kode", $kota_kode)
-                        ->where("opd.opd_kode", $opd_kode)
-                        ->join('rpjmd', function($join){
-                            $join->on('rpjmd.kota_kode', '=', 'opd.kota_kode');
+        $dataAsal = DB::table($this->table)
+                        ->where($this->table.".kota_kode", $kota_kode)
+                        ->where($this->table.".opd_kode", $opd_kode)
+                        ->where($this->table.".rkpd_".$this->jenis."_program_tahun", $_kode[3])
+                        ->where($this->table.".rkpd_".$this->jenis."_program_kode", $_kode[4])
+                        ->where($this->table.".rkpd_".$this->jenis."_kegiatan_kode", $_kode[5])
+                        ->where($this->table.".rkpd_".$this->jenis."_sub_kegiatan_kode", $_kode[6])
+                        ->leftJoin('rpjmd', function($join){
+                            $join->on('rpjmd.kota_kode', '=', $this->table.'.kota_kode');
                         })
                         ->where("rpjmd.rpjmd_kode", $rpjmd_kode)
+                        ->leftJoin('opd', function($join){
+                            $join->on('opd.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('opd.opd_kode', '=', $this->table.'.opd_kode');
+                        })
+                        ->leftJoin('rkpd_penetapan_program', function($join){
+                            $join->on('rkpd_penetapan_program.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('rkpd_penetapan_program.opd_kode', '=', $this->table.'.opd_kode');
+                            $join->on('rkpd_penetapan_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                            $join->on('rkpd_penetapan_program.rkpd_penetapan_program_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_program_kode');
+                            $join->on('rkpd_penetapan_program.rkpd_penetapan_program_tahun', '=', $this->table.'.rkpd_'.$this->jenis.'_program_tahun');
+                        })
+                        ->leftJoin('rkpd_perubahan_program', function($join){
+                            $join->on('rkpd_perubahan_program.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('rkpd_perubahan_program.opd_kode', '=', $this->table.'.opd_kode');
+                            $join->on('rkpd_perubahan_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                            $join->on('rkpd_perubahan_program.rkpd_perubahan_program_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_program_kode');
+                            $join->on('rkpd_perubahan_program.rkpd_perubahan_program_tahun', '=', $this->table.'.rkpd_'.$this->jenis.'_program_tahun');
+                        })
+                        ->leftJoin('rkpd_penetapan_kegiatan', function($join){
+                            $join->on('rkpd_penetapan_kegiatan.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('rkpd_penetapan_kegiatan.opd_kode', '=', $this->table.'.opd_kode');
+                            $join->on('rkpd_penetapan_kegiatan.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                            $join->on('rkpd_penetapan_kegiatan.rkpd_penetapan_program_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_program_kode');
+                            $join->on('rkpd_penetapan_kegiatan.rkpd_penetapan_program_tahun', '=', $this->table.'.rkpd_'.$this->jenis.'_program_tahun');
+                            $join->on('rkpd_penetapan_kegiatan.rkpd_penetapan_kegiatan_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_kegiatan_kode');
+                        })
+                        ->leftJoin('rkpd_perubahan_kegiatan', function($join){
+                            $join->on('rkpd_perubahan_kegiatan.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('rkpd_perubahan_kegiatan.opd_kode', '=', $this->table.'.opd_kode');
+                            $join->on('rkpd_perubahan_kegiatan.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                            $join->on('rkpd_perubahan_kegiatan.rkpd_perubahan_program_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_program_kode');
+                            $join->on('rkpd_perubahan_kegiatan.rkpd_perubahan_program_tahun', '=', $this->table.'.rkpd_'.$this->jenis.'_program_tahun');
+                            $join->on('rkpd_perubahan_kegiatan.rkpd_perubahan_kegiatan_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_kegiatan_kode');
+                        })
                         ->first();
 
         $kirim = array(
@@ -114,10 +160,20 @@ class LraTriwulanController extends Controller
                 'kota_kode' => $kode[0],
                 'opd_kode' => $kode[1],
                 'rpjmd_kode' => $kode[2],
-                'program_kode' => $kode[3],
-                'kegiatan_kode' => $kode[4],
-                'opd_kode' => $kode[5],
-                'rpjmd_program_kode' => $kode[6],'created_at' => $date,
+                'program_kode' => $kode[4],
+                'kegiatan_kode' => $kode[5],
+                'sub_kegiatan_kode' => $kode[6],
+                'rpjmd_triwulan_jenis' => 1,
+                'rpjmd_triwulan_tahun' => $kode[3],
+                'rpjmd_triwulan_ke' => $request->rpjmd_triwulan_ke,
+                'rpjmd_triwulan_capaian_kinerja' => $request->rpjmd_triwulan_capaian_kinerja,
+                'rpjmd_triwulan_anggaran' => $request->rpjmd_triwulan_anggaran,
+                'rpjmd_triwulan_capaian_realisasi' => $request->rpjmd_triwulan_capaian_realisasi,
+                'rpjmd_triwulan_fisik' => $request->rpjmd_triwulan_fisik,
+                'rpjmd_triwulan_pelaksana' => $request->rpjmd_triwulan_pelaksana,
+                'rpjmd_triwulan_lokasi' => $request->rpjmd_triwulan_lokasi,
+                'rpjmd_triwulan_sumber_dana' => $request->rpjmd_triwulan_sumber_dana,
+                'created_at' => $date,
             );
 
             $status = DB::table($this->table)->insert($data);
@@ -152,36 +208,27 @@ class LraTriwulanController extends Controller
             $date = date("Y-m-d h:i:s");
             $kode = explode("-", $request->kode);
             $data = array(
-                'rpjmd_sub_kegiatan_kode' => $request->rpjmd_sub_kegiatan_kode,
-                'rpjmd_sub_kegiatan_nama' => $request->rpjmd_sub_kegiatan_nama,
-                'rpjmd_sub_kegiatan_indikator' => $request->rpjmd_sub_kegiatan_indikator,
-                'rpjmd_sub_kegiatan_formula' => $request->rpjmd_sub_kegiatan_formula,
-                'id_satuan' => $request->id_satuan,
-                'rpjmd_sub_kegiatan_th0_target_kinerja' => $request->rpjmd_sub_kegiatan_th0_target_kinerja,
-                'rpjmd_sub_kegiatan_th1_target_kinerja' => $request->rpjmd_sub_kegiatan_th1_target_kinerja,
-                'rpjmd_sub_kegiatan_th2_target_kinerja' => $request->rpjmd_sub_kegiatan_th2_target_kinerja,
-                'rpjmd_sub_kegiatan_th3_target_kinerja' => $request->rpjmd_sub_kegiatan_th3_target_kinerja,
-                'rpjmd_sub_kegiatan_th4_target_kinerja' => $request->rpjmd_sub_kegiatan_th4_target_kinerja,
-                'rpjmd_sub_kegiatan_th5_target_kinerja' => $request->rpjmd_sub_kegiatan_th5_target_kinerja,
-                'rpjmd_sub_kegiatan_th0_target_realisasi' => $request->rpjmd_sub_kegiatan_th0_target_realisasi,
-                'rpjmd_sub_kegiatan_th1_target_realisasi' => $request->rpjmd_sub_kegiatan_th1_target_realisasi,
-                'rpjmd_sub_kegiatan_th2_target_realisasi' => $request->rpjmd_sub_kegiatan_th2_target_realisasi,
-                'rpjmd_sub_kegiatan_th3_target_realisasi' => $request->rpjmd_sub_kegiatan_th3_target_realisasi,
-                'rpjmd_sub_kegiatan_th4_target_realisasi' => $request->rpjmd_sub_kegiatan_th4_target_realisasi,
-                'rpjmd_sub_kegiatan_th5_target_realisasi' => $request->rpjmd_sub_kegiatan_th5_target_realisasi,
+                'rpjmd_triwulan_ke' => $request->rpjmd_triwulan_ke,
+                'rpjmd_triwulan_capaian_kinerja' => $request->rpjmd_triwulan_capaian_kinerja,
+                'rpjmd_triwulan_anggaran' => $request->rpjmd_triwulan_anggaran,
+                'rpjmd_triwulan_capaian_realisasi' => $request->rpjmd_triwulan_capaian_realisasi,
+                'rpjmd_triwulan_fisik' => $request->rpjmd_triwulan_fisik,
+                'rpjmd_triwulan_pelaksana' => $request->rpjmd_triwulan_pelaksana,
+                'rpjmd_triwulan_lokasi' => $request->rpjmd_triwulan_lokasi,
+                'rpjmd_triwulan_sumber_dana' => $request->rpjmd_triwulan_sumber_dana,
                 'updated_at' => $date,
             );
 
             $status = DB::table($this->table)
                         ->where("kota_kode", $kode[0])
-                        ->where("rpjmd_kode", $kode[1])
-                        ->where("rpjmd_misi_kode", $kode[2])
-                        ->where("rpjmd_tujuan_kode", $kode[3])
-                        ->where("rpjmd_sasaran_kode", $kode[4])
-                        ->where("opd_kode", $kode[5])
-                        ->where("rpjmd_program_kode", $kode[6])
-                        ->where("rpjmd_kegiatan_kode", $kode[7])
-                        ->where("rpjmd_sub_kegiatan_kode", $kode[8])
+                        ->where("opd_kode", $kode[1])
+                        ->where("rpjmd_kode", $kode[2])
+                        ->where("program_kode", $kode[3])
+                        ->where("kegiatan_kode", $kode[4])
+                        ->where("sub_kegiatan_kode", $kode[5])
+                        ->where("rpjmd_triwulan_jenis", $kode[6])
+                        ->where("rpjmd_triwulan_tahun", $kode[7])
+                        ->where("rpjmd_triwulan_ke", $kode[8])
                         ->update($data);
 
             if($status){
@@ -212,14 +259,14 @@ class LraTriwulanController extends Controller
             $kode = explode("-", $request->kode);
             $status = DB::table($this->table)
                         ->where("kota_kode", $kode[0])
-                        ->where("rpjmd_kode", $kode[1])
-                        ->where("rpjmd_misi_kode", $kode[2])
-                        ->where("rpjmd_tujuan_kode", $kode[3])
-                        ->where("rpjmd_sasaran_kode", $kode[4])
-                        ->where("opd_kode", $kode[5])
-                        ->where("rpjmd_program_kode", $kode[6])
-                        ->where("rpjmd_kegiatan_kode", $kode[7])
-                        ->where("rpjmd_sub_kegiatan_kode", $kode[8])
+                        ->where("opd_kode", $kode[1])
+                        ->where("rpjmd_kode", $kode[2])
+                        ->where("program_kode", $kode[3])
+                        ->where("kegiatan_kode", $kode[4])
+                        ->where("sub_kegiatan_kode", $kode[5])
+                        ->where("rpjmd_triwulan_jenis", $kode[6])
+                        ->where("rpjmd_triwulan_tahun", $kode[7])
+                        ->where("rpjmd_triwulan_ke", $kode[8])
                         ->delete();
             if($status){
                 $pesan = "Berhasil menghapus data";

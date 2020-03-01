@@ -164,6 +164,9 @@ Route::group(['middleware' => ['checklogin']], function () {
     
     Route::get('/lra-triwulan/{kode}', 'LraTriwulanController@index');
     Route::post('/lra-triwulan/get-data', 'LraTriwulanController@getData');
+    Route::post('/lra-triwulan/create', 'LraTriwulanController@create');
+    Route::post('/lra-triwulan/update', 'LraTriwulanController@update');
+    Route::post('/lra-triwulan/delete', 'LraTriwulanController@delete');
 
     Route::post('/set-data/opd', 'AdminController@setSessionOpd');
     Route::post('/set-data/rpjmd', 'AdminController@setSessionRpjmd');

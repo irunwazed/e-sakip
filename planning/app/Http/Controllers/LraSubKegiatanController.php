@@ -29,13 +29,42 @@ class LraSubKegiatanController extends Controller
                         ->where("rpjmd.rpjmd_jenis", 1)
                         ->get();
         
-        $dataAsal = DB::table('opd')
-                        ->where("opd.kota_kode", $kota_kode)
-                        ->where("opd.opd_kode", $opd_kode)
-                        ->join('rpjmd', function($join){
-                            $join->on('rpjmd.kota_kode', '=', 'opd.kota_kode');
+        $_kode = explode("-", $kode);
+        $this->table = "rkpd_penetapan_kegiatan";
+        $this->jenis = "penetapan";
+        if($_kode[6] == 2){
+            $this->table = "rkpd_perubahan_kegiatan";
+            $this->jenis = "perubahan";
+        }
+        
+        $dataAsal = DB::table($this->table)
+                        ->where($this->table.".kota_kode", $kota_kode)
+                        ->where($this->table.".opd_kode", $opd_kode)
+                        ->where($this->table.".rkpd_".$this->jenis."_program_tahun", $_kode[3])
+                        ->where($this->table.".rkpd_".$this->jenis."_program_kode", $_kode[4])
+                        ->where($this->table.".rkpd_".$this->jenis."_kegiatan_kode", $_kode[5])
+                        ->leftJoin('rpjmd', function($join){
+                            $join->on('rpjmd.kota_kode', '=', $this->table.'.kota_kode');
                         })
                         ->where("rpjmd.rpjmd_kode", $rpjmd_kode)
+                        ->leftJoin('opd', function($join){
+                            $join->on('opd.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('opd.opd_kode', '=', $this->table.'.opd_kode');
+                        })
+                        ->leftJoin('rkpd_penetapan_program', function($join){
+                            $join->on('rkpd_penetapan_program.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('rkpd_penetapan_program.opd_kode', '=', $this->table.'.opd_kode');
+                            $join->on('rkpd_penetapan_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                            $join->on('rkpd_penetapan_program.rkpd_penetapan_program_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_program_kode');
+                            $join->on('rkpd_penetapan_program.rkpd_penetapan_program_tahun', '=', $this->table.'.rkpd_'.$this->jenis.'_program_tahun');
+                        })
+                        ->leftJoin('rkpd_perubahan_program', function($join){
+                            $join->on('rkpd_perubahan_program.kota_kode', '=', $this->table.'.kota_kode');
+                            $join->on('rkpd_perubahan_program.opd_kode', '=', $this->table.'.opd_kode');
+                            $join->on('rkpd_perubahan_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                            $join->on('rkpd_perubahan_program.rkpd_perubahan_program_kode', '=', $this->table.'.rkpd_'.$this->jenis.'_program_kode');
+                            $join->on('rkpd_perubahan_program.rkpd_perubahan_program_tahun', '=', $this->table.'.rkpd_'.$this->jenis.'_program_tahun');
+                        })
                         ->first();
 
         $kirim = array(

@@ -32,6 +32,16 @@ $des = "";
                                                 <td style="width: 10px;">:</td>
                                                 <td><?=@$dataAsal->opd_nama?></td>
                                             </tr>
+                                            <tr>
+                                                <td>Program</td>
+                                                <td>:</td>
+                                                <td><?=@$dataAsal->rkpd_penetapan_program_nama?$dataAsal->rkpd_penetapan_program_nama:@$dataAsal->rkpd_perubahan_program_nama?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kegiatan</td>
+                                                <td>:</td>
+                                                <td><?=@$dataAsal->rkpd_penetapan_kegiatan_nama?$dataAsal->rkpd_penetapan_kegiatan_nama:@$dataAsal->rkpd_perubahan_kegiatan_nama?></td>
+                                            </tr>
                                         </table>
                                         <br>
                                         <!-- <div class="app-page-title" style="padding:0px; margin: 0px">
@@ -172,7 +182,8 @@ $des = "";
                         +"-"+element['rkpd_'+jenis+'_program_tahun']
                         +"-"+element['rkpd_'+jenis+'_program_kode']
                         +"-"+element['rkpd_'+jenis+'_kegiatan_kode']
-                        +"-"+element['rkpd_'+jenis+'_sub_kegiatan_kode'];
+                        +"-"+element['rkpd_'+jenis+'_sub_kegiatan_kode']
+                        +"-"+element['jenis'];
 
             kodeTampil = kodeOneData;
             

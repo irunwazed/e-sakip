@@ -221,6 +221,7 @@ $des = "";
             namaJenis = jenis;
             if(element['jenis'] == 2){
                 jenis = 'perubahan';
+                namaJenis = jenis;
             }else if(element['jenis'] == 3){
                 namaJenis += ' dan perubahan';
                 // jenis = 'penetapan dan perubahan';
@@ -230,7 +231,8 @@ $des = "";
                         +"-"+element['opd_kode']
                         +"-"+element['rpjmd_kode']
                         +"-"+element['rkpd_'+jenis+'_program_tahun']
-                        +"-"+element['rkpd_'+jenis+'_program_kode'];
+                        +"-"+element['rkpd_'+jenis+'_program_kode']
+                        +"-"+element['jenis'];
 
             kodeTampil = kodeOneData;
             
