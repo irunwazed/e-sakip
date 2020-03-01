@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use DB;
 
-class LraProgramController extends Controller
+class LraTriwulanController extends Controller
 {
     private $table;
 
@@ -14,7 +14,7 @@ class LraProgramController extends Controller
         $this->table = 'rpjmd_triwulan';
     }
 
-    public function index()
+    public function index($kode)
     {
         $dataSatuan = DB::table('satuan')->get();
         $opd_kode = session()->get('opd_kode');
@@ -45,7 +45,7 @@ class LraProgramController extends Controller
             'dataOpd' => $dataOpd,
             'dataRpjmd' => $dataRpjmd,
         );
-    	return view('admin/conponents/lra-program',$kirim);
+    	return view('admin/conponents/lra-triwulan',$kirim);
     }
 
     public function getData(Request $request){
@@ -65,12 +65,16 @@ class LraProgramController extends Controller
             $rpjmd_kode = session()->get('rpjmd_kode');
             $tahun = session()->get('tahun');
 
+            $kode = explode("-", $request->kode);
 
-            $data = DB::table('rkpd_penetapan_program')
+            $data = DB::table($this->table)
                         ->where("kota_kode", $kota_kode)
                         ->where("opd_kode", $opd_kode)
                         ->where("rpjmd_kode", $rpjmd_kode)
-                        ->where("rkpd_penetapan_program_tahun", $tahun)
+                        ->where("rpjmd_triwulan_tahun", $tahun)
+                        ->where("program_kode", $kode[4])
+                        ->where("kegiatan_kode", $kode[5])
+                        ->where("sub_kegiatan_kode", $kode[6])
                         ->get();
 
             $index = 0;
@@ -79,35 +83,7 @@ class LraProgramController extends Controller
                 $dataAll[$index]->jenis = 1;
                 $index++;
             }
-
-            $data2 = DB::table('rkpd_perubahan_program')
-                        ->where("kota_kode", $kota_kode)
-                        ->where("opd_kode", $opd_kode)
-                        ->where("rpjmd_kode", $rpjmd_kode)
-                        ->where("rkpd_perubahan_program_tahun", $tahun)
-                        ->get();
             
-            foreach($data2 as $row){
-                $sama = false;
-                for($i = 0; $i < count($dataAll); $i++){
-                    if($dataAll[$i]->kota_kode == $row->kota_kode
-                    && $dataAll[$i]->opd_kode == $row->opd_kode
-                    && $dataAll[$i]->rpjmd_kode == $row->rpjmd_kode
-                    && @$dataAll[$i]->rkpd_penetapan_program_tahun == $row->rkpd_perubahan_program_tahun
-                    && $dataAll[$i]->rkpd_penetapan_program_kode == $row->rkpd_perubahan_program_kode){
-                        $dataAll[$i]->jenis = 3;
-                        $sama = true;
-                        
-                    }
-                }
-                if(!$sama){
-                    $dataAll[$index] = $row;
-                    $dataAll[$index]->jenis = 2;
-                    $index++;
-                }
-                
-                
-            }
 
 
         }

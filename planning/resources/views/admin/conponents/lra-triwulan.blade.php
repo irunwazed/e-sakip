@@ -1,7 +1,7 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Data Realisasi Anggaran Program";
+$judul = "Data Realisasi Anggaran Triwulan";
 $des = "";
 ?>
                     
@@ -14,73 +14,13 @@ $des = "";
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="page-title-actions">
-                                    <a href="{{ url('') }}/opd-rpjmd/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
+                                <div class="page-title-actions">
+                                    <a href="{{ url('') }}/lra-sub-kegiatan/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pengaturan</h5>
-                                        
-                                        <form id="form-rpjmd" action="{{ url('') }}/set-data/rpjmd" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="rpjmd" required>
-                                                        <option value="">-= Pilih RPJMD =-</option>
-                                                        @foreach($dataRpjmd as $row)
-                                                        <option <?=$row->kota_kode.'-'.$row->rpjmd_kode==session('kota_kode').'-'.session('rpjmd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->rpjmd_kode }}">{{ @$row->rpjmd_tahun." - ".($row->rpjmd_tahun+4) }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-rpjmd">Ubah</button>
-                                                </div>
-                                                
-                                            </div>            
-                                        </form>
-                                        <form id="form-tahun" action="{{ url('') }}/set-data/tahun" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="tahun" required>
-                                                        <option value="">-= Pilih Tahun =-</option>
-                                                        <?php for($i = 1; $i <= 5; $i++){ ?>
-                                                        <option <?=session('tahun')==$i?'selected':''?> value="{{ $i }}">{{ ($row->rpjmd_tahun+$i-1) }}</option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-tahun">Ubah</button>
-                                                </div>
-                                            </div>            
-                                        </form>
-                                        <form id="form-opd" action="{{ url('') }}/set-data/opd" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="opd" required>
-                                                        <option value="">-= Pilih OPD =-</option>
-                                                        @foreach($dataOpd as $row)
-                                                        <option <?=$row->kota_kode.'-'.$row->opd_kode==session('kota_kode').'-'.session('opd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-opd">Ubah</button>
-                                                </div>
-                                                
-                                            </div>            
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
-                        </div>            
+                        </div>       
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
@@ -94,7 +34,7 @@ $des = "";
                                             </tr>
                                         </table>
                                         <br>
-                                        <!-- <div class="app-page-title" style="padding:0px; margin: 0px">
+                                        <div class="app-page-title" style="padding:0px; margin: 0px">
                                             <div class="page-title-wrapper">
                                                 <div class="page-title-actions">
                                                     <button onclick="setCreate()" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#modal-form">
@@ -102,16 +42,22 @@ $des = "";
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>   -->
+                                        </div>  
                                         <div class="table-responsive">
                                             <table class="mb-0 table"  id="table-data">
                                                 <thead>
                                                     <tr>
                                                         <th width="10">#</th>
-                                                        <th width="70">Kode</th>
-                                                        <th width="70">Jenis</th>
-                                                        <th>Program</th>
-                                                        <!-- <th width="70">Aksi</th> -->
+                                                        <th width="100">Kode</th>
+                                                        <th>Triwulan</th>
+                                                        <th>Kinerja</th>
+                                                        <th>Anggaran</th>
+                                                        <th>Realisasi</th>
+                                                        <th>Fisik</th>
+                                                        <th>Pelaksana</th>
+                                                        <th>Lokasi</th>
+                                                        <th>Sumber Dana</th>
+                                                        <th width="70">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -142,34 +88,49 @@ $des = "";
             </div>
             <div class="modal-body">
                 <form id="form-data">
-                    <input type="hidden" name="kode">
+                    <input type="hidden" name="kode" value="{{ $kode }}">
+                    <div class="row">
+                    </div>
                     <div class="row">
                         <div class="position-relative form-group col-sm-6">
-                            <label>Asal Program</label>
-                            <select class="form-control" name="asal_program" required>
-                                <option value="">-= Pilih RKPD =-</option>
-                                <option value="1">RKPD Penetapan</option>
-                                <option value="2">RKPD Perubahan</option>
-                                <option value="3">Semua RKPD</option>
+                            <label>Triwulan</label>
+                            <select class="form-control" name="rpjmd_triwulan_ke" required>
+                                <option value="">-= Pilih Triwulan =-</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                         </div>
                         <div class="position-relative form-group col-sm-6">
-                            <label>Program</label>
-                            <select class="form-control" name="program" required>
-                                <option value="">-= Pilih Program =-</option>
-                            </select>
+                            <label>Kinerja</label>
+                            <input name="rkpd_penetapan_program_kode" type="text" class="form-control" required>
                         </div>
-                    </div>
-                    <!-- <div class="row">
-                        <div class="position-relative form-group col-sm-3">
-                            <label>Kode Program</label>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Anggaran</label>
                             <input name="rkpd_penetapan_program_kode" type="number" class="form-control" required>
                         </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Realisasi</label>
+                            <input name="rkpd_penetapan_program_kode" type="number" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Fisik</label>
+                            <input name="rkpd_penetapan_program_kode" type="text" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Pelaksana</label>
+                            <input name="rkpd_penetapan_program_kode" type="text" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Lokasi</label>
+                            <input name="rkpd_penetapan_program_kode" type="text" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Sumber Dana</label>
+                            <input name="rkpd_penetapan_program_kode" type="text" class="form-control" required>
+                        </div>
                     </div>
-                    <div class="position-relative form-group">
-                        <label>Program</label>
-                        <input name="rkpd_penetapan_program_nama" type="text" class="form-control" required>
-                    </div> -->
                 </form>
             </div>
             <div class="modal-footer">
@@ -190,7 +151,7 @@ $des = "";
     var kode = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'lra-program';
+    var link = 'lra-triwulan';
     var page = 1;
     getData();
     
@@ -229,18 +190,28 @@ $des = "";
             kodeOneData = element['kota_kode']
                         +"-"+element['opd_kode']
                         +"-"+element['rpjmd_kode']
-                        +"-"+element['rkpd_'+jenis+'_program_tahun']
-                        +"-"+element['rkpd_'+jenis+'_program_kode'];
+                        +"-"+element['program_kode']
+                        +"-"+element['kegiatan_kode']
+                        +"-"+element['sub_kegiatan_kode']
+                        +"-"+element['rpjmd_triwulan_jenis']
+                        +"-"+element['rpjmd_triwulan_tahun']
+                        +"-"+element['rpjmd_triwulan_ke'];
 
             kodeTampil = kodeOneData;
             
             tempData = [
                 no,
                 kodeTampil,
-                namaJenis,
-                '<a href="{{ url("") }}/lra-kegiatan/'+kodeOneData+'">'+element['rkpd_'+jenis+'_program_nama']+'</a>',
-                // '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
-                // '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
+                element['rpjmd_triwulan_ke'],
+                element['rpjmd_triwulan_capaian_kinerja'],
+                element['rpjmd_triwulan_anggaran'],
+                element['rpjmd_triwulan_capaian_realisasi'],
+                element['rpjmd_triwulan_fisik'],
+                element['rpjmd_triwulan_pelaksana'],
+                element['rpjmd_triwulan_lokasi'],
+                element['rpjmd_triwulan_sumber_dana'],
+                '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
+                '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
             myTable.row.add(tempData).draw(  );
             no++;
@@ -252,12 +223,14 @@ $des = "";
         setKode = id.split("-");
         dataAll.forEach(element => {
             if(setKode[0] == element['kota_kode'] 
-            && setKode[1] == element['rpjmd_kode']
-            && setKode[2] == element['rpjmd_misi_kode']
-            && setKode[3] == element['rpjmd_tujuan_kode']
-            && setKode[4] == element['rpjmd_sasaran_kode'] 
-            && setKode[5] == element['opd_kode'] 
-            && setKode[6] == element['rpjmd_program_kode'] ){
+            && setKode[1] == element['opd_kode']
+            && setKode[2] == element['rpjmd_kode']
+            && setKode[3] == element['program_kode']
+            && setKode[4] == element['kegiatan_kode'] 
+            && setKode[5] == element['sub_kegiatan_kode'] 
+            && setKode[6] == element['rpjmd_triwulan_jenis'] 
+            && setKode[7] == element['rpjmd_triwulan_tahun'] 
+            && setKode[8] == element['rpjmd_triwulan_ke'] ){
                 dataPilih = element;
                 kode = id;
             }

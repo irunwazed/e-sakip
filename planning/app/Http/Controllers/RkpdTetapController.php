@@ -62,20 +62,31 @@ class RkpdTetapController extends Controller
 
             $opd_kode = session()->get('opd_kode');
             $kota_kode = session()->get('kota_kode');
+            $rpjmd_kode = session()->get('rpjmd_kode');
 
+            // $tahun = session()->get('tahun');
             $dataAll = DB::table($this->table)
+                    ->select($this->table.".*"
+                    ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_nama"
+                    ,"satuan.satuan_nama"
+                    ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_formula"
+                    ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_target_kinerja"
+                    ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_target_realisasi"
+                    ,"satuan.id_satuan")
                     ->where($this->table.".kota_kode", $kota_kode)
                     ->where($this->table.".opd_kode", $opd_kode)
-                    // ->where($this->table.".rpjmd_kode", $kode[1])
-                    // ->where($this->table.".rpjmd_misi_kode", $kode[2])
-                    // ->where($this->table.".rpjmd_tujuan_kode", $kode[3])
-                    // ->where($this->table.".rpjmd_sasaran_kode", $kode[4])
-                    // ->where($this->table.".opd_kode", $kode[5])
-                    // ->where($this->table.".rpjmd_program_kode", $kode[6])
-                    // ->where($this->table.".rpjmd_kegiatan_kode", $kode[7])
-                    // ->join('satuan', function($join){
-                    //     $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
-                    // })
+                    ->where($this->table.".rpjmd_kode", $rpjmd_kode)
+                    ->leftjoin('rkpd_penetapan_program_indikator', function($join){
+                        $join->on('rkpd_penetapan_program_indikator.kota_kode', '=', $this->table.'.kota_kode');
+                        $join->on('rkpd_penetapan_program_indikator.opd_kode', '=', $this->table.'.opd_kode');
+                        $join->on('rkpd_penetapan_program_indikator.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                        $join->on('rkpd_penetapan_program_indikator.rkpd_penetapan_program_tahun', '=', $this->table.'.rkpd_penetapan_program_tahun');
+                        $join->on('rkpd_penetapan_program_indikator.rkpd_penetapan_program_kode', '=', $this->table.'.rkpd_penetapan_program_kode');
+                    })
+                    ->leftjoin('satuan', function($join){
+                        $join->on('satuan.id_satuan', '=','rkpd_penetapan_program_indikator.id_satuan');
+                    })
+                    // ->where($this->table.".rkpd_penetapan_program_tahun", $tahun)
                     ->get();
         }
 
@@ -100,37 +111,39 @@ class RkpdTetapController extends Controller
 
         if (!$validator->fails()) {
             $date = date("Y-m-d h:i:s");
-            $kode = explode("-", $request->kode);
+            // $kode = explode("-", $request->kode);
             $data = array(
-                'kota_kode' => $kode[0],
-                'rpjmd_kode' => $kode[1],
-                'rpjmd_misi_kode' => $kode[2],
-                'rpjmd_tujuan_kode' => $kode[3],
-                'rpjmd_sasaran_kode' => $kode[4],
-                'opd_kode' => $kode[5],
-                'rpjmd_program_kode' => $kode[6],
-                'rpjmd_kegiatan_kode' => $kode[7],
-                'rpjmd_sub_kegiatan_kode' => $request->rpjmd_sub_kegiatan_kode,
-                'rpjmd_sub_kegiatan_nama' => $request->rpjmd_sub_kegiatan_nama,
-                'rpjmd_sub_kegiatan_indikator' => $request->rpjmd_sub_kegiatan_indikator,
-                'rpjmd_sub_kegiatan_formula' => $request->rpjmd_sub_kegiatan_formula,
-                'id_satuan' => $request->id_satuan,
-                'rpjmd_sub_kegiatan_th0_target_kinerja' => $request->rpjmd_sub_kegiatan_th0_target_kinerja,
-                'rpjmd_sub_kegiatan_th1_target_kinerja' => $request->rpjmd_sub_kegiatan_th1_target_kinerja,
-                'rpjmd_sub_kegiatan_th2_target_kinerja' => $request->rpjmd_sub_kegiatan_th2_target_kinerja,
-                'rpjmd_sub_kegiatan_th3_target_kinerja' => $request->rpjmd_sub_kegiatan_th3_target_kinerja,
-                'rpjmd_sub_kegiatan_th4_target_kinerja' => $request->rpjmd_sub_kegiatan_th4_target_kinerja,
-                'rpjmd_sub_kegiatan_th5_target_kinerja' => $request->rpjmd_sub_kegiatan_th5_target_kinerja,
-                'rpjmd_sub_kegiatan_th0_target_realisasi' => $request->rpjmd_sub_kegiatan_th0_target_realisasi,
-                'rpjmd_sub_kegiatan_th1_target_realisasi' => $request->rpjmd_sub_kegiatan_th1_target_realisasi,
-                'rpjmd_sub_kegiatan_th2_target_realisasi' => $request->rpjmd_sub_kegiatan_th2_target_realisasi,
-                'rpjmd_sub_kegiatan_th3_target_realisasi' => $request->rpjmd_sub_kegiatan_th3_target_realisasi,
-                'rpjmd_sub_kegiatan_th4_target_realisasi' => $request->rpjmd_sub_kegiatan_th4_target_realisasi,
-                'rpjmd_sub_kegiatan_th5_target_realisasi' => $request->rpjmd_sub_kegiatan_th5_target_realisasi,
+                'opd_kode' => session()->get('opd_kode'),
+                'kota_kode' => session()->get('kota_kode'),
+                'rpjmd_kode' => session()->get('rpjmd_kode'),
+                'rkpd_penetapan_program_tahun' => session()->get('tahun'),
+                'rkpd_penetapan_program_kode' => $request->rkpd_penetapan_program_kode,
+                'rkpd_penetapan_program_nama' => $request->rkpd_penetapan_program_nama,
+                'rkpd_penetapan_program_ket' => $request->rkpd_penetapan_program_ket, 
                 'created_at' => $date,
             );
-
+            
             $status = DB::table($this->table)->insert($data);
+            if ($status) {
+                $data2 = array(
+                    'opd_kode' => session()->get('opd_kode'),
+                    'kota_kode' => session()->get('kota_kode'),
+                    'rpjmd_kode' => session()->get('rpjmd_kode'),
+                    'rkpd_penetapan_program_tahun' => session()->get('tahun'),
+                    'rkpd_penetapan_program_kode' => $request->rkpd_penetapan_program_kode,
+                    'rkpd_penetapan_program_indikator_kode' => 1,
+                    'id_satuan' => $request->id_satuan,
+                    'rkpd_penetapan_program_indikator_nama' => $request->rkpd_penetapan_program_indikator_nama, 
+                    'rkpd_penetapan_program_indikator_formula' => $request->rkpd_penetapan_program_indikator_formula,
+                    'rkpd_penetapan_program_indikator_target_kinerja' => $request->rkpd_penetapan_program_indikator_target_kinerja,
+                    'rkpd_penetapan_program_indikator_target_realisasi' => $request->rkpd_penetapan_program_indikator_target_realisasi,
+                    'created_at' => $date,
+                );
+                $status = DB::table('rkpd_penetapan_program_indikator')->insert($data2);
+                
+                // print_r($this->db->last_query());
+            }
+            
 
             if($status){
                 $pesan = "Berhasil menambahkan data";
@@ -162,37 +175,40 @@ class RkpdTetapController extends Controller
             $date = date("Y-m-d h:i:s");
             $kode = explode("-", $request->kode);
             $data = array(
-                'rpjmd_sub_kegiatan_kode' => $request->rpjmd_sub_kegiatan_kode,
-                'rpjmd_sub_kegiatan_nama' => $request->rpjmd_sub_kegiatan_nama,
-                'rpjmd_sub_kegiatan_indikator' => $request->rpjmd_sub_kegiatan_indikator,
-                'rpjmd_sub_kegiatan_formula' => $request->rpjmd_sub_kegiatan_formula,
-                'id_satuan' => $request->id_satuan,
-                'rpjmd_sub_kegiatan_th0_target_kinerja' => $request->rpjmd_sub_kegiatan_th0_target_kinerja,
-                'rpjmd_sub_kegiatan_th1_target_kinerja' => $request->rpjmd_sub_kegiatan_th1_target_kinerja,
-                'rpjmd_sub_kegiatan_th2_target_kinerja' => $request->rpjmd_sub_kegiatan_th2_target_kinerja,
-                'rpjmd_sub_kegiatan_th3_target_kinerja' => $request->rpjmd_sub_kegiatan_th3_target_kinerja,
-                'rpjmd_sub_kegiatan_th4_target_kinerja' => $request->rpjmd_sub_kegiatan_th4_target_kinerja,
-                'rpjmd_sub_kegiatan_th5_target_kinerja' => $request->rpjmd_sub_kegiatan_th5_target_kinerja,
-                'rpjmd_sub_kegiatan_th0_target_realisasi' => $request->rpjmd_sub_kegiatan_th0_target_realisasi,
-                'rpjmd_sub_kegiatan_th1_target_realisasi' => $request->rpjmd_sub_kegiatan_th1_target_realisasi,
-                'rpjmd_sub_kegiatan_th2_target_realisasi' => $request->rpjmd_sub_kegiatan_th2_target_realisasi,
-                'rpjmd_sub_kegiatan_th3_target_realisasi' => $request->rpjmd_sub_kegiatan_th3_target_realisasi,
-                'rpjmd_sub_kegiatan_th4_target_realisasi' => $request->rpjmd_sub_kegiatan_th4_target_realisasi,
-                'rpjmd_sub_kegiatan_th5_target_realisasi' => $request->rpjmd_sub_kegiatan_th5_target_realisasi,
+                'rkpd_penetapan_program_kode' => $request->rkpd_penetapan_program_kode,
+                'rkpd_penetapan_program_nama' => $request->rkpd_penetapan_program_nama,
+                'rkpd_penetapan_program_ket' => $request->rkpd_penetapan_program_ket, 
                 'updated_at' => $date,
             );
-
             $status = DB::table($this->table)
-                        ->where("kota_kode", $kode[0])
-                        ->where("rpjmd_kode", $kode[1])
-                        ->where("rpjmd_misi_kode", $kode[2])
-                        ->where("rpjmd_tujuan_kode", $kode[3])
-                        ->where("rpjmd_sasaran_kode", $kode[4])
-                        ->where("opd_kode", $kode[5])
-                        ->where("rpjmd_program_kode", $kode[6])
-                        ->where("rpjmd_kegiatan_kode", $kode[7])
-                        ->where("rpjmd_sub_kegiatan_kode", $kode[8])
-                        ->update($data);
+                ->where("kota_kode", $kode[0])
+                ->where("opd_kode", $kode[1])
+                ->where("rpjmd_kode", $kode[2])
+                ->where("rpjmd_kode", $kode[3])
+                ->where("rkpd_penetapan_program_kode", $kode[4])
+                ->update($data);
+            if ($status) {
+                $data2 = array(
+                    'rkpd_penetapan_program_kode' => $request->rkpd_penetapan_program_kode,
+                    'rkpd_penetapan_program_indikator_kode' => 1,
+                    'id_satuan' => $request->id_satuan,
+                    'rkpd_penetapan_program_indikator_nama' => $request->rkpd_penetapan_program_indikator_nama, 
+                    'rkpd_penetapan_program_indikator_formula' => $request->rkpd_penetapan_program_indikator_formula,
+                    'rkpd_penetapan_program_indikator_target_kinerja' => $request->rkpd_penetapan_program_indikator_target_kinerja,
+                    'rkpd_penetapan_program_indikator_target_realisasi' => $request->rkpd_penetapan_program_indikator_target_realisasi,
+                    'updated_at' => $date,
+                );
+                $status = DB::table('rkpd_penetapan_program_indikator')
+                ->where("kota_kode", $kode[0])
+                ->where("opd_kode", $kode[1])
+                ->where("rpjmd_kode", $kode[2])
+                ->where("rpjmd_kode", $kode[3])
+                ->where("rkpd_penetapan_program_kode", $kode[4])
+                ->where("rkpd_penetapan_program_indikator_kode",1)
+                ->update($data2);
+            }
+
+            
 
             if($status){
                 $pesan = "Berhasil mengubah data";
@@ -221,16 +237,12 @@ class RkpdTetapController extends Controller
         if (!$validator->fails()) {
             $kode = explode("-", $request->kode);
             $status = DB::table($this->table)
-                        ->where("kota_kode", $kode[0])
-                        ->where("rpjmd_kode", $kode[1])
-                        ->where("rpjmd_misi_kode", $kode[2])
-                        ->where("rpjmd_tujuan_kode", $kode[3])
-                        ->where("rpjmd_sasaran_kode", $kode[4])
-                        ->where("opd_kode", $kode[5])
-                        ->where("rpjmd_program_kode", $kode[6])
-                        ->where("rpjmd_kegiatan_kode", $kode[7])
-                        ->where("rpjmd_sub_kegiatan_kode", $kode[8])
-                        ->delete();
+                ->where("kota_kode", $kode[0])
+                ->where("opd_kode", $kode[1])
+                ->where("rpjmd_kode", $kode[2])
+                ->where("rpjmd_kode", $kode[3])
+                ->where("rkpd_penetapan_program_kode", $kode[4])
+                ->delete();
             if($status){
                 $pesan = "Berhasil menghapus data";
             }

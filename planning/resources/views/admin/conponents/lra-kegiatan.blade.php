@@ -1,7 +1,7 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Data Realisasi Anggaran Program";
+$judul = "Data Realisasi Anggaran Kegiatan";
 $des = "";
 ?>
                     
@@ -14,73 +14,13 @@ $des = "";
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="page-title-actions">
-                                    <a href="{{ url('') }}/opd-rpjmd/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
+                                <div class="page-title-actions">
+                                    <a href="{{ url('') }}/lra-program" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pengaturan</h5>
-                                        
-                                        <form id="form-rpjmd" action="{{ url('') }}/set-data/rpjmd" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="rpjmd" required>
-                                                        <option value="">-= Pilih RPJMD =-</option>
-                                                        @foreach($dataRpjmd as $row)
-                                                        <option <?=$row->kota_kode.'-'.$row->rpjmd_kode==session('kota_kode').'-'.session('rpjmd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->rpjmd_kode }}">{{ @$row->rpjmd_tahun." - ".($row->rpjmd_tahun+4) }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-rpjmd">Ubah</button>
-                                                </div>
-                                                
-                                            </div>            
-                                        </form>
-                                        <form id="form-tahun" action="{{ url('') }}/set-data/tahun" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="tahun" required>
-                                                        <option value="">-= Pilih Tahun =-</option>
-                                                        <?php for($i = 1; $i <= 5; $i++){ ?>
-                                                        <option <?=session('tahun')==$i?'selected':''?> value="{{ $i }}">{{ ($row->rpjmd_tahun+$i-1) }}</option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-tahun">Ubah</button>
-                                                </div>
-                                            </div>            
-                                        </form>
-                                        <form id="form-opd" action="{{ url('') }}/set-data/opd" method="POST">
-                                        {!! csrf_field() !!}
-                                            <div class="row">
-                                                <div class="position-relative form-group col-sm-5">
-                                                    <select class="form-control" name="opd" required>
-                                                        <option value="">-= Pilih OPD =-</option>
-                                                        @foreach($dataOpd as $row)
-                                                        <option <?=$row->kota_kode.'-'.$row->opd_kode==session('kota_kode').'-'.session('opd_kode')?'selected':''?> value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="position-relative form-group col-sm-2">
-                                                    <button type="submit" class="btn btn-primary" form="form-opd">Ubah</button>
-                                                </div>
-                                                
-                                            </div>            
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
-                        </div>            
+                        </div>       
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
@@ -110,7 +50,7 @@ $des = "";
                                                         <th width="10">#</th>
                                                         <th width="70">Kode</th>
                                                         <th width="70">Jenis</th>
-                                                        <th>Program</th>
+                                                        <th>Kegiatan</th>
                                                         <!-- <th width="70">Aksi</th> -->
                                                     </tr>
                                                 </thead>
@@ -190,7 +130,7 @@ $des = "";
     var kode = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'lra-program';
+    var link = 'lra-kegiatan';
     var page = 1;
     getData();
     
@@ -230,7 +170,8 @@ $des = "";
                         +"-"+element['opd_kode']
                         +"-"+element['rpjmd_kode']
                         +"-"+element['rkpd_'+jenis+'_program_tahun']
-                        +"-"+element['rkpd_'+jenis+'_program_kode'];
+                        +"-"+element['rkpd_'+jenis+'_program_kode']
+                        +"-"+element['rkpd_'+jenis+'_kegiatan_kode'];
 
             kodeTampil = kodeOneData;
             
@@ -238,7 +179,7 @@ $des = "";
                 no,
                 kodeTampil,
                 namaJenis,
-                '<a href="{{ url("") }}/lra-kegiatan/'+kodeOneData+'">'+element['rkpd_'+jenis+'_program_nama']+'</a>',
+                '<a href="{{ url("") }}/lra-sub-kegiatan/'+kodeOneData+'">'+element['rkpd_'+jenis+'_kegiatan_nama']+'</a>',
                 // '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 // '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
