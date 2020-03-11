@@ -100,6 +100,7 @@ $des = "";
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
     var link = 'sasaran';
+    var level = parseInt('<?=session('level')?>');
     var page = 1;
     getData();
     
@@ -131,9 +132,16 @@ $des = "";
                         +'-'+element['rpjmd_misi_kode']
                         +'-'+element['rpjmd_tujuan_kode']
                         +'-'+element['rpjmd_sasaran_kode'];
+            
+            nama = '<a href="{{ url("") }}/opd-rpjmd/'+kodeOneData+'">'+element['rpjmd_sasaran_nama']+'</a>';
+
+            if(level == 3){
+                nama = element['rpjmd_sasaran_nama'];
+            }
+            
             tempData = [
                 no,
-                '<a href="{{ url("") }}/opd-rpjmd/'+kodeOneData+'">'+element['rpjmd_sasaran_nama']+'</a>',
+                nama,
                 '<a class="btn btn-info" href="{{ url("") }}/sasaran-indikator/'+kodeOneData+'"><i class="fa fa-search"></i></a>',
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',

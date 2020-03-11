@@ -21,6 +21,7 @@ $des = "";
                                 </div> -->
                             </div>
                         </div>
+                        <?php if(in_array(session('level'), array(1,2))){ ?>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
@@ -80,7 +81,8 @@ $des = "";
                                     </div>
                                 </div>
                             </div>
-                        </div>            
+                        </div>        
+                        <?php } ?>    
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">

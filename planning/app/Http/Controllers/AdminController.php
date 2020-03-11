@@ -23,8 +23,6 @@ class AdminController extends Controller
         return back()->withInput();
     }
 
-    
-
     public function setSessionRpjmd(Request $request){
         $validator = Validator::make($request->all(), [
             'rpjmd' => 'required',
@@ -43,12 +41,13 @@ class AdminController extends Controller
         return back()->withInput();
     }
 
-
-    
     public function generatePDF(){
         $data = ['title' => 'Welcome to belajarphp.net'];
  
         $pdf = PDF::loadView('myPDF', $data);
         return $pdf->download('laporan-pdf.pdf');
     }
+
+
+    
 }

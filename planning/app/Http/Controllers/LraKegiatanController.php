@@ -80,50 +80,55 @@ class LraKegiatanController extends Controller
             $tahun = session()->get('tahun');
 
             $kode = explode("-", $request->kode);
+            $jenis = $kode[5];
+            if($jenis == 1 || $jenis == 3){
+                $data = DB::table('rkpd_penetapan_kegiatan')
+                            ->where("kota_kode", $kota_kode)
+                            ->where("opd_kode", $opd_kode)
+                            ->where("rpjmd_kode", $rpjmd_kode)
+                            ->where("rkpd_penetapan_program_tahun", $tahun)
+                            ->where("rkpd_penetapan_program_kode", $kode[4])
+                            ->get();
 
-            $data = DB::table('rkpd_penetapan_kegiatan')
-                        ->where("kota_kode", $kota_kode)
-                        ->where("opd_kode", $opd_kode)
-                        ->where("rpjmd_kode", $rpjmd_kode)
-                        ->where("rkpd_penetapan_program_tahun", $tahun)
-                        ->where("rkpd_penetapan_program_kode", $kode[4])
-                        ->get();
-
-            $index = 0;
-            foreach($data as $row){
-                $dataAll[$index] = $row;
-                $dataAll[$index]->jenis = 1;
-                $index++;
-            }
-
-            $data2 = DB::table('rkpd_perubahan_kegiatan')
-                        ->where("kota_kode", $kota_kode)
-                        ->where("opd_kode", $opd_kode)
-                        ->where("rpjmd_kode", $rpjmd_kode)
-                        ->where("rkpd_perubahan_program_tahun", $tahun)
-                        ->where("rkpd_perubahan_program_kode", $kode[4])
-                        ->get();
-            
-            foreach($data2 as $row){
-                $sama = false;
-                for($i = 0; $i < count($dataAll); $i++){
-                    if($dataAll[$i]->kota_kode == $row->kota_kode
-                    && $dataAll[$i]->opd_kode == $row->opd_kode
-                    && $dataAll[$i]->rpjmd_kode == $row->rpjmd_kode
-                    && @$dataAll[$i]->rkpd_penetapan_program_tahun == $row->rkpd_perubahan_program_tahun
-                    && $dataAll[$i]->rkpd_penetapan_program_kode == $row->rkpd_perubahan_program_kode
-                    && $dataAll[$i]->rkpd_penetapan_kegiatan_kode == $row->rkpd_perubahan_kegiatan_kode){
-                        $dataAll[$i]->jenis = 3;
-                        $sama = true;
-                    }
-                }
-                if(!$sama){
+                $index = 0;
+                foreach($data as $row){
                     $dataAll[$index] = $row;
-                    $dataAll[$index]->jenis = 2;
+                    $dataAll[$index]->jenis = 1;
                     $index++;
                 }
-                
             }
+
+            if($jenis == 2 || $jenis == 3){
+                $data2 = DB::table('rkpd_perubahan_kegiatan')
+                            ->where("kota_kode", $kota_kode)
+                            ->where("opd_kode", $opd_kode)
+                            ->where("rpjmd_kode", $rpjmd_kode)
+                            ->where("rkpd_perubahan_program_tahun", $tahun)
+                            ->where("rkpd_perubahan_program_kode", $kode[4])
+                            ->get();
+                
+                foreach($data2 as $row){
+                    $sama = false;
+                    for($i = 0; $i < count($dataAll) && $jenis == 3; $i++){
+                        if($dataAll[$i]->kota_kode == $row->kota_kode
+                        && $dataAll[$i]->opd_kode == $row->opd_kode
+                        && $dataAll[$i]->rpjmd_kode == $row->rpjmd_kode
+                        && @$dataAll[$i]->rkpd_penetapan_program_tahun == $row->rkpd_perubahan_program_tahun
+                        && $dataAll[$i]->rkpd_penetapan_program_kode == $row->rkpd_perubahan_program_kode
+                        && $dataAll[$i]->rkpd_penetapan_kegiatan_kode == $row->rkpd_perubahan_kegiatan_kode){
+                            $dataAll[$i]->jenis = 3;
+                            $sama = true;
+                        }
+                    }
+                    if(!$sama){
+                        $dataAll[$index] = $row;
+                        $dataAll[$index]->jenis = 2;
+                        $index++;
+                    }
+                    
+                }
+            }
+            
 
 
         }

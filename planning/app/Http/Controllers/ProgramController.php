@@ -52,9 +52,13 @@ class ProgramController extends Controller
                             $join->on('opd.opd_kode', '=', $this->table.'.opd_kode');
                         })
                         ->first();
+        
+                        $dataSatuan = DB::table('satuan')->get();
+
         $kirim = array(
             'kode' => $kode,
             'dataAsal' => $dataAsal,
+            'dataSatuan' => $dataSatuan,
         );
     	return view('admin/conponents/program',$kirim);
     }
@@ -72,12 +76,15 @@ class ProgramController extends Controller
             $status = true;
             $kode = explode("-", $request->kode);
             $dataAll = DB::table($this->table)
-                    ->where("kota_kode", $kode[0])
-                    ->where("rpjmd_kode", $kode[1])
-                    ->where("rpjmd_misi_kode", $kode[2])
-                    ->where("rpjmd_tujuan_kode", $kode[3])
-                    ->where("rpjmd_sasaran_kode", $kode[4])
-                    ->where("opd_kode", $kode[5])
+                    ->where($this->table.".kota_kode", $kode[0])
+                    ->where($this->table.".rpjmd_kode", $kode[1])
+                    ->where($this->table.".rpjmd_misi_kode", $kode[2])
+                    ->where($this->table.".rpjmd_tujuan_kode", $kode[3])
+                    ->where($this->table.".rpjmd_sasaran_kode", $kode[4])
+                    ->where($this->table.".opd_kode", $kode[5])
+                    ->join('satuan', function($join){
+                        $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
+                    })
                     ->get();
         }
 
@@ -112,7 +119,21 @@ class ProgramController extends Controller
                 'opd_kode' => $kode[5],
                 'rpjmd_program_kode' => $request->rpjmd_program_kode,
                 'rpjmd_program_nama' => $request->rpjmd_program_nama,
-                'id_satuan' => 1,
+                'rpjmd_program_indikator' => $request->rpjmd_program_indikator,
+                'rpjmd_program_formula' => $request->rpjmd_program_formula,
+                'id_satuan' => $request->id_satuan,
+                'rpjmd_program_th0_target_kinerja' => $request->rpjmd_program_th0_target_kinerja,
+                'rpjmd_program_th1_target_kinerja' => $request->rpjmd_program_th1_target_kinerja,
+                'rpjmd_program_th2_target_kinerja' => $request->rpjmd_program_th2_target_kinerja,
+                'rpjmd_program_th3_target_kinerja' => $request->rpjmd_program_th3_target_kinerja,
+                'rpjmd_program_th4_target_kinerja' => $request->rpjmd_program_th4_target_kinerja,
+                'rpjmd_program_th5_target_kinerja' => $request->rpjmd_program_th5_target_kinerja,
+                'rpjmd_program_th0_target_realisasi' => $request->rpjmd_program_th0_target_realisasi,
+                'rpjmd_program_th1_target_realisasi' => $request->rpjmd_program_th1_target_realisasi,
+                'rpjmd_program_th2_target_realisasi' => $request->rpjmd_program_th2_target_realisasi,
+                'rpjmd_program_th3_target_realisasi' => $request->rpjmd_program_th3_target_realisasi,
+                'rpjmd_program_th4_target_realisasi' => $request->rpjmd_program_th4_target_realisasi,
+                'rpjmd_program_th5_target_realisasi' => $request->rpjmd_program_th5_target_realisasi,
                 'created_at' => $date,
             );
 
@@ -150,6 +171,21 @@ class ProgramController extends Controller
             $data = array(
                 'rpjmd_program_kode' => $request->rpjmd_program_kode,
                 'rpjmd_program_nama' => $request->rpjmd_program_nama,
+                'rpjmd_program_indikator' => $request->rpjmd_program_indikator,
+                'rpjmd_program_formula' => $request->rpjmd_program_formula,
+                'id_satuan' => $request->id_satuan,
+                'rpjmd_program_th0_target_kinerja' => $request->rpjmd_program_th0_target_kinerja,
+                'rpjmd_program_th1_target_kinerja' => $request->rpjmd_program_th1_target_kinerja,
+                'rpjmd_program_th2_target_kinerja' => $request->rpjmd_program_th2_target_kinerja,
+                'rpjmd_program_th3_target_kinerja' => $request->rpjmd_program_th3_target_kinerja,
+                'rpjmd_program_th4_target_kinerja' => $request->rpjmd_program_th4_target_kinerja,
+                'rpjmd_program_th5_target_kinerja' => $request->rpjmd_program_th5_target_kinerja,
+                'rpjmd_program_th0_target_realisasi' => $request->rpjmd_program_th0_target_realisasi,
+                'rpjmd_program_th1_target_realisasi' => $request->rpjmd_program_th1_target_realisasi,
+                'rpjmd_program_th2_target_realisasi' => $request->rpjmd_program_th2_target_realisasi,
+                'rpjmd_program_th3_target_realisasi' => $request->rpjmd_program_th3_target_realisasi,
+                'rpjmd_program_th4_target_realisasi' => $request->rpjmd_program_th4_target_realisasi,
+                'rpjmd_program_th5_target_realisasi' => $request->rpjmd_program_th5_target_realisasi,
                 'updated_at' => $date,
             );
 

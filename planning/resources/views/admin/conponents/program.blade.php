@@ -66,10 +66,29 @@ $des = "";
                                             <table class="mb-0 table"  id="table-data">
                                                 <thead>
                                                     <tr>
-                                                        <th width="10">#</th>
-                                                        <th width="70">Kode</th>
-                                                        <th>Program</th>
-                                                        <th width="70">Aksi</th>
+                                                        <th rowspan="2" width="10">#</th>
+                                                        <th rowspan="2" width="70">Kode</th>
+                                                        <th rowspan="2">Program</th>
+                                                        <th rowspan="2">Indikator</th>
+                                                        <th rowspan="2">Formula</th>
+                                                        <th rowspan="2">Satuan</th>
+                                                        <th colspan="6">Target Kinerja (Tahun)</th>
+                                                        <th colspan="6">Target Realisasi (Tahun)</th>
+                                                        <th rowspan="2" width="70">Aksi</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Awal</th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+1?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+2?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+3?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+4?></th>
+                                                        <th>Awal</th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+1?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+2?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+3?></th>
+                                                        <th><?=@$dataAsal->rpjmd_tahun+4?></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -109,6 +128,107 @@ $des = "";
                         <label>Program</label>
                         <input name="rpjmd_program_nama" type="text" class="form-control" required>
                     </div>
+                    <div class="row">
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Indikator</label>
+                            <textarea name="rpjmd_program_indikator" class="form-control" required></textarea>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Formula</label>
+                            <textarea name="rpjmd_program_formula" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="position-relative form-group col-sm-3">
+                            <label>Satuan</label>
+                            <select class="form-control" name="id_satuan" required>
+                                <option value="">-= Pilih Satuan =-</option>
+                                @foreach($dataSatuan as $row)
+                                <option value="{{ $row->id_satuan }}">{{ $row->satuan_nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Kinerja Awal</label>
+                                <input name="rpjmd_program_th0_target_kinerja" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Kinerja Tahun <?=@$dataAsal->rpjmd_tahun?></label>
+                                <input name="rpjmd_program_th1_target_kinerja" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Kinerja Tahun <?=@$dataAsal->rpjmd_tahun+1?></label>
+                                <input name="rpjmd_program_th2_target_kinerja" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Kinerja Tahun <?=@$dataAsal->rpjmd_tahun+2?></label>
+                                <input name="rpjmd_program_th3_target_kinerja" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Kinerja Tahun <?=@$dataAsal->rpjmd_tahun+3?></label>
+                                <input name="rpjmd_program_th4_target_kinerja" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Kinerja Tahun <?=@$dataAsal->rpjmd_tahun+4?></label>
+                                <input name="rpjmd_program_th5_target_kinerja" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Realisasi Awal</label>
+                                <input name="rpjmd_program_th0_target_realisasi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Realisasi Tahun <?=@$dataAsal->rpjmd_tahun?></label>
+                                <input name="rpjmd_program_th1_target_realisasi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Realisasi Tahun <?=@$dataAsal->rpjmd_tahun+1?></label>
+                                <input name="rpjmd_program_th2_target_realisasi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Realisasi Tahun <?=@$dataAsal->rpjmd_tahun+2?></label>
+                                <input name="rpjmd_program_th3_target_realisasi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Realisasi Tahun <?=@$dataAsal->rpjmd_tahun+3?></label>
+                                <input name="rpjmd_program_th4_target_realisasi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="position-relative form-group">
+                                <label>Target Realisasi Tahun <?=@$dataAsal->rpjmd_tahun+4?></label>
+                                <input name="rpjmd_program_th5_target_realisasi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </form>
             </div>
             <div class="modal-footer">
@@ -170,6 +290,21 @@ $des = "";
                 no,
                 kodeTampil,
                 '<a href="{{ url("") }}/renstra-kegiatan/'+kodeOneData+'">'+element['rpjmd_program_nama']+'</a>',
+                element['rpjmd_program_indikator'],
+                element['rpjmd_program_formula'],
+                element['satuan_nama'],
+                element['rpjmd_program_th0_target_kinerja'],
+                element['rpjmd_program_th1_target_kinerja'],
+                element['rpjmd_program_th2_target_kinerja'],
+                element['rpjmd_program_th3_target_kinerja'],
+                element['rpjmd_program_th4_target_kinerja'],
+                element['rpjmd_program_th5_target_kinerja'],
+                element['rpjmd_program_th0_target_realisasi'],
+                element['rpjmd_program_th1_target_realisasi'],
+                element['rpjmd_program_th2_target_realisasi'],
+                element['rpjmd_program_th3_target_realisasi'],
+                element['rpjmd_program_th4_target_realisasi'],
+                element['rpjmd_program_th5_target_realisasi'],
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
@@ -200,6 +335,21 @@ $des = "";
         $("input[name='kode']").val(kode);
         $("input[name='rpjmd_program_kode']").val(data['rpjmd_program_kode']);
         $("input[name='rpjmd_program_nama']").val(data['rpjmd_program_nama']);
+        $("textarea[name='rpjmd_program_indikator']").val(data['rpjmd_program_indikator']);
+        $("textarea[name='rpjmd_program_formula']").val(data['rpjmd_program_formula']);
+        $("select[name='id_satuan']").val(data['id_satuan']);
+        $("input[name='rpjmd_program_th0_target_kinerja']").val(data['rpjmd_program_th0_target_kinerja']);
+        $("input[name='rpjmd_program_th1_target_kinerja']").val(data['rpjmd_program_th1_target_kinerja']);
+        $("input[name='rpjmd_program_th2_target_kinerja']").val(data['rpjmd_program_th2_target_kinerja']);
+        $("input[name='rpjmd_program_th3_target_kinerja']").val(data['rpjmd_program_th3_target_kinerja']);
+        $("input[name='rpjmd_program_th4_target_kinerja']").val(data['rpjmd_program_th4_target_kinerja']);
+        $("input[name='rpjmd_program_th5_target_kinerja']").val(data['rpjmd_program_th5_target_kinerja']);
+        $("input[name='rpjmd_program_th0_target_realisasi']").val(data['rpjmd_program_th0_target_realisasi']);
+        $("input[name='rpjmd_program_th1_target_realisasi']").val(data['rpjmd_program_th1_target_realisasi']);
+        $("input[name='rpjmd_program_th2_target_realisasi']").val(data['rpjmd_program_th2_target_realisasi']);
+        $("input[name='rpjmd_program_th3_target_realisasi']").val(data['rpjmd_program_th3_target_realisasi']);
+        $("input[name='rpjmd_program_th4_target_realisasi']").val(data['rpjmd_program_th4_target_realisasi']);
+        $("input[name='rpjmd_program_th5_target_realisasi']").val(data['rpjmd_program_th5_target_realisasi']);
     }
 
     function setCreate(){

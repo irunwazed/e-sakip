@@ -95,8 +95,8 @@ class LraProgramController extends Controller
                     && $dataAll[$i]->rpjmd_kode == $row->rpjmd_kode
                     && @$dataAll[$i]->rkpd_penetapan_program_tahun == $row->rkpd_perubahan_program_tahun
                     && $dataAll[$i]->rkpd_penetapan_program_kode == $row->rkpd_perubahan_program_kode){
-                        $dataAll[$i]->jenis = 3;
-                        $sama = true;
+                        // $dataAll[$i]->jenis = 3;
+                        // $sama = true;
                         
                     }
                 }

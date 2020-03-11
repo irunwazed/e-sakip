@@ -61,9 +61,12 @@ class RenstraKegiatanController extends Controller
                             $join->on('opd.opd_kode', '=', 'rpjmd_opd.opd_kode');
                         })
                         ->first();
+        $dataSatuan = DB::table('satuan')->get();
+
         $kirim = array(
             'kode' => $kode,
             'dataAsal' => $dataAsal,
+            'dataSatuan' => $dataSatuan,
         );
     	return view('admin/conponents/renstra-kegiatan',$kirim);
     }
@@ -88,6 +91,9 @@ class RenstraKegiatanController extends Controller
                     ->where("rpjmd_sasaran_kode", $kode[4])
                     ->where("opd_kode", $kode[5])
                     ->where("rpjmd_program_kode", $kode[6])
+                    ->join('satuan', function($join){
+                        $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
+                    })
                     ->get();
         }
 
@@ -123,7 +129,21 @@ class RenstraKegiatanController extends Controller
                 'rpjmd_program_kode' => $kode[6],
                 'rpjmd_kegiatan_kode' => $request->rpjmd_kegiatan_kode,
                 'rpjmd_kegiatan_nama' => $request->rpjmd_kegiatan_nama,
-                'id_satuan' => 1,
+                'rpjmd_kegiatan_indikator' => $request->rpjmd_kegiatan_indikator,
+                'rpjmd_kegiatan_formula' => $request->rpjmd_kegiatan_formula,
+                'id_satuan' => $request->id_satuan,
+                'rpjmd_kegiatan_th0_target_kinerja' => $request->rpjmd_kegiatan_th0_target_kinerja,
+                'rpjmd_kegiatan_th1_target_kinerja' => $request->rpjmd_kegiatan_th1_target_kinerja,
+                'rpjmd_kegiatan_th2_target_kinerja' => $request->rpjmd_kegiatan_th2_target_kinerja,
+                'rpjmd_kegiatan_th3_target_kinerja' => $request->rpjmd_kegiatan_th3_target_kinerja,
+                'rpjmd_kegiatan_th4_target_kinerja' => $request->rpjmd_kegiatan_th4_target_kinerja,
+                'rpjmd_kegiatan_th5_target_kinerja' => $request->rpjmd_kegiatan_th5_target_kinerja,
+                'rpjmd_kegiatan_th0_target_realisasi' => $request->rpjmd_kegiatan_th0_target_realisasi,
+                'rpjmd_kegiatan_th1_target_realisasi' => $request->rpjmd_kegiatan_th1_target_realisasi,
+                'rpjmd_kegiatan_th2_target_realisasi' => $request->rpjmd_kegiatan_th2_target_realisasi,
+                'rpjmd_kegiatan_th3_target_realisasi' => $request->rpjmd_kegiatan_th3_target_realisasi,
+                'rpjmd_kegiatan_th4_target_realisasi' => $request->rpjmd_kegiatan_th4_target_realisasi,
+                'rpjmd_kegiatan_th5_target_realisasi' => $request->rpjmd_kegiatan_th5_target_realisasi,
                 'created_at' => $date,
             );
 
@@ -161,6 +181,21 @@ class RenstraKegiatanController extends Controller
             $data = array(
                 'rpjmd_kegiatan_kode' => $request->rpjmd_kegiatan_kode,
                 'rpjmd_kegiatan_nama' => $request->rpjmd_kegiatan_nama,
+                'rpjmd_kegiatan_indikator' => $request->rpjmd_kegiatan_indikator,
+                'rpjmd_kegiatan_formula' => $request->rpjmd_kegiatan_formula,
+                'id_satuan' => $request->id_satuan,
+                'rpjmd_kegiatan_th0_target_kinerja' => $request->rpjmd_kegiatan_th0_target_kinerja,
+                'rpjmd_kegiatan_th1_target_kinerja' => $request->rpjmd_kegiatan_th1_target_kinerja,
+                'rpjmd_kegiatan_th2_target_kinerja' => $request->rpjmd_kegiatan_th2_target_kinerja,
+                'rpjmd_kegiatan_th3_target_kinerja' => $request->rpjmd_kegiatan_th3_target_kinerja,
+                'rpjmd_kegiatan_th4_target_kinerja' => $request->rpjmd_kegiatan_th4_target_kinerja,
+                'rpjmd_kegiatan_th5_target_kinerja' => $request->rpjmd_kegiatan_th5_target_kinerja,
+                'rpjmd_kegiatan_th0_target_realisasi' => $request->rpjmd_kegiatan_th0_target_realisasi,
+                'rpjmd_kegiatan_th1_target_realisasi' => $request->rpjmd_kegiatan_th1_target_realisasi,
+                'rpjmd_kegiatan_th2_target_realisasi' => $request->rpjmd_kegiatan_th2_target_realisasi,
+                'rpjmd_kegiatan_th3_target_realisasi' => $request->rpjmd_kegiatan_th3_target_realisasi,
+                'rpjmd_kegiatan_th4_target_realisasi' => $request->rpjmd_kegiatan_th4_target_realisasi,
+                'rpjmd_kegiatan_th5_target_realisasi' => $request->rpjmd_kegiatan_th5_target_realisasi,
                 'updated_at' => $date,
             );
 

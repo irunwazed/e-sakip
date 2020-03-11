@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
+use PDF;
 
 class LaporanController extends Controller
 {
@@ -100,6 +101,7 @@ class LaporanController extends Controller
             'dataKota' => $kota,
             'dataOpd' => $opd,
         ];
+
 
         return view('admin/files/laporan-perencanaan', $kirim);
     }
