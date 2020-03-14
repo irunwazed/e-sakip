@@ -298,7 +298,8 @@ $des = "";
             tempData = [
                 no,
                 kodeTampil,
-                '<a href="{{ url("") }}/renstra-sub-kegiatan/'+kodeOneData+'">'+element['rpjmd_kegiatan_nama']+'</a>',
+                element['rpjmd_kegiatan_nama'],
+                // '<a href="{{ url("") }}/renstra-sub-kegiatan/'+kodeOneData+'">'+element['rpjmd_kegiatan_nama']+'</a>',
                 element['rpjmd_kegiatan_indikator'],
                 element['rpjmd_kegiatan_formula'],
                 element['satuan_nama'],

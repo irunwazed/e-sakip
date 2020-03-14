@@ -419,6 +419,18 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="{{ url('') }}/perjanjian-kinerja-program">
+                                        <i class="metismenu-icon pe-7s-network"></i>
+                                        Perjanjian Kinerja
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('') }}/rkpd-tetap-program">
+                                        <i class="metismenu-icon pe-7s-diamond"></i>
+                                        RKPD
+                                    </a>
+                                </li>
+                                <!-- <li>
                                     <a href="#">
                                         <i class="metismenu-icon pe-7s-diamond"></i>
                                         RKPD
@@ -438,19 +450,64 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li>
+                                </li> -->
+                                <!-- <li>
                                     <a href="{{ url('') }}/lra-program">
                                         <i class="metismenu-icon pe-7s-diskette"></i>
                                         Realisasi Keuangan
                                     </a>
-                                </li>
+                                </li> -->
                                 <li>
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-diamond"></i>
+                                        Laporan
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ url('') }}/laporan/renstra">
+                                                <i class="metismenu-icon"></i>
+                                                Renstra
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('') }}/laporan/iku">
+                                                <i class="metismenu-icon"></i>
+                                                IKU
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('') }}/laporan/perjanjian-kinerja">
+                                                <i class="metismenu-icon"></i>
+                                                Perjanjian Kinerja
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('') }}/laporan/renja-penetapan">
+                                                <i class="metismenu-icon"></i>
+                                                Renja Penetapan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('') }}/laporan/renja-perubahan">
+                                                <i class="metismenu-icon"></i>
+                                                Renja Perubahan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('') }}/laporan/anggaran">
+                                                <i class="metismenu-icon"></i>
+                                                Realisasi Anggaran
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- <li>
                                     <a href="{{ url('') }}/laporan">
                                         <i class="metismenu-icon pe-7s-diskette"></i>
                                         Laporan
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="app-sidebar__heading">Pengaturan</li>
                                 <?php if(in_array(session('level'), array(1,2))){ ?>
                                 <li>

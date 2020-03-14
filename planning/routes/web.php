@@ -112,6 +112,18 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/renstra-sub-kegiatan/update', 'RenstraSubKegiatanController@update');
     Route::post('/renstra-sub-kegiatan/delete', 'RenstraSubKegiatanController@delete');
 
+    Route::get('/perjanjian-kinerja-program', 'PerjanjianKinerjaController@index');
+    Route::post('/perjanjian-kinerja-program/get-data', 'PerjanjianKinerjaController@getData');
+    Route::post('/perjanjian-kinerja-program/create', 'PerjanjianKinerjaController@create');
+    Route::post('/perjanjian-kinerja-program/update', 'PerjanjianKinerjaController@update');
+    Route::post('/perjanjian-kinerja-program/delete', 'PerjanjianKinerjaController@delete');
+
+    Route::get('/perjanjian-kinerja-program-indikator/{kode}', 'PerjanjianKinerjaIndikatorController@index');
+    Route::post('/perjanjian-kinerja-program-indikator/get-data', 'PerjanjianKinerjaIndikatorController@getData');
+    Route::post('/perjanjian-kinerja-program-indikator/create', 'PerjanjianKinerjaIndikatorController@create');
+    Route::post('/perjanjian-kinerja-program-indikator/update', 'PerjanjianKinerjaIndikatorController@update');
+    Route::post('/perjanjian-kinerja-program-indikator/delete', 'PerjanjianKinerjaIndikatorController@delete');
+
     Route::get('/rkpd-tetap-program', 'RkpdTetapController@index');
     Route::post('/rkpd-tetap-program/get-data', 'RkpdTetapController@getData');
     Route::post('/rkpd-tetap-program/create', 'RkpdTetapController@create');
@@ -123,6 +135,12 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/rkpd-penetapan-kegiatan/create', 'RkpdTetapKegiatanController@create');
     Route::post('/rkpd-penetapan-kegiatan/update', 'RkpdTetapKegiatanController@update');
     Route::post('/rkpd-penetapan-kegiatan/delete', 'RkpdTetapKegiatanController@delete');
+
+    Route::get('/rkpd-penetapan-triwulan/{kode}', 'RkpdTetapTriwulanController@index');
+    Route::post('/rkpd-penetapan-triwulan/get-data', 'RkpdTetapTriwulanController@getData');
+    Route::post('/rkpd-penetapan-triwulan/create', 'RkpdTetapTriwulanController@create');
+    Route::post('/rkpd-penetapan-triwulan/update', 'RkpdTetapTriwulanController@update');
+    Route::post('/rkpd-penetapan-triwulan/delete', 'RkpdTetapTriwulanController@delete');
 
     Route::get('/rkpd-penetapan-sub-kegiatan/{kode}', 'RkpdTetapSubKegiatanController@index');
     Route::post('/rkpd-penetapan-sub-kegiatan/get-data', 'RkpdTetapSubKegiatanController@getData');
@@ -167,6 +185,12 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/lra-triwulan/create', 'LraTriwulanController@create');
     Route::post('/lra-triwulan/update', 'LraTriwulanController@update');
     Route::post('/lra-triwulan/delete', 'LraTriwulanController@delete');
+    
+    Route::get('/lra-kegiatan-triwulan/{kode}', 'LraKegiatanTriwulanController@index');
+    Route::post('/lra-kegiatan-triwulan/get-data', 'LraKegiatanTriwulanController@getData');
+    Route::post('/lra-kegiatan-triwulan/create', 'LraKegiatanTriwulanController@create');
+    Route::post('/lra-kegiatan-triwulan/update', 'LraKegiatanTriwulanController@update');
+    Route::post('/lra-kegiatan-triwulan/delete', 'LraKegiatanTriwulanController@delete');
 
     Route::post('/set-data/opd', 'AdminController@setSessionOpd');
     Route::post('/set-data/rpjmd', 'AdminController@setSessionRpjmd');
@@ -175,9 +199,15 @@ Route::group(['middleware' => ['checklogin']], function () {
     Route::post('/get-data/rkpd-program', 'DataController@getDataRkpdProgram');
 
     Route::get('/laporan', 'LaporanController@index');
+
+
+    
+    Route::get('/laporan/renstra', 'LaporanRenstraController@index');
+
 });
 
 Route::post('/laporan', 'LaporanController@loadLaporan');
+Route::post('/laporan/renstra', 'LaporanRenstraController@loadLaporan');
 
 
 Route::get('/masuk', 'PublicController@login');

@@ -72,6 +72,8 @@ class RkpdTetapController extends Controller
                     ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_formula"
                     ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_target_kinerja"
                     ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_target_realisasi"
+                    ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_target_kinerja_perubahan"
+                    ,"rkpd_penetapan_program_indikator.rkpd_penetapan_program_indikator_target_realisasi_perubahan"
                     ,"satuan.id_satuan")
                     ->where($this->table.".kota_kode", $kota_kode)
                     ->where($this->table.".opd_kode", $opd_kode)

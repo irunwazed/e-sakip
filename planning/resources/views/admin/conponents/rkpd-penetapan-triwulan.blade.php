@@ -1,25 +1,26 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Data OPD";
+$judul = "Data Realisasi Anggaran Triwulan";
 $des = "";
 ?>
+                    
                     <div class="app-main__inner">
                         <div class="app-page-title">
                             <div class="page-title-wrapper">
                                 <div class="page-title-heading">
-                                    <div>{{ $judul }} 
+                                    <div>{{ $judul }}
                                         <div class="page-title-subheading">{{ $des }}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="page-title-actions">
-                                    <a href="{{ url('') }}/sasaran/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
+                                    <a href="#" onclick="history.back()" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
                                 </div>
                             </div>
-                        </div>            
+                        </div>       
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-card mb-3 card">
@@ -27,26 +28,27 @@ $des = "";
                                         <h5 class="card-title">{{ $judul }}</h5>
                                         <table>
                                             <tr>
-                                                <td style="width: 80px;">Visi</td>
+                                                <td style="width: 100px;">OPD</td>
                                                 <td style="width: 10px;">:</td>
-                                                <td><?=@$dataAsal->rpjmd_visi?></td>
+                                                <td><?=@$dataAsal->opd_nama?></td>
                                             </tr>
                                             <tr>
-                                                <td>Misi</td>
+                                                <td>Program</td>
                                                 <td>:</td>
-                                                <td><?=@$dataAsal->rpjmd_misi_nama?></td>
+                                                <td><?=@$dataAsal->rkpd_penetapan_program_nama?$dataAsal->rkpd_penetapan_program_nama:@$dataAsal->rkpd_perubahan_program_nama?></td>
                                             </tr>
                                             <tr>
-                                                <td>Tujuan</td>
+                                                <td>Kegiatan</td>
                                                 <td>:</td>
-                                                <td><?=@$dataAsal->rpjmd_tujuan_nama?></td>
+                                                <td><?=@$dataAsal->rkpd_penetapan_kegiatan_nama?$dataAsal->rkpd_penetapan_kegiatan_nama:@$dataAsal->rkpd_perubahan_kegiatan_nama?></td>
                                             </tr>
-                                            <tr>
-                                                <td>Sasaran</td>
+                                            <!-- <tr>
+                                                <td>Sub Kegiatan</td>
                                                 <td>:</td>
-                                                <td><?=@$dataAsal->rpjmd_sasaran_nama?></td>
-                                            </tr>
+                                                <td><?=@$dataAsal->rkpd_penetapan_sub_kegiatan_nama?$dataAsal->rkpd_penetapan_sub_kegiatan_nama:@$dataAsal->rkpd_perubahan_sub_kegiatan_nama?></td>
+                                            </tr> -->
                                         </table>
+                                        <br>
                                         <div class="app-page-title" style="padding:0px; margin: 0px">
                                             <div class="page-title-wrapper">
                                                 <div class="page-title-actions">
@@ -60,10 +62,17 @@ $des = "";
                                             <table class="mb-0 table"  id="table-data">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>OPD</th>
-                                                        <th>Sasaran Indikator</th>
-                                                        <th>Aksi</th>
+                                                        <th width="10">#</th>
+                                                        <th width="100">Kode</th>
+                                                        <th>Triwulan</th>
+                                                        <th>Kinerja</th>
+                                                        <!-- <th>Anggaran</th> -->
+                                                        <th>Realisasi</th>
+                                                        <th>Fisik</th>
+                                                        <th>Pelaksana</th>
+                                                        <th>Lokasi</th>
+                                                        <th>Sumber Dana</th>
+                                                        <th width="70">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -94,15 +103,48 @@ $des = "";
             </div>
             <div class="modal-body">
                 <form id="form-data">
-                    <input type="hidden" name="kode">
-                    <div class="position-relative form-group">
-                        <label>OPD</label>
-                        <select class="form-control" name="opd" required>
-                            <option value="">-= Pilih OPD =-</option>
-                            @foreach($dataOpd as $row)
-                            <option value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
-                            @endforeach
-                        </select>
+                    <input type="hidden" name="kode" value="{{ $kode }}">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="position-relative form-group col-sm-12">
+                            <label>Triwulan</label>
+                            <select class="form-control" name="rkpd_penetapan_triwulan_ke" required>
+                                <option value="">-= Pilih Triwulan =-</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Kinerja</label>
+                            <input name="rkpd_penetapan_triwulan_capaian_kinerja" type="text" class="form-control" required>
+                        </div>
+                        <!-- <div class="position-relative form-group col-sm-6">
+                            <label>Anggaran</label>
+                            <input name="rpjmd_triwulan_anggaran" type="number" class="form-control" required>
+                        </div> -->
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Realisasi</label>
+                            <input name="rkpd_penetapan_triwulan_capaian_realisasi" type="number" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Fisik</label>
+                            <input name="rkpd_penetapan_triwulan_fisik" type="text" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Pelaksana</label>
+                            <input name="rkpd_penetapan_triwulan_pelaksana" type="text" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Lokasi</label>
+                            <input name="rkpd_penetapan_triwulan_lokasi" type="text" class="form-control" required>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Sumber Dana</label>
+                            <input name="rkpd_penetapan_triwulan_sumber_dana" type="text" class="form-control" required>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -114,7 +156,6 @@ $des = "";
     </div>
 </div>
 
-
 <script type="text/javascript">
 
     $(document).ready(function() {
@@ -123,9 +164,10 @@ $des = "";
     var dataAll;
     var dataPilih;
     var kode = '{{ $kode }}';
+    var kodeAwal = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'opd-rpjmd';
+    var link = 'rkpd-penetapan-triwulan';
     var page = 1;
     getData();
     
@@ -134,7 +176,7 @@ $des = "";
         let url = base_url+link+"/get-data";
         let data = {
             page : page,
-            kode : kode,
+            kode : kodeAwal,
         }
         $.when(sendAjax(url, data)).done(function(respon){
             if(respon.status){
@@ -149,19 +191,29 @@ $des = "";
     function setTable(data){
         myTable.clear().draw();
         no = 1;
-        let kodeOneData;
+        let kodeOneData, kodeTampil;
         data.forEach(element => {
-            
+
             kodeOneData = element['kota_kode']
-                        +'-'+element['rpjmd_kode']
-                        +'-'+element['rpjmd_misi_kode']
-                        +'-'+element['rpjmd_tujuan_kode']
-                        +'-'+element['rpjmd_sasaran_kode']
-                        +'-'+element['opd_kode'];
+                        +"-"+element['opd_kode']
+                        +"-"+element['rpjmd_kode']
+                        +"-"+element['rkpd_penetapan_program_tahun']
+                        +"-"+element['rkpd_penetapan_program_kode']
+                        +"-"+element['rkpd_penetapan_kegiatan_kode']
+                        +"-"+element['rkpd_penetapan_triwulan_ke'];
+
+            kodeTampil = kodeOneData;
+            
             tempData = [
                 no,
-                '<a href="{{ url("") }}/program/'+kodeOneData+'">'+element['opd_nama']+'</a>',
-                '<a class="btn btn-info" href="{{ url("") }}/sasaran-indikator/'+kodeOneData+'"><i class="fa fa-search"></i></a>',
+                kodeTampil,
+                element['rkpd_penetapan_triwulan_ke'],
+                element['rkpd_penetapan_triwulan_capaian_kinerja'],
+                element['rkpd_penetapan_triwulan_capaian_realisasi'],
+                element['rkpd_penetapan_triwulan_fisik'],
+                element['rkpd_penetapan_triwulan_pelaksana'],
+                element['rkpd_penetapan_triwulan_lokasi'],
+                element['rkpd_penetapan_triwulan_sumber_dana'],
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
@@ -175,11 +227,13 @@ $des = "";
         setKode = id.split("-");
         dataAll.forEach(element => {
             if(setKode[0] == element['kota_kode'] 
-            && setKode[1] == element['rpjmd_kode']
-            && setKode[2] == element['rpjmd_misi_kode']
-            && setKode[3] == element['rpjmd_tujuan_kode']
-            && setKode[4] == element['rpjmd_sasaran_kode'] 
-            && setKode[5] == element['opd_kode'] ){
+            && setKode[1] == element['opd_kode']
+            && setKode[2] == element['rpjmd_kode']
+            && setKode[3] == element['program_kode']
+            && setKode[4] == element['kegiatan_kode'] 
+            && setKode[5] == element['rpjmd_triwulan_jenis'] 
+            && setKode[6] == element['rpjmd_triwulan_tahun'] 
+            && setKode[7] == element['rpjmd_triwulan_ke'] ){
                 dataPilih = element;
                 kode = id;
             }
@@ -189,8 +243,14 @@ $des = "";
 
     function setForm(data){
         $("input[name='kode']").val(kode);
-        $("input[name='rpjmd_program_nama']").val(data['rpjmd_program_nama']);
-        
+        $("select[name='rpjmd_triwulan_ke']").val(data['rpjmd_triwulan_ke']);
+        $("input[name='rpjmd_triwulan_capaian_kinerja']").val(data['rpjmd_triwulan_capaian_kinerja']);
+        $("input[name='rpjmd_triwulan_anggaran']").val(data['rpjmd_triwulan_anggaran']);
+        $("input[name='rpjmd_triwulan_capaian_realisasi']").val(data['rpjmd_triwulan_capaian_realisasi']);
+        $("input[name='rpjmd_triwulan_fisik']").val(data['rpjmd_triwulan_fisik']);
+        $("input[name='rpjmd_triwulan_pelaksana']").val(data['rpjmd_triwulan_pelaksana']);
+        $("input[name='rpjmd_triwulan_lokasi']").val(data['rpjmd_triwulan_lokasi']);
+        $("input[name='rpjmd_triwulan_sumber_dana']").val(data['rpjmd_triwulan_sumber_dana']);
     }
 
     function setCreate(){
@@ -238,7 +298,6 @@ $des = "";
     function myModalHide(){
         $('.close').click(); 
     }
-
 
 </script>
 

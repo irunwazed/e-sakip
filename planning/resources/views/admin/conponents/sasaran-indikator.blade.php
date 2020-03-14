@@ -15,7 +15,7 @@ $des = "";
                                     </div>
                                 </div>
                                 <div class="page-title-actions">
-                                    <a href="{{ url('') }}/sasaran/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
+                                    <a href="{{ url('') }}/opd-rpjmd/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
                                 </div>
@@ -26,6 +26,33 @@ $des = "";
                                 <div class="main-card mb-3 card">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $judul }}</h5>
+                                        <table>
+                                            <tr>
+                                                <td style="width: 80px;">Visi</td>
+                                                <td style="width: 10px;">:</td>
+                                                <td><?=@$dataAsal->rpjmd_visi?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misi</td>
+                                                <td>:</td>
+                                                <td><?=@$dataAsal->rpjmd_misi_nama?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tujuan</td>
+                                                <td>:</td>
+                                                <td><?=@$dataAsal->rpjmd_tujuan_nama?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sasaran</td>
+                                                <td>:</td>
+                                                <td><?=@$dataAsal->rpjmd_sasaran_nama?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>OPD</td>
+                                                <td>:</td>
+                                                <td><?=@$dataAsal->opd_nama?></td>
+                                            </tr>
+                                        </table>
                                         <div class="app-page-title" style="padding:0px; margin: 0px">
                                             <div class="page-title-wrapper">
                                                 <div class="page-title-actions">
@@ -41,6 +68,7 @@ $des = "";
                                                     <tr>
                                                         <th rowspan="2">#</th>
                                                         <th rowspan="2">Indikator</th>
+                                                        <th rowspan="2">Formula</th>
                                                         <th rowspan="2">Satuan</th>
                                                         <th colspan="5">Target</th>
                                                         <th colspan="5">Realisasi</th>
@@ -88,9 +116,19 @@ $des = "";
             <div class="modal-body">
                 <form id="form-data">
                     <input type="hidden" name="kode">
-                    <div class="position-relative form-group">
-                        <label>Sasaran Indikator</label>
-                        <input name="rpjmd_sasaran_indikator_nama" type="text" class="form-control" required>
+                    <div class="row">
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Indikator</label>
+                            <textarea name="rpjmd_sasaran_indikator_nama" class="form-control" required></textarea>
+                        </div>
+                        <div class="position-relative form-group col-sm-6">
+                            <label>Formula</label>
+                            <textarea name="rpjmd_sasaran_indikator_formula" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                    <div class="position-relative form-group row">
+                        <label class="col-sm-1">IKU</label>
+                        <input name="rpjmd_sasaran_indikator_iku_status" type="checkbox" class="form-control col-sm-1">
                     </div>
                     <div class="position-relative form-group">
                         <label>Satuan</label>
@@ -101,49 +139,45 @@ $des = "";
                             @endforeach
                         </select>
                     </div>
-                    <div class="position-relative form-group row">
-                        <label class="col-sm-1">IKU</label>
-                        <input name="rpjmd_sasaran_indikator_iku_status" type="checkbox" class="form-control col-sm-1">
-                    </div>
                     <div class="position-relative form-group">
                         <label>Target Tahun I</label>
-                        <input name="rpjmd_sasaran_indikator_target_th1" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th1_target_kinerja" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Target Tahun II</label>
-                        <input name="rpjmd_sasaran_indikator_target_th2" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th2_target_kinerja" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Target Tahun III</label>
-                        <input name="rpjmd_sasaran_indikator_target_th3" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th3_target_kinerja" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Target Tahun IV</label>
-                        <input name="rpjmd_sasaran_indikator_target_th4" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th4_target_kinerja" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Target Tahun V</label>
-                        <input name="rpjmd_sasaran_indikator_target_th5" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th5_target_kinerja" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Realisasi Tahun I</label>
-                        <input name="rpjmd_sasaran_indikator_realisasi_th1" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th1_target_realisasi" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Realisasi Tahun II</label>
-                        <input name="rpjmd_sasaran_indikator_realisasi_th2" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th2_target_realisasi" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Realisasi Tahun III</label>
-                        <input name="rpjmd_sasaran_indikator_realisasi_th3" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th3_target_realisasi" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Realisasi Tahun IV</label>
-                        <input name="rpjmd_sasaran_indikator_realisasi_th4" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th4_target_realisasi" type="text" class="form-control" required>
                     </div>
                     <div class="position-relative form-group">
                         <label>Realisasi Tahun V</label>
-                        <input name="rpjmd_sasaran_indikator_realisasi_th5" type="text" class="form-control" required>
+                        <input name="rpjmd_sasaran_indikator_th5_target_realisasi" type="text" class="form-control" required>
                     </div>
                 </form>
             </div>
@@ -198,21 +232,23 @@ $des = "";
                         +'-'+element['rpjmd_misi_kode']
                         +'-'+element['rpjmd_tujuan_kode']
                         +'-'+element['rpjmd_sasaran_kode']
+                        +'-'+element['opd_kode']
                         +'-'+element['rpjmd_sasaran_indikator_kode'];
             tempData = [
                 no,
-                '<a href="'+base_url+'sasaran-indikator-triwulan/'+kodeOneData+'">'+element['rpjmd_sasaran_indikator_nama']+'</a>',
+                element['rpjmd_sasaran_indikator_nama'],
+                element['rpjmd_sasaran_indikator_formula'],
                 element['satuan_nama'],
-                element['rpjmd_sasaran_indikator_target_th1'],
-                element['rpjmd_sasaran_indikator_target_th2'],
-                element['rpjmd_sasaran_indikator_target_th3'],
-                element['rpjmd_sasaran_indikator_target_th4'],
-                element['rpjmd_sasaran_indikator_target_th5'],
-                element['rpjmd_sasaran_indikator_realisasi_th1'],
-                element['rpjmd_sasaran_indikator_realisasi_th2'],
-                element['rpjmd_sasaran_indikator_realisasi_th3'],
-                element['rpjmd_sasaran_indikator_realisasi_th4'],
-                element['rpjmd_sasaran_indikator_realisasi_th5'],
+                element['rpjmd_sasaran_indikator_th1_target_kinerja'],
+                element['rpjmd_sasaran_indikator_th2_target_kinerja'],
+                element['rpjmd_sasaran_indikator_th3_target_kinerja'],
+                element['rpjmd_sasaran_indikator_th4_target_kinerja'],
+                element['rpjmd_sasaran_indikator_th5_target_kinerja'],
+                element['rpjmd_sasaran_indikator_th1_target_realisasi'],
+                element['rpjmd_sasaran_indikator_th2_target_realisasi'],
+                element['rpjmd_sasaran_indikator_th3_target_realisasi'],
+                element['rpjmd_sasaran_indikator_th4_target_realisasi'],
+                element['rpjmd_sasaran_indikator_th5_target_realisasi'],
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
@@ -230,7 +266,8 @@ $des = "";
             && setKode[2] == element['rpjmd_misi_kode']
             && setKode[3] == element['rpjmd_tujuan_kode']
             && setKode[4] == element['rpjmd_sasaran_kode'] 
-            && setKode[5] == element['rpjmd_sasaran_indikator_kode'] ){
+            && setKode[5] == element['opd_kode'] 
+            && setKode[6] == element['rpjmd_sasaran_indikator_kode'] ){
                 dataPilih = element;
                 kode = id;
             }
@@ -239,21 +276,22 @@ $des = "";
     }
 
     function setForm(data){
-        $("input[name='kode']").val(kode);
-        $("input[name='rpjmd_sasaran_indikator_nama']").val(data['rpjmd_sasaran_indikator_nama']);
-        $("select[name='id_satuan']").val(data['id_satuan']);
-        $("input[name='rpjmd_sasaran_indikator_target_th1']").val(data['rpjmd_sasaran_indikator_target_th1']);
-        $("input[name='rpjmd_sasaran_indikator_target_th2']").val(data['rpjmd_sasaran_indikator_target_th2']);
-        $("input[name='rpjmd_sasaran_indikator_target_th3']").val(data['rpjmd_sasaran_indikator_target_th3']);
-        $("input[name='rpjmd_sasaran_indikator_target_th4']").val(data['rpjmd_sasaran_indikator_target_th4']);
-        $("input[name='rpjmd_sasaran_indikator_target_th5']").val(data['rpjmd_sasaran_indikator_target_th5']);
-        $("input[name='rpjmd_sasaran_indikator_realisasi_th1']").val(data['rpjmd_sasaran_indikator_realisasi_th1']);
-        $("input[name='rpjmd_sasaran_indikator_realisasi_th2']").val(data['rpjmd_sasaran_indikator_realisasi_th2']);
-        $("input[name='rpjmd_sasaran_indikator_realisasi_th3']").val(data['rpjmd_sasaran_indikator_realisasi_th3']);
-        $("input[name='rpjmd_sasaran_indikator_realisasi_th4']").val(data['rpjmd_sasaran_indikator_realisasi_th4']);
-        $("input[name='rpjmd_sasaran_indikator_realisasi_th5']").val(data['rpjmd_sasaran_indikator_realisasi_th5']);
         
-
+        $("input[name='kode']").val(kode);
+        $("textarea[name='rpjmd_sasaran_indikator_nama']").val(data['rpjmd_sasaran_indikator_nama']);
+        $("textarea[name='rpjmd_sasaran_indikator_formula']").val(data['rpjmd_sasaran_indikator_formula']);
+        $("select[name='id_satuan']").val(data['id_satuan']);
+        $("input[name='rpjmd_sasaran_indikator_th1_target_kinerja']").val(data['rpjmd_sasaran_indikator_th1_target_kinerja']);
+        $("input[name='rpjmd_sasaran_indikator_th2_target_kinerja']").val(data['rpjmd_sasaran_indikator_th2_target_kinerja']);
+        $("input[name='rpjmd_sasaran_indikator_th3_target_kinerja']").val(data['rpjmd_sasaran_indikator_th3_target_kinerja']);
+        $("input[name='rpjmd_sasaran_indikator_th4_target_kinerja']").val(data['rpjmd_sasaran_indikator_th4_target_kinerja']);
+        $("input[name='rpjmd_sasaran_indikator_th5_target_kinerja']").val(data['rpjmd_sasaran_indikator_th5_target_kinerja']);
+        $("input[name='rpjmd_sasaran_indikator_th1_target_realisasi']").val(data['rpjmd_sasaran_indikator_th1_target_realisasi']);
+        $("input[name='rpjmd_sasaran_indikator_th2_target_realisasi']").val(data['rpjmd_sasaran_indikator_th2_target_realisasi']);
+        $("input[name='rpjmd_sasaran_indikator_th3_target_realisasi']").val(data['rpjmd_sasaran_indikator_th3_target_realisasi']);
+        $("input[name='rpjmd_sasaran_indikator_th4_target_realisasi']").val(data['rpjmd_sasaran_indikator_th4_target_realisasi']);
+        $("input[name='rpjmd_sasaran_indikator_th5_target_realisasi']").val(data['rpjmd_sasaran_indikator_th5_target_realisasi']);
+        
         if(data['rpjmd_sasaran_indikator_iku_status'] == '1'){
             $("input[name='rpjmd_sasaran_indikator_iku_status']").attr('checked', true);
         }else{

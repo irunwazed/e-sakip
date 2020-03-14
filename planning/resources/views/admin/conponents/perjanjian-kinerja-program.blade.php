@@ -1,7 +1,7 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Data Program";
+$judul = "Perjanjian Kinerja ".(@$dataAsal->rpjmd_tahun+session("tahun")-1);
 $des = "";
 ?>
                     
@@ -14,11 +14,11 @@ $des = "";
                                         </div>
                                     </div>
                                 </div>
-                                <div class="page-title-actions">
+                                <!-- <div class="page-title-actions">
                                     <a href="{{ url('') }}/opd-rpjmd/{{ $kode }}" data-toggle="tooltip" title="Kembali" data-placement="bottom" class="btn-shadow mr-3 btn btn-info">
                                         <i class="fa fa-reply"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="row">
@@ -41,7 +41,6 @@ $des = "";
                                                 <div class="position-relative form-group col-sm-2">
                                                     <button type="submit" class="btn btn-primary" form="form-rpjmd">Ubah</button>
                                                 </div>
-                                                
                                             </div>            
                                         </form>
                                         <form id="form-tahun" action="{{ url('') }}/set-data/tahun" method="POST">
@@ -74,6 +73,7 @@ $des = "";
                                                 <div class="position-relative form-group col-sm-2">
                                                     <button type="submit" class="btn btn-primary" form="form-opd">Ubah</button>
                                                 </div>
+                                                
                                             </div>            
                                         </form>
                                     </div>
@@ -105,26 +105,12 @@ $des = "";
                                             <table class="mb-0 table"  id="table-data">
                                                 <thead>
                                                     <tr>
-                                                        <th rowspan="3" width="10">#</th>
-                                                        <th rowspan="3" width="70">Kode</th>
-                                                        <th rowspan="3">Program</th>
-                                                        <th rowspan="3">Indikator</th>
-                                                        <th rowspan="3">Formula</th>
-                                                        <th rowspan="3">Satuan</th>
-                                                        <th colspan="4">Target Tahun</th>
-                                                        <th rowspan="3">Catatan</th>
-                                                        <th rowspan="3">IKU</th>
-                                                        <th rowspan="3" width="70">Aksi</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th colspan="2">Penetapan</th>
-                                                        <th colspan="2">Perubahan</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>K</th>
-                                                        <th>R</th>
-                                                        <th>K</th>
-                                                        <th>R</th>
+                                                        <th width="10">#</th>
+                                                        <th width="70">Kode</th>
+                                                        <th>Sasaran Program</th>
+                                                        <th>Level</th>
+                                                        <th>Indikator</th>
+                                                        <th width="70">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -158,66 +144,22 @@ $des = "";
                     <input type="hidden" name="kode">
                     <div class="row">
                         <div class="position-relative form-group col-sm-3">
-                            <label>Kode Program</label>
-                            <input name="rkpd_penetapan_program_kode" type="number" class="form-control" required>
+                            <label>Kode Sasaran Program</label>
+                            <input name="perjanjian_kinerja_program_kode" type="number" class="form-control" required>
                         </div>
                     </div>
                     <div class="position-relative form-group">
-                        <label>Program</label>
-                        <input name="rkpd_penetapan_program_nama" type="text" class="form-control" required>
-                    </div><div class="row">
-                        <div class="position-relative form-group col-sm-6">
-                            <label>Indikator</label>
-                            <textarea name="rkpd_penetapan_program_indikator_nama" class="form-control" required></textarea>
-                        </div>
-                        <div class="position-relative form-group col-sm-6">
-                            <label>Formula</label>
-                            <textarea name="rkpd_penetapan_program_indikator_formula" class="form-control" required></textarea>
-                        </div>
+                        <label>Sasaran Program</label>
+                        <input name="perjanjian_kinerja_program_nama" type="text" class="form-control" required>
                     </div>
-                    
-                    <div class="row">
-                        <div class="position-relative form-group col-sm-3">
-                            <label>Satuan</label>
-                            <select class="form-control" name="id_satuan" value="1" required>
-                                <option value="">-= Pilih Satuan =-</option>
-                                @foreach($dataSatuan as $row)
-                                <option value="{{ $row->id_satuan }}">{{ $row->satuan_nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="position-relative form-group">
-                                <label>Target Kinerja</label>
-                                <input name="rkpd_penetapan_program_indikator_target_kinerja" type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="position-relative form-group">
-                                <label>Target Realisasi</label>
-                                <input name="rkpd_penetapan_program_indikator_target_realisasi" type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="position-relative form-group">
-                                <label>Target Kinerja Perubahan</label>
-                                <input name="rkpd_penetapan_program_indikator_target_kinerja_perubahan" type="text" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="position-relative form-group">
-                                <label>Target Realisasi Perubahan</label>
-                                <input name="rkpd_penetapan_program_indikator_target_realisasi_perubahan" type="text" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
                     <div class="position-relative form-group">
-                        <label>Catatan</label>
-                        <textarea name="rkpd_penetapan_program_ket" type="text" class="form-control" required></textarea>
+                        <label>Jenis Perjanjian Kinerja</label>
+                        <select class="form-control" name="perjanjian_kinerja_program_level" required>
+                            <option value="">-= Pilih Jenis Perjanjian Kinerja =-</option>
+                            <option value="1">Kepala Dinas</option>
+                            <option value="2">Sekretaris</option>
+                            <option value="3">Kepala Bidang</option>
+                        </select>
                     </div>
                 </form>
             </div>
@@ -239,7 +181,7 @@ $des = "";
     var kode = '{{ $kode }}';
     var myTable = $('#table-data').DataTable();
     var formData = $('#form-data');
-    var link = 'rkpd-tetap-program';
+    var link = 'perjanjian-kinerja-program';
     var page = 1;
     getData();
     
@@ -269,29 +211,28 @@ $des = "";
             kodeOneData = element['kota_kode']
                         +'-'+element['opd_kode']
                         +'-'+element['rpjmd_kode']
-                        +'-'+element['rkpd_penetapan_program_tahun']
-                        +'-'+element['rkpd_penetapan_program_kode'];
+                        +'-'+element['perjanjian_kinerja_program_kode']
+                        +'-'+element['perjanjian_kinerja_program_tahun']
+                        +'-'+element['perjanjian_kinerja_program_level'];
 
-            kodeTampil = element['rkpd_penetapan_program_kode'];
+            kodeTampil = element['perjanjian_kinerja_program_kode'];
 
-            iku = "Tidak";
-            if(element['rkpd_penetapan_program_iku'] == 1){
-                iku = "Ya";
+            level = element['perjanjian_kinerja_program_level'];
+            levelName = "";
+            if(level == 1){
+                levelName = "Kepala Dinas";
+            }else if(level == 2){
+                levelName = "Sekretaris";
+            }else if(level == 3){
+                levelName = "Kepala Bidang";
             }
             
             tempData = [
                 no,
                 kodeTampil,
-                '<a href="{{ url("") }}/rkpd-penetapan-kegiatan/'+kodeOneData+'">'+element['rkpd_penetapan_program_nama']+'</a>',
-                element['rkpd_penetapan_program_indikator_nama'],
-                element['rkpd_penetapan_program_indikator_formula'],
-                element['satuan_nama'],
-                element['rkpd_penetapan_program_indikator_target_kinerja'],
-                element['rkpd_penetapan_program_indikator_target_realisasi'],
-                element['rkpd_penetapan_program_indikator_target_kinerja_perubahan'],
-                element['rkpd_penetapan_program_indikator_target_realisasi_perubahan'],
-                element['rkpd_penetapan_program_ket'],
-                iku,
+                element['perjanjian_kinerja_program_nama'],
+                levelName,
+                '<a class="btn btn-info" href="{{ url("") }}/perjanjian-kinerja-program-indikator/'+kodeOneData+'"><i class="fa fa-search"></i></a>',
                 '<a class="btn btn-info"  href="#" onclick="setUpdate(\''+kodeOneData+'\')" data-toggle="modal" data-target="#modal-form" ><i class="fa fa-edit"></i></a>'+
                 '<a class="btn btn-danger"  href="#"  data-setFunction="doDelete(\''+kodeOneData+'\')" data-judul="Hapus Data!" data-isi="Apakah anda yakin menghapus data?" onclick="setPesan(this)" data-toggle="modal" data-target="#modal-pesan"><i class="fa fa-trash"></i></a>',
             ]
@@ -307,8 +248,9 @@ $des = "";
             if(setKode[0] == element['kota_kode'] 
             && setKode[1] == element['opd_kode']
             && setKode[2] == element['rpjmd_kode']
-            && setKode[3] == element['rkpd_penetapan_program_tahun']
-            && setKode[4] == element['rkpd_penetapan_program_kode'] ){
+            && setKode[3] == element['perjanjian_kinerja_program_kode']
+            && setKode[4] == element['perjanjian_kinerja_program_tahun']
+            && setKode[5] == element['perjanjian_kinerja_program_level'] ){
                 dataPilih = element;
                 kode = id;
             }
@@ -318,16 +260,9 @@ $des = "";
 
     function setForm(data){
         $("input[name='kode']").val(kode);
-        $("input[name='rkpd_penetapan_program_kode']").val(data['rkpd_penetapan_program_kode']);
-        $("input[name='rkpd_penetapan_program_nama']").val(data['rkpd_penetapan_program_nama']);
-        $("textarea[name='rkpd_penetapan_program_ket']").val(data['rkpd_penetapan_program_ket']);
-        $("textarea[name='rkpd_penetapan_program_indikator_nama']").val(data['rkpd_penetapan_program_indikator_nama']);
-        $("textarea[name='rkpd_penetapan_program_indikator_formula']").val(data['rkpd_penetapan_program_indikator_formula']);
-        $("select[name='id_satuan']").val(data['id_satuan']);
-        $("input[name='rkpd_penetapan_program_indikator_target_kinerja']").val(data['rkpd_penetapan_program_indikator_target_kinerja']);
-        $("input[name='rkpd_penetapan_program_indikator_target_realisasi']").val(data['rkpd_penetapan_program_indikator_target_realisasi']);
-        $("input[name='rkpd_penetapan_program_indikator_target_kinerja_perubahan']").val(data['rkpd_penetapan_program_indikator_target_kinerja_perubahan']);
-        $("input[name='rkpd_penetapan_program_indikator_target_realisasi_perubahan']").val(data['rkpd_penetapan_program_indikator_target_realisasi_perubahan']);
+        $("input[name='perjanjian_kinerja_program_kode']").val(data['perjanjian_kinerja_program_kode']);
+        $("select[name='perjanjian_kinerja_program_level']").val(data['perjanjian_kinerja_program_level']);
+        $("input[name='perjanjian_kinerja_program_nama']").val(data['perjanjian_kinerja_program_nama']);
     }
 
     function setCreate(){
