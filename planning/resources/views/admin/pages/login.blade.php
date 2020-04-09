@@ -5,33 +5,33 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{!! asset('public/template/login') !!}/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="/template/login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/vendor/animate/animate.css">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/css/util.css">
-	<link rel="stylesheet" type="text/css" href="{!! asset('public/template/login') !!}/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/template/login/css/main.css">
 <!--===============================================================================================-->
 </head>
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('{!! asset('public/template/login') !!}/images/img-01.jpg');">
+		<div class="container-login100" style="background-image: url('/template/login/images/img-01.jpg');">
 			<div class="wrap-login100 p-t-190 p-b-30">
 				<form class="login100-form validate-form" action="{{ url('masuk') }}" method="POST">
                 {{ csrf_field() }}
 					<div class="login100-form-avatar" style="border-radius: 5%;max-width: 25%">
-						<!-- <img src="{!! asset('public') !!}/images/logo.png" alt="AVATAR"> -->
+						<img src="/images/logo.png" alt="AVATAR">
 					</div>
 
 					<span class="login100-form-title p-t-20 p-b-45">
@@ -81,14 +81,14 @@
 
 	
 <!--===============================================================================================-->	
-	<script src="{!! asset('public/template/login') !!}/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/template/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="{!! asset('public/template/login') !!}/vendor/bootstrap/js/popper.js"></script>
-	<script src="{!! asset('public/template/login') !!}/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/template/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="/template/login/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="{!! asset('public/template/login') !!}/vendor/select2/select2.min.js"></script>
+	<script src="/template/login/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="{!! asset('public/template/login') !!}/js/main.js"></script>
+	<script src="/template/login/js/main.js"></script>
 
 </body>
 </html>

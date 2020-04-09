@@ -1,7 +1,7 @@
 @extends('admin.layout.index')
 @section('content') 
 <?php
-$judul = "Laporan";
+$judul = "Laporan Anggaran";
 $des = "";
 ?>
                     
@@ -49,13 +49,20 @@ $des = "";
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $judul }}</h5>
                                         <form action="" method="POST" target="_blank">
-                                        {!! csrf_field() !!}
+                                            {!! csrf_field() !!}
                                             <input type="hidden" name="kode">
                                             <div class="row">
                                                 <div class="position-relative form-group col-sm-2">
-                                                    <label>Renstra</label>
+                                                    <label>Triwulan</label>
+                                                    <select class="form-control" name="triwulan" required>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
                                                 </div>
                                                 <div class="position-relative form-group col-sm-2">
+                                                    <label>Cetak</label>
                                                     <select class="form-control" name="cetak" required>
                                                         <option value="1">Print</option>
                                                         <option value="2">PDF</option>
@@ -77,57 +84,6 @@ $des = "";
 
 @section('script') 
 
-
-<!-- Large modal -->
-<div class="modal fade bd-example-modal-lg" id="modal-form" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Form {{ $judul }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" form="form-data">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
-        
-    } );
-    
-    var link = 'laporan/renstra';
-
-    function loadLaporan1(){
-        let val = $('select[name="laporan"]').val();
-
-
-        let tahun = $('select[name="tahun"]').val();
-        let url = base_url+link;
-        let data = {
-            laporan : val,
-            tahun : tahun,
-        }
-        $.when(sendAjax(url, data)).done(function(respon){
-            setLaporan(respon.data)
-        });
-    }
-
-    function setLaporan(data){
-        $('#laporan-daftar').html(data);
-    }
-
-
-</script>
 
 
 @endsection

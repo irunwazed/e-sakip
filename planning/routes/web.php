@@ -203,11 +203,25 @@ Route::group(['middleware' => ['checklogin']], function () {
 
     
     Route::get('/laporan/renstra', 'LaporanRenstraController@index');
+    
+    Route::get('/laporan/iku', 'LaporanIKUController@index');
+    
+    Route::get('/laporan/perjanjian-kinerja', 'LaporanPerjanjianKinerjaController@index');
+    
+    Route::get('/laporan/renja', 'LaporanRenjaController@index');
+    
+    Route::get('/laporan/anggaran', 'LaporanAnggaranController@index');
 
 });
 
-Route::post('/laporan', 'LaporanController@loadLaporan');
+
 Route::post('/laporan/renstra', 'LaporanRenstraController@loadLaporan');
+Route::post('/laporan/iku', 'LaporanIKUController@loadLaporan');
+Route::post('/laporan/perjanjian-kinerja', 'LaporanPerjanjianKinerjaController@loadLaporan');
+Route::post('/laporan/renja', 'LaporanRenjaController@loadLaporan');
+Route::post('/laporan/anggaran', 'LaporanAnggaranController@loadLaporan');
+
+Route::post('/laporan', 'LaporanController@loadLaporan');
 
 
 Route::get('/masuk', 'PublicController@login');

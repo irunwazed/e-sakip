@@ -9,20 +9,20 @@
     <meta name="author" content="Template Mo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
-    <!-- <title>E-SAKIP | Konawe Kepulauan</title> -->
+    <title>E-SAKIP | Konawe Kepulauan</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" type="text/css" href="{!! asset('public/template/awal') !!}/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{!! asset('public/template/awal') !!}/assets/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="{!! asset('public/template/awal') !!}/assets/css/templatemo-art-factory.css">
-    <link rel="stylesheet" type="text/css" href="{!! asset('public/template/awal') !!}/assets/css/owl-carousel.css">
+    <link rel="stylesheet" type="text/css" href="/template/awal/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/template/awal/assets/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/template/awal/assets/css/templatemo-art-factory.css">
+    <link rel="stylesheet" type="text/css" href="/template/awal/assets/css/owl-carousel.css">
 
     
     <!-- toast -->
-    <link href="{!! asset('public/template/admin/assets/js') !!}/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
+    <link href="/template/admin/assets/js/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{!! asset('public/template/admin/assets/js') !!}/toastr/toastr.js"></script>
+    <script src="/template/admin/assets/js/toastr/toastr.js"></script>
     <style>
     
     .my-button {
@@ -55,7 +55,7 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="#" class="logo">
-                            <!-- <img src="{!! asset('public') !!}/images/logo.png" alt="logo" style="width:5%;"> -->
+                            <!-- <img src="/images/logo.png" alt="logo" style="width:5%;"> -->
                             E-SAKIP
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -91,7 +91,7 @@
                         <a href="#about" class="main-button-slider">Cari tahu!</a>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                        <img src="{!! asset('public/template/awal') !!}/assets/images/slider-icon.png" class="rounded img-fluid d-block mx-auto" alt="First Vector Graphic">
+                        <img src="/template/awal/assets/images/slider-icon.png" class="rounded img-fluid d-block mx-auto" alt="First Vector Graphic">
                     </div>
                 </div>
             </div>
@@ -106,10 +106,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                    <img src="{!! asset('public/template/awal') !!}/assets/images/left-image.png" class="rounded img-fluid d-block mx-auto" alt="App">
+                    <img src="/template/awal/assets/images/left-image.png" class="rounded img-fluid d-block mx-auto" alt="App">
                     <div style="position: absolute; top: 30px;">
                     <!-- <div class="rounded img-fluid d-block mx-auto"> -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-4">
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="right-text col-lg-5 col-md-12 col-sm-12 mobile-top-fix">
@@ -157,7 +157,7 @@
                     </div>
                     <div class="left-text">
                         <p>Kegiatan adalah bagian dari program yang dilaksanakan oleh satu atau beberapa satuan kerja pada kementerian negara/lembaga atau unit kerja pada SKPD sebagai bagian dari pencapaian sasaran terukur pada suatu program dan terdiri dari sekumpulan tindakan pengerahan sumber daya baik yang berupa personil (sumber daya manusia), barang modal termasuk peralatan dan teknologi, dana, atau kombinasi dari beberapa atau kesemua jenis sumber daya tersebut sebagai masukan (input) untuk menghasilkan keluaran (output) dalam bentuk barang/jasa.</p>
-                        <a href="#laporan" class="main-button">Lihat Laporan</a>
+                        <a href="{{ url('masuk') }}" class="main-button">Lihat Laporan</a>
                     </div>
                 </div>
             </div>
@@ -178,33 +178,109 @@
                     <div class="left-heading">
                         <h5>Laporan</h5>
                     </div>
-                    <div class="row">
-                        <div class="position-relative form-group col-sm-4">
-                            <label>Laporan</label>
-                            <select class="form-control" name="laporan" required>
-                                <option value="1">Perencanaan Kinerja</option>
-                                <option value="2">Pengukuran Kinerja</option>
-                                <option value="3">Pelaporan Kinerja</option>
-                                <option value="4">Evaluasi Kinerja</option>
-                            </select>
+                    <form action="/#olah-laporan">
+                        <div class="row">
+                            <div class="position-relative form-group col-sm-3">
+                                <label>OPD </label>
+                                <select class="form-control" name="opd" required>
+                                    @foreach(@$dataOpd as $row)
+                                    <option  <?=@session('kota_kode').'-'.@session('opd_kode')==$row->kota_kode.'-'.$row->opd_kode?'selected':''?> value="{{ $row->kota_kode.'-'.$row->opd_kode }}">{{ $row->opd_nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="position-relative form-group col-sm-3">
+                                <label>Laporan</label>
+                                <select class="form-control" name="laporan" required>
+                                    <option <?=@$_GET['laporan']==1?'selected':''?> value="1">Renstra</option>
+                                    <option <?=@$_GET['laporan']==2?'selected':''?> value="2">Iku</option>
+                                    <option <?=@$_GET['laporan']==3?'selected':''?> value="3">Perjanjian Kinerja</option>
+                                    <option <?=@$_GET['laporan']==4?'selected':''?> value="4">Renja</option>
+                                    <option <?=@$_GET['laporan']==5?'selected':''?> value="5">Realisasi Anggaran</option>
+                                </select>
+                            </div>
+                            <div class="position-relative form-group col-sm-3">
+                                <label>Tahun </label>
+                                <select class="form-control" name="tahun" required>
+                                    <option <?=@session('tahun')==1?'selected':''?> value="1">2016</option>
+                                    <option <?=@session('tahun')==2?'selected':''?> value="2">2017</option>
+                                    <option <?=@session('tahun')==3?'selected':''?> value="3">2018</option>
+                                    <option <?=@session('tahun')==4?'selected':''?> value="4">2019</option>
+                                    <option <?=@session('tahun')==5?'selected':''?> value="5">2020</option>
+                                </select>
+                            </div>
+                            <div class="position-relative form-group col-sm-2" style="padding-top: 32px;">
+                                <button class="btn btn-primary">Tampilkan</button>
+                            </div>
                         </div>
-                        <div class="position-relative form-group col-sm-4">
-                            <label>Tahun </label>
-                            <select class="form-control" name="tahun" required>
-                                @foreach(@$rpjmd as $row)
-                                <option value="{{ $row->rpjmd_tahun }}">{{ $row->rpjmd_tahun }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="position-relative form-group col-sm-4">
-                            <button class="btn btn-primary" onclick="loadLaporan1()">Tampilkan</button>
-                        </div>
-                    </div>
+                    </form>
                     <div id="laporan-daftar">
                     </div>
                 </div>
-                <div class="right-image col-lg-12 col-md-12 col-sm-12 mobile-bottom-fix-big" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                    <!-- <img src="{!! asset('public/template/awal') !!}/assets/images/right-image.png" class="rounded img-fluid d-block mx-auto" alt="App"> -->
+            </div>
+        </div>
+    </section>
+    <?php
+    
+    $judul = '';
+    $link = '';
+    $laporanShow = 'display: none;';
+    if(@$_GET['laporan']){
+        $laporanShow = 'display: block;';
+        if($_GET['laporan'] == 1){
+            $judul = 'Renstra';
+            $link = '/laporan/renstra';
+        }else if($_GET['laporan'] == 2){
+            $judul = 'Indikator Kinerja Utama';
+            $link = '/laporan/iku';
+        }else if($_GET['laporan'] == 3){
+            $judul = 'Perjanjian Kinerja';
+            $link = '/laporan/perjanjian-kinerja';
+        }else if($_GET['laporan'] == 4){
+            $judul = 'Renja';
+            $link = '/laporan/renja';
+        }else if($_GET['laporan'] == 5){
+            $judul = 'Realisasi Anggaran';
+            $link = '/laporan/anggaran';
+        }
+    }
+    
+    ?>
+    
+    <section class="section" id="olah-laporan" style="<?=$laporanShow?>">
+        <div class="container">
+            <div class="row">
+                <div class="left-text col-lg-6 col-md-12 col-sm-12 mobile-bottom-fix" style="min-height: 400px; padding-top:100px">
+                    <div class="left-heading">
+                        <h5><?=$judul?></h5>
+                        <br>
+                    </div>
+                    <form action="<?=$link?>" method="POST" target="_blank">
+                    {!! csrf_field() !!}
+                        <div class="row">
+                            <?php if(@$_GET['laporan'] == 5){ ?>
+                            <div class="position-relative form-group col-sm-6">
+                                <select class="form-control" name="triwulan" required>
+                                    <option value="1">Triwulan 1</option>
+                                    <option value="2">Triwulan 2</option>
+                                    <option value="3">Triwulan 3</option>
+                                    <option value="4">Triwulan 4</option>
+                                </select>
+                            </div>
+                            <?php } ?>
+                            <div class="position-relative form-group col-sm-4">
+                                <select class="form-control" name="cetak" required>
+                                    <option value="1">Print</option>
+                                    <option value="2">PDF</option>
+                                </select>
+                            </div>
+                            <div class="position-relative form-group col-sm-2">
+                                <button class="btn btn-primary" >Tampilkan</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="right-image col-lg-6 col-md-12 col-sm-12 mobile-bottom-fix-big" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                    <img src="/template/awal/assets/images/right-image.png" class="rounded img-fluid d-block mx-auto" alt="App">
                 </div>
             </div>
         </div>
@@ -219,7 +295,7 @@
                 <div class="owl-carousel owl-theme">
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-01.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-01.png" alt=""></i>
                         </div>
                         <h5 class="service-title">First Box Service</h5>
                         <p>Aenean vulputate massa sed neque consectetur, ac fringilla quam aliquet. Sed a enim nec eros tempor cursus at id libero.</p>
@@ -227,7 +303,7 @@
                     </div>
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-02.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-02.png" alt=""></i>
                         </div>
                         <h5 class="service-title">Second Box Title</h5>
                         <p>Pellentesque vitae urna ut nisi viverra tristique quis at dolor. In non sodales dolor, id egestas quam. Aliquam erat volutpat. </p>
@@ -235,7 +311,7 @@
                     </div>
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-03.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-03.png" alt=""></i>
                         </div>
                         <h5 class="service-title">Third Title Box</h5>
                         <p>Quisque finibus libero augue, in ultrices quam dictum id. Aliquam quis tellus sit amet urna tincidunt bibendum.</p>
@@ -243,7 +319,7 @@
                     </div>
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-02.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-02.png" alt=""></i>
                         </div>
                         <h5 class="service-title">Fourth Service Box</h5>
                         <p>Fusce sollicitudin feugiat risus, tempus faucibus arcu blandit nec. Duis auctor dolor eu scelerisque vestibulum.</p>
@@ -251,7 +327,7 @@
                     </div>
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-01.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-01.png" alt=""></i>
                         </div>
                         <h5 class="service-title">Fifth Service Title</h5>
                         <p>Curabitur aliquam eget tellus id porta. Proin justo sapien, posuere suscipit tortor in, fermentum mattis elit.</p>
@@ -259,7 +335,7 @@
                     </div>
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-03.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-03.png" alt=""></i>
                         </div>
                         <h5 class="service-title">Sixth Box Title</h5>
                         <p>Ut nibh velit, aliquam vitae pellentesque nec, convallis vitae lacus. Aliquam porttitor urna ut pellentesque.</p>
@@ -267,7 +343,7 @@
                     </div>
                     <div class="item service-item">
                         <div class="icon">
-                            <i><img src="{!! asset('public/template/awal') !!}/assets/images/service-icon-01.png" alt=""></i>
+                            <i><img src="/template/awal/assets/images/service-icon-01.png" alt=""></i>
                         </div>
                         <h5 class="service-title">Seventh Title Box</h5>
                         <p>Sed a consequat velit. Morbi lectus sapien, vestibulum et sapien sit amet, ultrices malesuada odio. Donec non quam.</p>
@@ -476,21 +552,21 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="{!! asset('public/template/awal') !!}/assets/js/jquery-2.1.0.min.js"></script>
+    <script src="/template/awal/assets/js/jquery-2.1.0.min.js"></script>
 
     <!-- Bootstrap -->
-    <script src="{!! asset('public/template/awal') !!}/assets/js/popper.js"></script>
-    <script src="{!! asset('public/template/awal') !!}/assets/js/bootstrap.min.js"></script>
+    <script src="/template/awal/assets/js/popper.js"></script>
+    <script src="/template/awal/assets/js/bootstrap.min.js"></script>
 
     <!-- Plugins -->
-    <script src="{!! asset('public/template/awal') !!}/assets/js/owl-carousel.js"></script>
-    <script src="{!! asset('public/template/awal') !!}/assets/js/scrollreveal.min.js"></script>
-    <script src="{!! asset('public/template/awal') !!}/assets/js/waypoints.min.js"></script>
-    <script src="{!! asset('public/template/awal') !!}/assets/js/jquery.counterup.min.js"></script>
-    <script src="{!! asset('public/template/awal') !!}/assets/js/imgfix.min.js"></script> 
+    <script src="/template/awal/assets/js/owl-carousel.js"></script>
+    <script src="/template/awal/assets/js/scrollreveal.min.js"></script>
+    <script src="/template/awal/assets/js/waypoints.min.js"></script>
+    <script src="/template/awal/assets/js/jquery.counterup.min.js"></script>
+    <script src="/template/awal/assets/js/imgfix.min.js"></script> 
     
     <!-- Global Init -->
-    <script src="{!! asset('public/template/awal') !!}/assets/js/custom.js"></script>
+    <script src="/template/awal/assets/js/custom.js"></script>
 
     <script>
     
@@ -502,10 +578,9 @@
         $('select[name="laporan"]').val(val);
     }
 
-    function loadLaporan1(){
+    function loadLaporan(){
         let val = $('select[name="laporan"]').val();
 
-        let _jenis = '';
 
         if(val == 1){
             _jenis = 'perencanaan';
@@ -517,16 +592,8 @@
             _jenis = 'evaluasi';
         }
 
-        let tahun = $('select[name="tahun"]').val();
-        let url = base_url+link;
-        let data = {
-            laporan : val,
-            jenis : _jenis,
-            tahun : tahun,
-        }
-        $.when(sendAjax(url, data)).done(function(respon){
-            setLaporan(respon.data)
-        });
+
+
     }
 
     function setLaporan(data){

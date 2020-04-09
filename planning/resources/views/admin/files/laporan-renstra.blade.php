@@ -1,149 +1,124 @@
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
+<?php 
+$style = 'style=" padding: 5px"';
+// echo "<pre>";
+// print_r($dataAll);
+// echo "</pre>";
+?>
+<html>
+  <head>
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 100000; /* Sit on top */
-  padding-top: 0px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 100%;
-}
+    <style>
+    body {font-family: Arial, Helvetica, sans-serif; font-size: 12px;}
 
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  width: 20%;
-}
+    </style>
 
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#laporan-judul{
-	
-	width: 70%;
-	float: left;
-
-}
-</style>
-
-<style>
-	.table .header1{
-		background: #6a95bf;
-		text-align: center;
-		color: #ffffff;
+    <style>
+      .table .header1{
+        background: #6a95bf;
+        text-align: center;
+        color: #ffffff;
         vertical-align: top;
         border-color: white;
-	}
-</style>
+      }
 
-<table>
-	<tr>
-		<td></td>
-	</tr>
-</table>
+      .table {
+        border-collapse: collapse;
+      }
 
+      .table, th, td {
+        border: 1px solid white;
+      }
+      .table, td {
+        background: #BABABA;
+      }
 
-<table class="table table-bordered" style="font-size: 14px;">
-    <thead class="header1">
-        <tr>
-            <th width="30">No</th>
-            <th>SKPD</th>
-            <th>Laporan Kinerja</th>
-        </tr>
-    </thead>
-    <tbody>
-		@php
-		$no = 1
-		@endphp
-		<tr>
-			<td>{{ @$no }}</td>
-			<td>{{ @$dataKota->kota_nama }}</td>
-			<td><a href="javascript:void(0);" onclick="laodLaporan('lapor', '{{ $dataKota->kota_kode }}-{{ $dataKota->rpjmd_kode }}')"><i class="fa fa-search"></i></a></td>
-		</tr>
-		@foreach(@$dataOpd as $row)
-		<tr>
-			<td>{{ $no }}</td>
-			<td>{{ @$row->opd_nama }}</td>
-			<td><a href="javascript:void(0);" onclick="laodLaporan('lapor', '{{ $dataKota->kota_kode }}-{{ $dataKota->rpjmd_kode }}-{{ $row->opd_kode }}', 2)"><i class="fa fa-search"></i></a></td>
-		</tr>
-		@endforeach
-    </tbody>
-</table>
+      .angka {
+        text-align: right;
+      }
+    </style>
 
+<style>
+    @page { size: 20cm 30cm landscape; }
+  </style>
+  </head>
+  <body>
 
-<script>
-
-var modalHtml = '<div id="myModal" class="modal">'+
-  '<div class="modal-content">'+
-	'<span class="close" style="float: left;">&times;</span>'+
-	'<div id="laporan-judul"></div>'+
-	'<hr/>'+
-	'<div id="laporan-isi"></div>'+
-  '</div>'+
-'</div>';
-
-document.body.innerHTML = modalHtml + document.body.innerHTML;
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-function openModal(){
-	modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-  function laodLaporan(_jenis, kode, val = 1){
-
-	let url = base_url+'laporan';
-	let data = {
-		jenis : _jenis,
-		kode : kode,
-    val : val,
-	}
-	$.when(sendAjax(url, data)).done(function(respon){
-		if(respon.status){
-			$('#laporan-isi').html(respon.data);
-			openModal();
-		}
-	});
-  }
-
-
-</script>
+    <center>
+      <h2>Renstra</h2>
+    </center>
+    <table class="table" style="<?=!@$print?'font-size: 5px;':''?> width: 100%;">
+        <thead class="header1">
+          <tr>
+            <th <?=$style?> rowspan="3" width="30" >No</th>
+            <th <?=$style?> rowspan="3">Kode</th>
+            <th <?=$style?> rowspan="3">Program / Kegiatan</th>
+            <th <?=$style?> colspan="14">Target Kinerja Program Dan Kerangka Pendanaan </th>
+            <th <?=$style?> rowspan="3">OPD</th>
+          </tr>
+          <tr>
+            <th <?=$style?> colspan="2">Tahun Awal</th>
+            <th <?=$style?> colspan="2">Tahun 1</th>
+            <th <?=$style?> colspan="2">Tahun 2</th>
+            <th <?=$style?> colspan="2">Tahun 3</th>
+            <th <?=$style?> colspan="2">Tahun 4</th>
+            <th <?=$style?> colspan="2">Tahun 5</th>
+            <th <?=$style?> colspan="2">Tahun Akhir</th>
+          </tr>
+          <tr>
+          <?php for($i=1; $i<=7; $i++){ ?>
+            <th <?=$style?>>Target (%)</th>
+            <th <?=$style?>>Rp</th>
+          <?php } ?>
+          </tr>
+        </thead>
+        <tbody>
+        @foreach(@$dataAll as $row)
+        @if($row['level'] == 1)
+          <tr>
+            <td <?=$style?>>{{ $loop->iteration }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_kode'] }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_nama'] }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th0_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th0_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th1_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th1_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th2_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th2_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th3_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th3_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th4_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th4_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th5_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th5_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_th6_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_program_th6_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>></td>
+          </tr>
+        @else
+          <tr>
+            <td <?=$style?>>{{ $loop->iteration }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_program_kode'].".".@$row['rpjmd_kegiatan_kode'] }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_nama'] }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th0_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th0_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th1_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th1_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th2_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th2_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th3_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th3_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th4_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th4_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th5_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th5_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['rpjmd_kegiatan_th6_target_kinerja'] }}</td>
+            <td <?=$style?> class="angka">{{ number_format(@$row['rpjmd_kegiatan_th6_target_realisasi'],2,',','.') }}</td>
+            <td <?=$style?>>{{ @$row['opd_nama'] }}</td>
+          </tr>
+        @endif
+        @endforeach
+        </tbody>
+    </table>
+  </body>
+</html>

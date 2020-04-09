@@ -7,15 +7,13 @@ use Validator;
 use DB;
 use PDF;
 
-class LaporanRenstraController extends Controller
+class LaporanPerjanjianKinerjaController extends Controller
 {
 
     private $table;
     public function index(){
         $kota_kode =  session('kota_kode');
 
-
-        
         $dataOpd = DB::table('opd')
                         ->where("opd.kota_kode", $kota_kode)
                         ->get();
@@ -29,7 +27,6 @@ class LaporanRenstraController extends Controller
                 ->groupBy('rpjmd_tahun')
                 ->where("kota_kode", $kota_kode)
                 ->get();
-
                 
         $kirim = array(
             'rpjmd' => $rpjmd,
@@ -37,7 +34,7 @@ class LaporanRenstraController extends Controller
             'dataRpjmd' => $dataRpjmd,
         );
 
-        return view('admin/conponents/laporan-renstra', $kirim);
+        return view('admin/conponents/laporan-perjanjian-kinerja', $kirim);
     }
 
     public function loadLaporan(Request $request){
@@ -50,7 +47,7 @@ class LaporanRenstraController extends Controller
         $dataAll = '';
         if (!$validator->fails()) {
             $post = array(
-                    "cetak" => $request->cetak,
+                "cetak" => $request->cetak,
             );
 
             $pesan = "";
@@ -62,68 +59,63 @@ class LaporanRenstraController extends Controller
             'dataAll' => $dataAll,
             'post' => @$post,
         ];
-        $lokasi = 'admin/files/laporan-renstra';
+        $lokasi = 'admin/files/laporan-perjanjian-kinerja';
 
         if($post['cetak'] == 1){
-            $kirim['print'] = true;
             return view($lokasi, $kirim);
         }else{
-            // $customPaper = array(0,0,567.00,283.80);
-            // $pdf = PDF::loadView('pdf.retourlabel');
-            // $pdf = PDF::loadView($lokasi, $kirim, compact('retour','barcode'))->setPaper($customPaper, 'landscape');
-            
             $pdf = PDF::loadView($lokasi, $kirim);
-            return $pdf->download('laporan-pdf-'.time().'.pdf');
+            return $pdf->download('laporan-perjanjian-kinerja-'.session('id').'-'.time().'.pdf');
         }
     }
 
     public function setData($post){
 
-        $this->table = 'rpjmd_kegiatan';
+        $this->table = 'perjanjian_kinerja_program_indikator';
 
-        $data = DB::table('rpjmd_kegiatan')
+        $data = DB::table($this->table)
                     ->where($this->table.".kota_kode", session('kota_kode'))
                     ->where($this->table.".rpjmd_kode", session('rpjmd_kode'))
                     ->where($this->table.".opd_kode", session('opd_kode'))
+                    // ->where($this->table.".perjanjian_kinerja_program_tahun", session('tahun'))
                     ->leftJoin('kota', 'kota.kota_kode', '=', $this->table.'.kota_kode')
                     ->leftJoin('rpjmd', function($join){
                         $join->on('rpjmd.kota_kode', '=', $this->table.'.kota_kode');
+                    })
+                    ->leftJoin('satuan', function($join){
+                        $join->on('satuan.id_satuan', '=', $this->table.'.id_satuan');
                     })
                     ->leftJoin('opd', function($join){
                         $join->on('opd.kota_kode', '=', $this->table.'.kota_kode');
                         $join->on('opd.opd_kode', '=', $this->table.'.opd_kode');
                     })
-                    ->leftJoin('rpjmd_program', function($join){
-                        $join->on('rpjmd_program.kota_kode', '=', $this->table.'.kota_kode');
-                        $join->on('rpjmd_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
-                        $join->on('rpjmd_program.rpjmd_misi_kode', '=', $this->table.'.rpjmd_misi_kode');
-                        $join->on('rpjmd_program.rpjmd_tujuan_kode', '=', $this->table.'.rpjmd_tujuan_kode');
-                        $join->on('rpjmd_program.rpjmd_sasaran_kode', '=', $this->table.'.rpjmd_sasaran_kode');
-                        $join->on('rpjmd_program.opd_kode', '=', $this->table.'.opd_kode');
-                        $join->on('rpjmd_program.rpjmd_program_kode', '=', $this->table.'.rpjmd_program_kode');
+                    ->leftJoin('perjanjian_kinerja_program', function($join){
+                        $join->on('perjanjian_kinerja_program.kota_kode', '=', $this->table.'.kota_kode');
+                        $join->on('perjanjian_kinerja_program.opd_kode', '=', $this->table.'.opd_kode');
+                        $join->on('perjanjian_kinerja_program.rpjmd_kode', '=', $this->table.'.rpjmd_kode');
+                        $join->on('perjanjian_kinerja_program.perjanjian_kinerja_program_kode', '=', $this->table.'.perjanjian_kinerja_program_kode');
+                        $join->on('perjanjian_kinerja_program.perjanjian_kinerja_program_tahun', '=', $this->table.'.perjanjian_kinerja_program_tahun');
+                        $join->on('perjanjian_kinerja_program.perjanjian_kinerja_program_level', '=', $this->table.'.perjanjian_kinerja_program_level');
                     })
                     ->get();
 
         $index = 0;
         $dataAll = array();
         
-        $rpjmd_program_kode = 0;
-        $kd_keg = 0;
+        $perjanjian_kinerja_program_kode = 0;
 
         for($i = 0; $i < count($data); $i++){
-
-            if($data[$i]->rpjmd_program_kode != $rpjmd_program_kode){
-                $rpjmd_program_kode = $data[$i]->rpjmd_program_kode;
+            if($data[$i]->perjanjian_kinerja_program_kode != $perjanjian_kinerja_program_kode){
+                $perjanjian_kinerja_program_kode = $data[$i]->perjanjian_kinerja_program_kode;
                 $dataAll[$index] = (array) $data[$i];
                 $dataAll[$index]['level'] = 1;
                 $index++;
             }
-
             $dataAll[$index] = (array) $data[$i];
             $dataAll[$index]['level'] = 2;
             $index++;
         }
-
+        
         return $dataAll;
     }
 

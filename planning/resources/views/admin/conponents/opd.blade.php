@@ -73,7 +73,7 @@ $des = "";
                 <form id="form-data">
                     <input type="hidden" name="kode">
                     <div class="position-relative form-group">
-                        <label>Nama Kota</label>
+                        <label>Nama OPD</label>
                         <input name="opd_nama" type="text" class="form-control" required>
                     </div>
                 </form>

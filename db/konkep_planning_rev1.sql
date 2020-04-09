@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2020 at 03:28 PM
+-- Generation Time: Apr 09, 2020 at 02:55 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -61,7 +61,8 @@ CREATE TABLE `opd` (
 --
 
 INSERT INTO `opd` (`kota_kode`, `opd_kode`, `opd_nama`, `updated_at`, `created_at`) VALUES
-(1, 1, 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL ', NULL, NULL);
+(1, 1, 'DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL ', NULL, NULL),
+(1, 2, 'Dinas Pendidikan dan Kebudayaan', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -313,7 +314,11 @@ CREATE TABLE `rkpd_penetapan_triwulan` (
 
 INSERT INTO `rkpd_penetapan_triwulan` (`kota_kode`, `opd_kode`, `rpjmd_kode`, `rkpd_penetapan_program_tahun`, `rkpd_penetapan_program_kode`, `rkpd_penetapan_kegiatan_kode`, `rkpd_penetapan_triwulan_ke`, `rkpd_penetapan_triwulan_target_kinerja`, `rkpd_penetapan_triwulan_target_kinerja_perubahan`, `rkpd_penetapan_triwulan_target_realisasi`, `rkpd_penetapan_triwulan_target_realisasi_perubahan`, `rkpd_penetapan_triwulan_capaian_kinerja`, `rkpd_penetapan_triwulan_capaian_kinerja_perubahan`, `rkpd_penetapan_triwulan_capaian_realisasi`, `rkpd_penetapan_triwulan_capaian_realisasi_perubahan`, `rkpd_penetapan_triwulan_fisik`, `rkpd_penetapan_triwulan_pelaksana`, `rkpd_penetapan_triwulan_lokasi`, `rkpd_penetapan_triwulan_sumber_dana`, `updated_at`, `created_at`) VALUES
 (1, 1, 1, 3, 1, 1, 1, NULL, NULL, NULL, NULL, '100', NULL, 1000000, NULL, '-', '-', '-', 'APBD', NULL, '2020-03-12 21:53:57'),
-(1, 1, 1, 3, 1, 1, 2, NULL, NULL, NULL, NULL, '100', NULL, 2000, NULL, '-', '-', '-', 'APBD', NULL, '2020-03-12 21:56:23');
+(1, 1, 1, 3, 1, 1, 2, NULL, NULL, NULL, NULL, '100', NULL, 2000, NULL, '-', '-', '-', 'APBD', NULL, '2020-03-12 21:56:23'),
+(1, 1, 1, 3, 1, 8, 1, NULL, NULL, NULL, NULL, '100', NULL, 1000000, NULL, '-', '-', 'Tersebar', 'APBD', NULL, '2020-04-05 00:05:28'),
+(1, 1, 1, 3, 1, 8, 2, NULL, NULL, NULL, NULL, '100', NULL, 2000000, NULL, '-', '-', 'Tersebar', 'APBD', NULL, '2020-04-05 00:05:47'),
+(1, 1, 1, 3, 1, 10, 1, NULL, NULL, NULL, NULL, '100', NULL, 5000000, NULL, '-', '-', 'Tersebar', 'DAU', NULL, '2020-04-05 00:06:04'),
+(1, 1, 1, 3, 1, 10, 2, NULL, NULL, NULL, NULL, '100', NULL, 5000000, NULL, '-', '-', 'Tersebar', 'APBD', NULL, '2020-04-05 00:06:18');
 
 -- --------------------------------------------------------
 
@@ -482,7 +487,9 @@ CREATE TABLE `rpjmd_kegiatan` (
 INSERT INTO `rpjmd_kegiatan` (`kota_kode`, `rpjmd_kode`, `rpjmd_misi_kode`, `rpjmd_tujuan_kode`, `rpjmd_sasaran_kode`, `opd_kode`, `rpjmd_program_kode`, `rpjmd_kegiatan_kode`, `rpjmd_kegiatan_nama`, `rpjmd_kegiatan_indikator`, `rpjmd_kegiatan_formula`, `id_satuan`, `rpjmd_kegiatan_th0_target_kinerja`, `rpjmd_kegiatan_th1_target_kinerja`, `rpjmd_kegiatan_th2_target_kinerja`, `rpjmd_kegiatan_th3_target_kinerja`, `rpjmd_kegiatan_th4_target_kinerja`, `rpjmd_kegiatan_th5_target_kinerja`, `rpjmd_kegiatan_th6_target_kinerja`, `rpjmd_kegiatan_th0_target_realisasi`, `rpjmd_kegiatan_th1_target_realisasi`, `rpjmd_kegiatan_th2_target_realisasi`, `rpjmd_kegiatan_th3_target_realisasi`, `rpjmd_kegiatan_th4_target_realisasi`, `rpjmd_kegiatan_th5_target_realisasi`, `rpjmd_kegiatan_th6_target_realisasi`, `rpjmd_kegiatan_th1_capaian_kinerja`, `rpjmd_kegiatan_th2_capaian_kinerja`, `rpjmd_kegiatan_th3_capaian_kinerja`, `rpjmd_kegiatan_th4_capaian_kinerja`, `rpjmd_kegiatan_th5_capaian_kinerja`, `rpjmd_kegiatan_th1_capaian_realisasi`, `rpjmd_kegiatan_th2_capaian_realisasi`, `rpjmd_kegiatan_th3_capaian_realisasi`, `rpjmd_kegiatan_th4_capaian_realisasi`, `rpjmd_kegiatan_th5_capaian_realisasi`, `updated_at`, `created_at`) VALUES
 (1, 1, 4, 1, 1, 1, 1, 1, 'Penyediaan Jasa Surat Menyurat ', 'Jumlah Surat Menyurat selama 5 tahun yg terkirim ', NULL, 4, '12', '12', '12', '12', '12', '12', '12', 500000, 500000, 500000, 500000, 500000, 500000, 3000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1, 1, 4, 1, 1, 1, 1, 2, 'Penyediaan jasa komunikasi, sumber daya air dan listrik ', 'Volume Air dan Daya Listrik yang digunakan ', NULL, 4, '12', '12', '12', '12', '12', '12', '12', 0, 0, 0, 14000000, 20000000, 20000000, 54000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(1, 1, 4, 1, 1, 1, 1, 7, 'Penyediaan Laporan Aset Triwulan dan Semester SKPD', 'Tersediannya Data aset  SKPD', NULL, 5, '1', '1', NULL, NULL, NULL, '', '1', 15000000, 15000000, 0, 0, 0, 0, 30000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 1, 4, 1, 1, 1, 1, 7, 'Penyediaan Laporan Aset Triwulan dan Semester SKPD', 'Tersediannya Data aset  SKPD', NULL, 5, '1', '1', NULL, NULL, NULL, '', '1', 15000000, 15000000, 0, 0, 0, 0, 30000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(1, 1, 4, 1, 1, 1, 2, 1, 'Administrasi Keuangan', 'Jumlah Uang yang ada', 'Jumlah Uang yang ada', 8, '0', '5', '10', '20', '50', '100', NULL, 0, 5000000, 5000000, 5000000, 5000000, 5000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-04-04 21:10:19'),
+(1, 1, 4, 1, 1, 1, 2, 2, 'Administrasi Umum', 'Jumlah surat yang ada', 'Jumlah surat yang ada', 8, '0', '5', '5', '5', '5', '5', NULL, 0, 10000000, 10000000, 10000000, 10000000, 10000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-04-04 21:11:13');
 
 -- --------------------------------------------------------
 
@@ -504,7 +511,9 @@ CREATE TABLE `rpjmd_misi` (
 --
 
 INSERT INTO `rpjmd_misi` (`kota_kode`, `rpjmd_kode`, `rpjmd_misi_kode`, `rpjmd_misi_nama`, `updated_at`, `created_at`) VALUES
-(1, 1, 4, 'Mendorong gerakan sosial dan kebudayaan kearah terciptanya tata kehidupan sosial-politik dan perkembangan peradaban masyarakat Wawonii yang mampu menjawab tantangan trend nasionalisasi ekonomi dan tata nilai kehidupan nasional lainnya dengan tetap mempertahankan nilai-nilai agama dan budaya luhur masyarakat WawoniiMendorong gerakan sosial dan kebudayaan kearah terciptanya tata kehidupan sosial-politik dan perkembangan peradaban masyarakat Wawonii yang mampu menjawab tantangan trend nasionalisasi ekonomi dan tata nilai kehidupan nasional lainnya dengan tetap mempertahankan nilai-nilai agama dan budaya luhur masyarakat Wawonii', NULL, NULL);
+(1, 1, 4, 'Mendorong gerakan sosial dan kebudayaan kearah terciptanya tata kehidupan sosial-politik dan perkembangan peradaban masyarakat Wawonii yang mampu menjawab tantangan trend nasionalisasi ekonomi dan tata nilai kehidupan nasional lainnya dengan tetap mempertahankan nilai-nilai agama dan budaya luhur masyarakat WawoniiMendorong gerakan sosial dan kebudayaan kearah terciptanya tata kehidupan sosial-politik dan perkembangan peradaban masyarakat Wawonii yang mampu menjawab tantangan trend nasionalisasi ekonomi dan tata nilai kehidupan nasional lainnya dengan tetap mempertahankan nilai-nilai agama dan budaya luhur masyarakat Wawonii', NULL, NULL),
+(1, 1, 5, 'Meningkatkan pengelolaan SDA guna meningkatkan PAD dengan melibatkan UMKM lokal dan Koperasi agar dapat meningkatkan taraf ekonomi masyarakat dan menyerap TK lokal dengan tetap menjaga hak-hak pekerja, iklim investasi yang baik dan kelestarian alam.', NULL, '2020-04-04 21:08:13'),
+(1, 1, 6, 'Meningkatkan pelayanan pendidikan yang berkualitas melalui Pembiayaan Pendidikan Gratis, peningkatan kuantitas dan kualitas tenaga pengajar, Pemberian beasiswa dan penambahan sarana pendidikan guna menciptakan SDM yang cerdas, kreatif, inovatif dan bertaqwa.', NULL, '2020-04-04 21:08:20');
 
 -- --------------------------------------------------------
 
@@ -618,7 +627,9 @@ CREATE TABLE `rpjmd_sasaran` (
 --
 
 INSERT INTO `rpjmd_sasaran` (`kota_kode`, `rpjmd_kode`, `rpjmd_misi_kode`, `rpjmd_tujuan_kode`, `rpjmd_sasaran_kode`, `rpjmd_sasaran_nama`, `updated_at`, `created_at`) VALUES
-(1, 1, 4, 1, 1, 'Meningkatnya Masyarakat yang Terlayani Adminduk dan Catatan Sipil', NULL, NULL);
+(1, 1, 4, 1, 1, 'Meningkatnya Masyarakat yang Terlayani Adminduk dan Catatan Sipil', NULL, NULL),
+(1, 1, 4, 1, 2, 'Meningkatnya Kinerja Akuntabilitas Keuangan Daerah', NULL, '2020-04-04 21:08:45'),
+(1, 1, 4, 1, 3, 'Meningkatnya Kualitas Pelayanan Publik', NULL, '2020-04-04 21:08:52');
 
 -- --------------------------------------------------------
 
@@ -671,7 +682,9 @@ CREATE TABLE `rpjmd_sasaran_indikator` (
 --
 
 INSERT INTO `rpjmd_sasaran_indikator` (`kota_kode`, `rpjmd_kode`, `rpjmd_misi_kode`, `rpjmd_tujuan_kode`, `rpjmd_sasaran_kode`, `opd_kode`, `rpjmd_sasaran_indikator_kode`, `rpjmd_sasaran_indikator_nama`, `rpjmd_sasaran_indikator_formula`, `rpjmd_sasaran_indikator_jenis`, `rpjmd_sasaran_indikator_iku_status`, `rpjmd_sasaran_indikator_alasan`, `id_satuan`, `rpjmd_sasaran_indikator_th0_target_kinerja`, `rpjmd_sasaran_indikator_th1_target_kinerja`, `rpjmd_sasaran_indikator_th2_target_kinerja`, `rpjmd_sasaran_indikator_th3_target_kinerja`, `rpjmd_sasaran_indikator_th4_target_kinerja`, `rpjmd_sasaran_indikator_th5_target_kinerja`, `rpjmd_sasaran_indikator_th0_target_realisasi`, `rpjmd_sasaran_indikator_th1_target_realisasi`, `rpjmd_sasaran_indikator_th2_target_realisasi`, `rpjmd_sasaran_indikator_th3_target_realisasi`, `rpjmd_sasaran_indikator_th4_target_realisasi`, `rpjmd_sasaran_indikator_th5_target_realisasi`, `rpjmd_sasaran_indikator_th1_capaian_kineja`, `rpjmd_sasaran_indikator_th2_capaian_kineja`, `rpjmd_sasaran_indikator_th3_capaian_kineja`, `rpjmd_sasaran_indikator_th4_capaian_kineja`, `rpjmd_sasaran_indikator_th5_capaian_kineja`, `rpjmd_sasaran_indikator_th1_capaian_realisasi`, `rpjmd_sasaran_indikator_th2_capaian_realisasi`, `rpjmd_sasaran_indikator_th3_capaian_realisasi`, `rpjmd_sasaran_indikator_th4_capaian_realisasi`, `rpjmd_sasaran_indikator_th5_capaian_realisasi`, `updated_at`, `created_at`) VALUES
-(1, 1, 4, 1, 1, 1, 1, 'Rasio penduduk ber-KTP per satuan penduduk ', 'Perbandingan jumlah penduduk ber-KTP  dengan Jumlah wajib KTP', NULL, 0, NULL, 1, '0', '5', '10', '50', '75', '100', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 1, 4, 1, 1, 1, 1, 'Rasio penduduk ber-KTP per satuan penduduk ', 'Perbandingan jumlah penduduk ber-KTP  dengan Jumlah wajib KTP', NULL, 0, NULL, 1, '0', '5', '10', '50', '75', '100', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(1, 1, 4, 1, 1, 1, 2, 'Jumlah Penduduk', 'Penduduk yang memiliki KTP', NULL, 1, NULL, 1, NULL, '0', '10', '25', '50', '100', NULL, '10000000', '10000000', '10000000', '10000000', '10000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-04-04 21:15:38'),
+(1, 1, 4, 1, 1, 1, 3, 'Maningkatkan angka kelahiran', 'jumlah yang lahir', NULL, 1, NULL, 1, NULL, '100', '100', '100', '100', '100', NULL, '50000000', '50000000', '50000000', '50000000', '50000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-04-04 21:16:19');
 
 -- --------------------------------------------------------
 
@@ -815,6 +828,13 @@ CREATE TABLE `rpjmd_tujuan_indikator` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rpjmd_tujuan_indikator`
+--
+
+INSERT INTO `rpjmd_tujuan_indikator` (`kota_kode`, `rpjmd_kode`, `rpjmd_misi_kode`, `rpjmd_tujuan_kode`, `rpjmd_tujuan_indikator_kode`, `rpjmd_tujuan_indikator_nama`, `rpjmd_tujuan_indikator_target`, `id_satuan`, `updated_at`, `created_at`) VALUES
+(1, 1, 4, 1, 1, 'Menciptakan daerah yang bersih', '100', 1, NULL, '2020-04-05 01:43:35');
 
 -- --------------------------------------------------------
 

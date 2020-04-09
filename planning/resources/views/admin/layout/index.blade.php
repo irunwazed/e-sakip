@@ -9,25 +9,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>ADMIN | E-SAKIP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="description" content="">
     <meta name="msapplication-tap-highlight" content="no">
-    <link href="{!! asset('public/template/admin/main.css') !!}" rel="stylesheet"></head>
-    <link href="{!! asset('public/template/admin/assets/css/dataTables.bootstrap4.min.css') !!}" rel="stylesheet"></head>
+    <link href="/template/admin/main.css" rel="stylesheet"></head>
+    <link href="/template/admin/assets/css/dataTables.bootstrap4.min.css" rel="stylesheet"></head>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     x
     <!-- toast -->
-    <link href="{!! asset('public/template/admin/assets/js') !!}/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
+    <link href="/template/admin/assets/js/toastr/build/toastr.css" rel="stylesheet" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{!! asset('public/template/admin/assets/js') !!}/toastr/toastr.js"></script>
+    <script src="/template/admin/assets/js/toastr/toastr.js"></script>
 
 
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow bg-focus header-text-light">
             <div class="app-header__logo">
-                <!-- <div class="logo-src"></div> -->
+                <div class="logo-src"></div>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -427,7 +427,7 @@
                                 <li>
                                     <a href="{{ url('') }}/rkpd-tetap-program">
                                         <i class="metismenu-icon pe-7s-diamond"></i>
-                                        RKPD
+                                        Renja
                                     </a>
                                 </li>
                                 <!-- <li>
@@ -483,15 +483,9 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('') }}/laporan/renja-penetapan">
+                                            <a href="{{ url('') }}/laporan/renja">
                                                 <i class="metismenu-icon"></i>
-                                                Renja Penetapan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('') }}/laporan/renja-perubahan">
-                                                <i class="metismenu-icon"></i>
-                                                Renja Perubahan
+                                                Renja
                                             </a>
                                         </li>
                                         <li>
@@ -581,10 +575,10 @@
                 <!-- <script src="http://maps.google.com/maps/api/js?sensor=true"></script> -->
         </div>
     </div>
-    <script type="text/javascript" src="{!! asset('public/template/admin/assets/scripts/main.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('public/template/admin/assets/js/jquery-3.3.1.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('public/template/admin/assets/js/jquery.dataTables.min.js') !!}"></script>
-    <script type="text/javascript" src="{!! asset('public/template/admin/assets/js/dataTables.bootstrap4.min.js') !!}"></script>
+    <script type="text/javascript" src="/template/admin/assets/scripts/main.js"></script>
+    <script type="text/javascript" src="/template/admin/assets/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="/template/admin/assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/template/admin/assets/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
     
